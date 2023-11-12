@@ -10,7 +10,7 @@ const pool = new pg({
     password: process.env.PASS,
     host: "localhost",
     port:5432,
-    database: "webproject"
+    database: "webproject24"
 });
 
 module.exports = pool;
