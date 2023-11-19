@@ -45,7 +45,7 @@ location base_coordinates NOT NULL,
 CREATE TABLE items(
 item_id SERIAL PRIMARY KEY,
 subcategory INTEGER NOT NULL,
-details json,
+details VARCHAR[],
 );
 
 CREATE TABLE news(
