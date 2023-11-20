@@ -1,6 +1,8 @@
 CREATE DATABASE webproject24;
 
-CREATE TYPE base_coordinates AS (
+\c webproject24;
+
+CREATE TYPE coordinates AS (
     x DOUBLE PRECISION,
     y DOUBLE PRECISION
 );
@@ -11,13 +13,13 @@ first_name VARCHAR(255) DEFAULT '',
 surname VARCHAR(255) DEFAULT '',
 username VARCHAR(255) NOT NULL,
 pass VARCHAR(255) NOT NULL,
-email VARCHAR(255) DEFAULT ''
+email VARCHAR(255) DEFAULT '',
+phone BIGINT NOT NULL,
+loc coordinates
 );
 
 CREATE TABLE rescuer (
 resc_id SERIAL PRIMARY KEY,
-first_name VARCHAR(255) DEFAULT '',
-surname VARCHAR(255) DEFAULT '',
 username VARCHAR(255) NOT NULL,
 pass VARCHAR(255) NOT NULL,
 email VARCHAR(255) DEFAULT ''
@@ -33,27 +35,38 @@ email VARCHAR(255) DEFAULT ''
 CREATE TABLE vehicles(
 veh_id SERIAL PRIMARY KEY,
 username VARCHAR(255) NOT NULL,
-location base_coordinates NOT NULL,
-resc_id INTEGER REFERENCES rescuer(resc_id)
+loc coordinates NOT NULL,
+item_id INTEGER REFERENCES items(item_id) NOT NULL,
+resc_id INTEGER REFERENCES rescuer(resc_id) NOT NULL
 );
 
 CREATE TABLE base(
 base_id SERIAL PRIMARY KEY,
-location base_coordinates NOT NULL,
+loc coordinates NOT NULL,
+item_id INTEGER REFERENCES items(item_id) NOT NULL
 );
 
 CREATE TABLE items(
 item_id SERIAL PRIMARY KEY,
-subcategory INTEGER NOT NULL,
+iname VARCHAR(255),
+category INTEGER NOT NULL,
 details VARCHAR[],
 );
 
 CREATE TABLE news(
 news_id SERIAL PRIMARY KEY,
+descr VARCHAR(255),
+base_id INTEGER REFERENCES base(base_id) NOT NULL,
+item_id INTEGER REFERENCES items(item_id) NOT NULL,
+req_id INTEGER REFERENCES requests(req_id) NOT NULL
 );
 
 CREATE TABLE tasks(
 tasks_id SERIAL PRIMARY KEY,
+resc_id INTEGER REFERENCES rescuer(resc_id) NOT NULL,
+veh_id INTEGER REFERENCES vehicles(veh_id) NOT NULL,
+off_id INTEGER REFERENCES offers(off_id) NOT NULL,
+req_id INTEGER REFERENCES requests(req_id) NOT NULL
 );
 
 CREATE TABLE requests(
@@ -62,7 +75,8 @@ pending BOOLEAN DEFAULT FALSE,
 quantity INTEGER DEFAULT 1,
 reg_date DATE NOT NULL,
 assign_date DATE NOT NULL,
-civ_id INTEGER REFERENCES civilian(civ_id)
+civ_id INTEGER REFERENCES civilian(civ_id) NOT NULL,
+item_id INTEGER REFERENCES items(item_id) NOT NULL
 );
 
 CREATE TABLE offers(
@@ -71,5 +85,6 @@ pending BOOLEAN DEFAULT FALSE,
 quantity INTEGER DEFAULT 1,
 reg_date DATE NOT NULL,
 assign_date DATE NOT NULL,
-civ_id INTEGER REFERENCES civilian(civ_id)
+civ_id INTEGER REFERENCES civilian(civ_id) NOT NULL,
+item_id INTEGER REFERENCES items(item_id) NOT NULL
 );
