@@ -1,6 +1,6 @@
-CREATE DATABASE webproject24;
+CREATE DATABASE webproject24_old;
 
-\c webproject24;
+\c webproject24_old;
 
 CREATE TYPE coordinates AS (
     x DOUBLE PRECISION,
