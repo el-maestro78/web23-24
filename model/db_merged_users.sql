@@ -6,7 +6,9 @@ CREATE TYPE coordinates AS (
     x DOUBLE PRECISION,
     y DOUBLE PRECISION
 );
-
+--μήπως να χρησιμοποιήσουμε γεκίκευση/ εξειδίκευση, δλδ dbUser και εξειδικέυσεις
+--resc, admin, citizen, στην περίπτωση που χρειαστεί να προσθέσουμε σε κάποιον κάποιο 
+--και όχι στους άλλους, και να μπορεί να ξεχωρισθεί όταν χρειάζεται σε συσχετήσεις
 CREATE TABLE dbUser(
 user_id SERIAL PRIMARY KEY,
 first_name VARCHAR(255) DEFAULT '',
