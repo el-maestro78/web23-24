@@ -6,8 +6,8 @@ $dotenv->load();
 
 $dbPass = $_ENV['PASS'];
 try {
-    $db_handle = pg_connect("host=localhost dbname=webproject24 user=postgres password= $dbPass");
-    $stat = pg_connection_status($db_handle);
+    $dbconn = pg_connect("host=localhost dbname=webproject24 user=postgres password= $dbPass");
+    $stat = pg_connection_status($dbconn);
 
     if ($stat === PGSQL_CONNECTION_OK){
         echo 'Connection attempt succeeded.';

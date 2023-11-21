@@ -1,4 +1,8 @@
 <?php
+include("../model/config.php");
+?>
+
+<?php
 
 
 //      1. Login–Logout
@@ -26,4 +30,9 @@
 //TODO:
 
 
+?>
+<?php
+if(pg_close($dbconn)){
+    echo "Connection with db is now closed";
+}
 ?>
