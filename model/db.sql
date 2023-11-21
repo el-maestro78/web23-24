@@ -6,30 +6,20 @@ CREATE TYPE coordinates AS (
     x DOUBLE PRECISION,
     y DOUBLE PRECISION
 );
-
-CREATE TABLE civilian(
-civ_id SERIAL PRIMARY KEY,
+--μήπως να χρησιμοποιήσουμε γεκίκευση/ εξειδίκευση, δλδ dbUser και εξειδικέυσεις
+--resc, admin, citizen, στην περίπτωση που χρειαστεί να προσθέσουμε σε κάποιον κάποιο 
+--και όχι στους άλλους, και να μπορεί να ξεχωρισθεί όταν χρειάζεται σε συσχετήσεις
+CREATE TABLE dbUser(
+user_id SERIAL PRIMARY KEY,
 first_name VARCHAR(255) DEFAULT '',
 surname VARCHAR(255) DEFAULT '',
 username VARCHAR(255) NOT NULL UNIQUE,
 pass VARCHAR(255) NOT NULL,
+is_resc BOOLEAN DEFAULT FALSE,
+is_admin BOOLEAN DEFAULT FALSE,
 email VARCHAR(255) DEFAULT '',
 phone BIGINT NOT NULL,
 loc coordinates
-);
-
-CREATE TABLE rescuer (
-resc_id SERIAL PRIMARY KEY,
-username VARCHAR(255) NOT NULL UNIQUE,
-pass VARCHAR(255) NOT NULL,
-email VARCHAR(255) DEFAULT ''
-);
-
-CREATE TABLE baseadmin (
-admin_id SERIAL PRIMARY KEY,
-username VARCHAR(255) NOT NULL UNIQUE,
-pass VARCHAR(255) NOT NULL,
-email VARCHAR(255) DEFAULT ''
 );
 
 CREATE TABLE items(
@@ -44,7 +34,7 @@ veh_id SERIAL PRIMARY KEY,
 username VARCHAR(255) NOT NULL,
 loc coordinates NOT NULL,
 item_id INTEGER REFERENCES items(item_id) NOT NULL,
-resc_id INTEGER REFERENCES rescuer(resc_id) NOT NULL
+user_id INTEGER REFERENCES dbUser(user_id) NOT NULL
 );
 
 CREATE TABLE base(
@@ -59,7 +49,7 @@ pending BOOLEAN DEFAULT FALSE,
 quantity INTEGER DEFAULT 1,
 reg_date DATE NOT NULL,
 assign_date DATE NOT NULL,
-civ_id INTEGER REFERENCES civilian(civ_id) NOT NULL,
+user_id INTEGER REFERENCES dbUser(user_id) NOT NULL,
 item_id INTEGER REFERENCES items(item_id) NOT NULL
 );
 
@@ -69,16 +59,16 @@ pending BOOLEAN DEFAULT FALSE,
 quantity INTEGER DEFAULT 1,
 reg_date DATE NOT NULL,
 assign_date DATE NOT NULL,
-civ_id INTEGER REFERENCES civilian(civ_id) NOT NULL,
+user_id INTEGER REFERENCES dbUser(user_id) NOT NULL,
 item_id INTEGER REFERENCES items(item_id) NOT NULL
 );
 
 CREATE TABLE tasks(
 tasks_id SERIAL PRIMARY KEY,
-resc_id INTEGER REFERENCES rescuer(resc_id) NOT NULL,
+user_id INTEGER REFERENCES dbUser(user_id) NOT NULL,
 veh_id INTEGER REFERENCES vehicles(veh_id) NOT NULL,
-off_id INTEGER REFERENCES offers(off_id) NOT NULL,
-req_id INTEGER REFERENCES requests(req_id) NOT NULL
+off_id INTEGER REFERENCES offers(off_id),
+req_id INTEGER REFERENCES requests(req_id)
 );
 
 CREATE TABLE news(
