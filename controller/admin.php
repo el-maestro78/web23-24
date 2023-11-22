@@ -13,10 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (empty($_POST["password"])) {
         echo "Password is required";
     } else {
-        $username = test_input($_POST["username"]);
-        $password = test_input($_POST["password"]);
+        $username = validate_input($_POST["username"]);
+        $password = validate_input($_POST["password"]);
     }
-    function test_input($data)
+    function validate_input($data)
     {
         $data = trim($data);
         $data = stripslashes($data);
@@ -29,9 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       WHERE username={$username} AND pass={$password};
     EOF;
     if(pg_num_rows($dbconn, $sql) > 0){
-        echo "logged in";
+        echo "Logged in";
     }
 }
+
 //      2. Base Management
 //TODO:
 

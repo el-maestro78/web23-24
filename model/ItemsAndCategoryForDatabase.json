@@ -1,0 +1,37 @@
+{
+    "items": [
+    {
+      "id": "92",
+      "name": "Pocket Knife",
+      "category": "23",
+      "details": [
+        { "detail_name": "Number of different tools", "detail_value": "3" },
+        { "detail_name": "Tool", "detail_value": "Knife" },
+        { "detail_name": "Tool", "detail_value": "Screwdriver" },
+        { "detail_name": "Tool", "detail_value": "Spoon" }
+      ]
+    },
+    {
+      "id": "93",
+      "name": "Water Disinfection Tablets",
+      "category": "16",
+      "details": [
+        { "detail_name": "Basic Ingredients", "detail_value": "Iodine" },
+        { "detail_name": "Suggested for", "detail_value": "Everyone expept pregnant women" }]
+    },
+    {
+      "id": "94",
+      "name": "Radio",
+      "category": "27",
+      "details": [
+        { "detail_name": "Power", "detail_value": "Batteries" },
+        {
+          "detail_name": "Frequencies Range","detail_value": "3 kHz - 3000 GHz"
+        }
+      ]
+    }
+],
+  "categories": [
+    { "id": "10", "category_name":"Electronic Devices" }
+  ]
+}
