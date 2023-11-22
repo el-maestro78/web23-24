@@ -78,3 +78,18 @@ base_id INTEGER REFERENCES base(base_id) NOT NULL,
 item_id INTEGER REFERENCES items(item_id) NOT NULL,
 req_id INTEGER REFERENCES requests(req_id) NOT NULL
 );
+
+CREATE INDEX dbuser_index ON dbUser(username);
+CREATE INDEX items_index ON items(item_id);
+
+CREATE VIEW rescuer AS
+    SELECT user_id, first_name, surname, username, pass
+    FROM dbUser
+    WHERE is_resc IS TRUE
+    ;
+
+CREATE VIEW baseadmin AS
+    SELECT user_id, first_name, surname, username, pass
+    FROM dbUser
+    WHERE is_admin IS TRUE
+    ;

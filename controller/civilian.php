@@ -20,7 +20,5 @@ include("../model/config.php");
 
 ?>
 <?php
-if (pg_close($dbconn)) {
-    echo "Connection with db is now closed";
-}
+include("../model/dbclose.php");
 ?>
