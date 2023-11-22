@@ -31,7 +31,15 @@ CREATE TABLE vehicles(
 veh_id SERIAL PRIMARY KEY,
 username VARCHAR(255) NOT NULL,
 loc coordinates NOT NULL,
-item_id INTEGER REFERENCES items(item_id) NOT NULL,
+);
+
+CREATE TABLE vehicle_load(
+veh_id INTEGER REFERENCES vehicles(veh_id) NOT NULL,
+item_id INTEGER REFERENCES items(item_id) NOT NULL
+);
+
+CREATE TABLE vehicle_rescuers(
+veh_id INTEGER REFERENCES vehicles(veh_id) NOT NULL,
 user_id INTEGER REFERENCES dbUser(user_id) NOT NULL
 );
 
