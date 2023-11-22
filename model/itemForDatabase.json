@@ -1,0 +1,37 @@
+
+  {
+    "items": [
+    {
+      "id": "16",
+      "name": "Water",
+      "category": "6",
+      "details": [
+        { "detail_name": "volume", "detail_value": "1.5l" },
+        { "detail_name": "pack size", "detail_value": "6" }
+      ]
+    },
+    {
+      "id": "17",
+      "name": "Orange juice",
+      "category": "6",
+      "details": [
+        { "detail_name": "volume", "detail_value": "250ml" },
+        { "detail_name": "pack size", "detail_value": "12" }
+      ]
+    }],
+  "categories": [
+    { "id": "10", "category_name": "" },
+    { "id": "13", "category_name": "-----" },
+    { "id": "9", "category_name": "2d hacker" },
+    { "id": "6", "category_name": "Beverages" },
+    { "id": "7", "category_name": "Clothing" },
+    { "id": "14", "category_name": "Flood" },
+    { "id": "5", "category_name": "Food" },
+    { "id": "8", "category_name": "Hacker of class" },
+    { "id": "16", "category_name": "Medical Supplies" },
+    { "id": "15", "category_name": "new cat" },
+    { "id": "21", "category_name": "Personal Hygiene " },
+    { "id": "19", "category_name": "Shoes" },
+    { "id": "11", "category_name": "Test" }
+  ]
+}
