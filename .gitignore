@@ -603,3 +603,4 @@ composer.lock
 *.sass.map
 *.scss.map
 .vscode/settings.json
+model/env
