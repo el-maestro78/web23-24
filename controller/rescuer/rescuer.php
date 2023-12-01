@@ -3,16 +3,17 @@ include("../model/config.php");
 ?>
 
 <?php
+//variables
+$loged_in_username; //global from the session file
+$current_using_vehicle; //global from the session file
+$current_vehicle_coordinates;
+$base_cordinates_x;
+$base_cordinates_y;
 
-
-// 1. Login-Logout
-//same as admin's, no implementation needed here
 
 // 2. Load Management
-//TODO:
 
-// 2. Login-Logout
-//same as admin's, no implementation needed here
+
 
 // 3. Map Viewing
 //TODO:

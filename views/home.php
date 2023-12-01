@@ -10,7 +10,8 @@
 </head>
 <body>
     <?php
-    
+    // Include the login form
+    include_once('../views/Teo_testing/login_v01.php');
     ?>
     <script>
         

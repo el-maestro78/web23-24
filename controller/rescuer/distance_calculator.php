@@ -1,4 +1,5 @@
 <?php
+// Distance calculate with Haversine Formula
 function haversineDistance($lat1, $lon1, $lat2, $lon2)
 {
     $R = 6371000; // Earth radius in meters
@@ -20,12 +21,12 @@ function haversineDistance($lat1, $lon1, $lat2, $lon2)
 }
 
 // Example coordinates
-$lat1 = 40.7128; // Latitude of point 1
-$lon1 = -74.0060; // Longitude of point 1
-$lat2 = 34.0522; // Latitude of point 2
-$lon2 = -118.2437; // Longitude of point 2
+$base_lat = 37.910989; // Latitude of point 1
+$base_lon = 21.441535; // Longitude of point 1
+$current_vehicle_lat = 37.900836; // Latitude of point 2
+$current_vehicle_lon = 21.515990; // Longitude of point 2
 
-$distance = haversineDistance($lat1, $lon1, $lat2, $lon2);
+$distance = haversineDistance($base_lat, $base_lon, $current_vehicle_lat, $current_vehicle_lon);
 
 echo "Distance between the points: " . $distance . " meters";
 ?>
