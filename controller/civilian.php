@@ -62,7 +62,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 //      3. Request Handling
 //TODO:
-$category;
+$Req_id;
+$Off_id;
+$Off_category;
+$Civ_id;
+$Req_category;
 $NumOfCat;
 $personNum;
 $NumOfReq;
@@ -73,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (empty($_POST["personNum"])) {
         echo "personNum is required";         
     } else {
-        $category = test_input($_POST["category"]);
+        $Req_category = test_input($_POST["category"]);
         $personNum = test_input($_POST["personNum"]);
 	$NumOfReq = $NumOfReq + 1;
      
@@ -92,10 +96,43 @@ echo "You can insert only one category per request.";
     }   
 
 
-if($NumOfReq < 4)
+for($Civ_id = 0; $Civ_id < 3; $Civ_id++)
 {
-echo "Please insert more requests.";
+
+ if($NumOfReq < 4)
+ {
+ echo "Please insert more requests.";
+ }
+
 }
+
+for($Off_id=0; $Off_id<2; $Off_id++)
+{
+
+$Off_category = $Off_category;
+$Off_category = $Off_category + 1;
+}
+
+
+for($Req_id = 0; $Req_id < 4; $Req_id++)
+{
+ 
+if($Reg_category != a AND $Reg_category != a+1)
+{
+
+echo"Req_category doesn't match with any Off_categories";
+}
+
+else
+{
+$Req_category = test_input($_POST["category"]);
+$personNum = test_input($_POST["personNum"]);
+$NumOfReq = $NumOfReq + 1;
+}
+
+}
+
+
 
 function test_input($data)
     {
@@ -114,15 +151,17 @@ function test_input($data)
 
 //      4. Announcements & Offers
 //TODO:
+$Civ_id;
+$Off_id;
 $NumOfOff;
-$category;
+$Off_category;
 $username;
 $password;
 $name;
 $surname;
 $phone;
 $email;
-$quantity;
+$Off_quantity;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["username"])){
         echo "username is required";
@@ -136,10 +175,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "phone is required"; 
     } elseif (empty($_POST["email"])) {
         echo "phone is required";
-    }  elseif (empty($_POST["category"])) {
-            echo "category is required";
-    } elseif (empty($_POST["quantity"])) {
-        echo "quantity is required";
+    }  elseif (empty($_POST["Off_category"])) {
+            echo "Off_category is required";
+    } elseif (empty($_POST["Off_quantity"])) {
+        echo "Off_quantity is required";
     }  
     
     }               
@@ -150,19 +189,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $surname = test_input($_POST["surname"]);
         $phone = test_input($_POST["phone"]);
         $email = test_input($_POST["email"]);
-	$category = test_input($_POST["email"]);
-	$quantity = test_input($_POST["email"]);
+	$Off_category = test_input($_POST["email"]);
+	$Off_quantity = test_input($_POST["email"]);
 
     }
 
 
 
-
-if($NumofOff < 3)
+for($Civ_id =3; $Civ_id <5; $Civ_id++)
 {
-echo "Please insert more offers.";
-}
+ 
+if($NumofOff < 3)
+ {
+ echo "Please insert more offers.";
+ }
 
+}
 
 ?>
 <?php
