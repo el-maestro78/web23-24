@@ -10,8 +10,8 @@ $password;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["username"])){
         echo "Name is required";
-    } elseif (empty($_POST["password"])) {
-        echo "Password is required";
+    //} elseif (empty($_POST["password"])) { // Maybe for 
+    //   echo "Password is required";
     } else {
         $username = validate_input($_POST["username"]);
         $password = validate_input($_POST["password"]);
@@ -30,6 +30,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     EOF;
     if(pg_num_rows($dbconn, $sql) > 0){
         echo "Logged in";
+    }
+    $result = pg_query($db, $query);
+
+    if ($result && pg_num_rows($result) > 0) {
+        // Authentication successful
+        $_SESSION["username"] = $username;
+        header("Location: dashboard.php"); // Redirect to the dashboard or another page
+        exit();
+    } else {
+        $error_message = "Invalid username or password";
     }
 }
 

@@ -37,7 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $typed_password = $_POST["password"];
 
     // Validate the user against the database
-    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";  // same as $sql EOF?
+    $query = <<<EOF
+    "SELECT * FROM users 
+    WHERE username = '{$username}' AND password = '{$password}'";  
+    EOF; // same as $sql EOF?
     $result = pg_query($db, $query);
 
     if ($result && pg_num_rows($result) > 0) {
