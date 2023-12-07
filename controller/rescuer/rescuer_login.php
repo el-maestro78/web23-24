@@ -1,4 +1,8 @@
 <?php
+//should we use this?
+/*if (!$db) {
+    die("Error in connection: " . pg_last_error());
+}*/
 session_start();
 // 1. Login-Logout
 //same as admin's, no implementation needed here
@@ -29,6 +33,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(pg_num_rows($dbconn, $sql) > 0){
         echo "Logged in";
     }*/
+    $typed_username = $_POST["username"];
+    $typed_password = $_POST["password"];
+
+    // Validate the user against the database
+    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";  // same as $sql EOF?
+    $result = pg_query($db, $query);
+
+    if ($result && pg_num_rows($result) > 0) {
+        // Authentication successful
+        $_SESSION["username"] = $username;
+        header("Location: dashboard.php"); // Redirect to the dashboard or another page
+        exit();
+    } else {
+        $error_message = "Invalid username or password";
+    }
 }
 ?>
 
