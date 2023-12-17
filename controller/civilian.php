@@ -1,5 +1,5 @@
 <?php
-include("../model/config.php");
+include("../../model/config.php");
 ?>
 
 <?php
@@ -208,5 +208,5 @@ if($NumofOff < 3)
 
 ?>
 <?php
-include("../model/dbclose.php");
+include("../../model/dbclose.php");
 ?>

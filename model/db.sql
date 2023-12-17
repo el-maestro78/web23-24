@@ -23,6 +23,7 @@ loc coordinates
 CREATE TABLE items(
 item_id SERIAL PRIMARY KEY,
 iname VARCHAR(255),
+quantity INTEGER DEFAULT 0,
 category INTEGER NOT NULL,
 details VARCHAR[]
 );

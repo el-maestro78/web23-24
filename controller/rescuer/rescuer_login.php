@@ -1,5 +1,5 @@
 <?php
-//should we use this?
+//should we use this? yes but not in this file :)
 /*if (!$db) {
     die("Error in connection: " . pg_last_error());
 }*/
