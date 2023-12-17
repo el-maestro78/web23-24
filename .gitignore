@@ -605,5 +605,5 @@ composer.lock
 
 .vscode/settings.json
 model/env
-kos_testing/
-Teo_testing/
+views/kos_testing/
+views/Teo_testing/
