@@ -11,7 +11,7 @@
 </head>
 <body>
     <h2>Login</h2>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form method="post" action="../../controller/rescuer/rescuer_login.php">
         <label for="username">Username:</label>
         <input type="text" name="username" required><br>
 
