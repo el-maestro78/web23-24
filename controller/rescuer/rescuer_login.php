@@ -1,4 +1,7 @@
 <?php
+include("../../model/config.php");
+?>
+<?php
 //session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /*
@@ -14,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $typed_password = $_POST["password"];
 
     // Validate the user against the database
-    $query = "SELECT * FROM users WHERE username = $1 AND password = $2";
-    $result = pg_query($db, $query, array($typed_username, $typed_password));
+    $query = "SELECT * FROM dbuser WHERE username = $1 AND pass = $2";
+    $result = pg_query_params($dbconn, $query, array($typed_username, $typed_password));
 
     if ($result && pg_num_rows($result) > 0) {
         // Authentication successful
@@ -29,5 +32,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <?php
-include("../model/dbclose.php");
+include("../../model/dbclose.php");
 ?>
