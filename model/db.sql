@@ -20,13 +20,20 @@ phone BIGINT NOT NULL,
 loc coordinates
 );
 
+CREATE TABLE item_category(
+category_id SERIAL PRIMARY KEY,
+category_name VARCHAR(255),
+details VARCHAR[]
+);
+
 CREATE TABLE items(
 item_id SERIAL PRIMARY KEY,
 iname VARCHAR(255),
 quantity INTEGER DEFAULT 0,
-category INTEGER NOT NULL,
+category INTEGER REFERENCES item_category(category_id) NOT NULL,
 details VARCHAR[]
 );
+
 
 CREATE TABLE vehicles(
 veh_id SERIAL PRIMARY KEY,

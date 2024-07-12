@@ -3,6 +3,16 @@
 ?>
 
 <?php
+function validate_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+
+
 //      1. Login–Logout
 function login($username, $password){    
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -14,14 +24,7 @@ function login($username, $password){
             $username = validate_input($_POST["username"]);
             $password = validate_input($_POST["password"]);
         }
-        function validate_input($data)
-        {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-        $sql = <<<EOF
+        $sql = <<< EOF
           SELECT username, pass 
           FROM dbUser 
           WHERE username={$username} AND pass={$password};
@@ -41,13 +44,42 @@ function login($username, $password){
         }
     }
 }
-//      2. Base Management
-//TODO:
-function add_item_category(){
 
+//      2. Base Management
+function add_item($item_name, $item_quant, $item_categ, $item_details){
+    $item_name = validate_input($item_name);
+    $item_quant = validate_input($item_quant);
+    $item_categ = validate_input($item_categ);
+    $item_details = validate_input($item_details);
+
+    $sql = <<< EOF
+            SELECT iname
+            FROM item
+            WHERE username={$item_name};
+        EOF;
+    $check_if_already_exists = pg_query($dbconn, $sql);
+
+    if($check_if_already_exists && pg_num_rows($check_if_already_exists) > 0){
+        echo "Item $item_name already exists";
+    }
+    else{
+        if ($item_quant <= 0) {
+            $item_quant == 0;
+        }
+        $sql = <<< EOF
+            INSERT INTO items(iname, quantity, category, details) 
+            VALUES ($item_name, $item_quant, $item_categ, $item_details)";
+        EOF;
+        $result = pg_query($dbconn, $sql);
+
+        if (!$result) {
+            $error_message = "Problem with item $item_name";
+        }
+    }   
 }
 
-function add_item(){
+function add_item_category($item_categ){
+    $item_categ = validate_input($item_categ);
 
 }
 function load_json(){
@@ -55,10 +87,10 @@ function load_json(){
         $export_url = 'http://usidas.ceid.upatras.gr/web/2023/export.php';
         update_item_quantity();
 }
+
 function update_item_quantity(){
 
 }
-
 
 //      3. Map Managemnet
 //TODO:

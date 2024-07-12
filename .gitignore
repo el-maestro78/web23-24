@@ -608,3 +608,4 @@ model/env
 views/kos_testing/
 views/Teo_testing/
 test/
+.idea/
