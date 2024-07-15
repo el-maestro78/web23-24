@@ -60,10 +60,10 @@ function update_item($item_name, $item_quant=0, $item_categ='', $item_details=''
             remove_item($item_name);
             break;
         case "details":
-            details_item($item_name, $item_details);
+            update_item_details($item_name, $item_details);
             break;
         case "quantity":
-            quantity_item($item_name, $item_quant);
+            update_item_quantity($item_name, $item_quant);
             break;    
         default:
             echo "Error with $action for $item_categ";
@@ -119,7 +119,7 @@ function remove_item($item_name){
     }
 }
 
-function details_item($item_name, $item_details){
+function update_item_details($item_name, $item_details){
     $sql = <<< EOF
             SELECT iname
             FROM items
@@ -145,7 +145,7 @@ function details_item($item_name, $item_details){
     }
 }
 
-function quantity_item($item_name, $item_quant){
+function update_item_quantity($item_name, $item_quant){
     $sql = <<< EOF
             SELECT iname
             FROM items
@@ -263,11 +263,14 @@ function details_item_category($item_categ, $categ_details){
 }
 
 
-function load_json(){ // TODO, το link δεν λειτουργει...
+function load_json(){ 
+    // TODO, το link δεν λειτουργει...
         $url = 'http://usidas.ceid.upatras.gr/web/2023/';
         $export_url = 'http://usidas.ceid.upatras.gr/web/2023/export.php';
-        update_item_quantity();
+        //update_item_quantity();
 }
+
+
 
 //      3. Map Managemnet
 //TODO:
