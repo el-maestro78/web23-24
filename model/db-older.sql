@@ -3,8 +3,8 @@ CREATE DATABASE webproject24;
 \c webproject24;
 
 CREATE TYPE coordinates AS (
-    long DOUBLE PRECISION NOT NULL,
-    lat DOUBLE PRECISION NOT NULL
+    x DOUBLE PRECISION,
+    y DOUBLE PRECISION
 );
 
 CREATE TABLE dbUser(
@@ -17,8 +17,7 @@ is_resc BOOLEAN DEFAULT FALSE,
 is_admin BOOLEAN DEFAULT FALSE,
 email VARCHAR(255) DEFAULT '',
 phone BIGINT NOT NULL,
-long DOUBLE PRECISION NOT NULL,
-lat DOUBLE PRECISION NOT NULL
+loc coordinates
 );
 
 CREATE TABLE item_category(
@@ -39,8 +38,7 @@ details VARCHAR[]
 CREATE TABLE vehicles(
 veh_id SERIAL PRIMARY KEY,
 username VARCHAR(255) NOT NULL,
-long DOUBLE PRECISION NOT NULL,
-lat DOUBLE PRECISION NOT NULL
+loc coordinates NOT NULL,
 );
 
 CREATE TABLE vehicle_load(
@@ -55,12 +53,7 @@ user_id INTEGER REFERENCES dbUser(user_id) NOT NULL
 
 CREATE TABLE base(
 base_id SERIAL PRIMARY KEY,
-lat DOUBLE PRECISION NOT NULL
-long DOUBLE PRECISION NOT NULL,
-);
-
-CREATE TABLE base_inventory(
-base_id INTEGER REFERENCES items(item_id) NOT NULL,
+loc coordinates NOT NULL,
 item_id INTEGER REFERENCES items(item_id) NOT NULL
 );
 
@@ -102,8 +95,6 @@ req_id INTEGER REFERENCES requests(req_id) NOT NULL
 
 CREATE INDEX dbuser_index ON dbUser(username);
 CREATE INDEX items_index ON items(item_id);
-CREATE INDEX bases_index ON bases(base_id);
-CREATE INDEX vehicle_index ON vehicles(veh_id);
 
 CREATE VIEW rescuer AS
     SELECT user_id, first_name, surname, username, pass

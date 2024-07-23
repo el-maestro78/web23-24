@@ -13,13 +13,11 @@ try {
     }*/
     $stat = pg_connection_status($dbconn);
 
-    if ($stat === PGSQL_CONNECTION_OK){
-        echo 'Connection attempt succeeded.';
-    } else {
-        
+    //if ($stat === PGSQL_CONNECTION_OK){
+    if ($stat !== PGSQL_CONNECTION_OK) {
         throw new Exception("Can't connect with database");
     }
-}catch(Exception $e){
+    }catch(Exception $e){
     echo $e->getMessage();
 }
 ?>
