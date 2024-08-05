@@ -69,7 +69,7 @@ $Civ_id;
 $Civilian_Req_category;
 $Civilian_NumOfCat;
 $Civilian_personNum;
-$NumOfReq;
+$NumOfReq=0;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["Req_category"])){
@@ -80,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $category = test_input($_POST["Civilian_Req_category"]);
         $personNum = test_input($_POST["Civilian_personNum"]);
 	$NumOfReq = $NumOfReq + 1;
+		
      
     }   
 
@@ -134,6 +135,8 @@ $NumOfReq = $NumOfReq + 1;
 
 
 
+
+
 function test_input($data)
     {
         $data = trim($data);
@@ -153,7 +156,9 @@ function test_input($data)
 //TODO:
 $Civ_id;
 $Off_id;
-$NumOfOff;
+$NumofCiv_id;
+$NumOfOff=0;
+$NumOfReq=0;
 $Civilian_Off_category;
 $Civilian_username;
 $Civilian_password;
@@ -162,6 +167,7 @@ $Civilian_surname;
 $Civilian_phone;
 $Civilian_email;
 $Civilian_Off_quantity;
+$Civilian_req
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["Civilian_username"])){
         echo "username is required";
@@ -196,7 +202,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-for($Civ_id =3; $Civ_id <5; $Civ_id++)
+if(NumOfCiv_id <5)
+{
+echo "More Civ_id are required";
+}
+
+
+for($Civ_id =3; $Civ_id <6; $Civ_id++)
 {
  
 if($NumofOff < 3)
@@ -207,3 +219,47 @@ if($NumofOff < 3)
 }
 
 ?>
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php
+$z; // Off_id
+$y = "a"; // Off_category
+$i; // Req_id
+$k; // Req_category
+
+
+
+
+for($z=0; $z<2; $z++)
+{
+ echo"y : $y <br>";
+ $y++;
+}
+
+for($i=0; $i<2; $i++)
+{
+
+if($k != a AND $k != a+1)
+{
+echo"Req_category doesn't match with any Off_categories";
+}
+
+
+}
+
+
+?>
+
+</body>
+</html>
