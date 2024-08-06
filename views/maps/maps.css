@@ -22,3 +22,55 @@ body {
     border-radius: 1rem;
 
 }
+/**/
+/**/
+.base-marker {
+    background-color: black;
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    display: block;
+    position: relative;
+}
+.veh-marker {
+    background-color: blue;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    display: block;
+    position: relative;
+}
+.task-pend-marker {
+    background-color: red;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    display: block;
+    position: relative;
+}
+.task-assigned-marker {
+    background-color: yellow;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    display: block;
+    position: relative;
+}
+.task-compl-marker {
+    background-color: rgb(6, 231, 6);/* Light Green*/
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    display: block;
+    position: relative;
+}
+/**/
+/*
+    
+    
+*/

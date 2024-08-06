@@ -274,10 +274,7 @@ function load_json(){
 
 //      3. Map Managemnet
 //TODO:
-function load_markers(){
-    //for base in bases:
-    
-}
+ # Marker loading is done on fetch_stores.php
 
 function load_vehicles(){
 

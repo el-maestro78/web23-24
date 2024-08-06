@@ -1,5 +1,5 @@
 <?php
-include("../model/config.php");
+include("../../model/config.php");
 ?>
 <?php
 
@@ -24,5 +24,5 @@ pg_free_result($result);
 
 ?>
 <?php
-include("../model/dbclose.php");
+include("../../model/dbclose.php");
 ?>
