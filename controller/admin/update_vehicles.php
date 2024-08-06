@@ -44,10 +44,7 @@ if (pg_num_rows($result) !== 0){
     if (!$insert_result) {
         die("Error inserting vehicles: " . pg_last_error());
     }
-
-    pg_free_result($result);
-}
-else{
+}else{
     $insert_query = "INSERT INTO vehicles (username, lat, long) VALUES ";
     $values = array();
     $cnt = 0;
@@ -64,13 +61,7 @@ else{
     }
 }
 
-
-
 echo "Vehicles updated successfully.";
-
-
-
-
 ?>
 <?php
 include("../../model/dbclose.php");

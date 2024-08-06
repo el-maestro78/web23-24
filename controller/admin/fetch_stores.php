@@ -16,8 +16,8 @@ while ($row = pg_fetch_assoc($result)) {
     $bases[] = $row;
 }
 
-//header('Content-Type: application/json');
-json_encode($bases);
+header('Content-Type: application/json');
+echo json_encode($bases);
 
 pg_free_result($result);
 

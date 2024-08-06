@@ -1,6 +1,6 @@
 <?php
-include("../../model/config.php");
 include("./add_vehicles.php");
+include("../../model/config.php");
 ?>
 <?php
 $query = "SELECT veh_id, long, lat FROM vehicles";
@@ -16,7 +16,7 @@ while ($row = pg_fetch_assoc($result)) {
 }
 
 header('Content-Type: application/json');
-json_encode($vehicles);
+echo json_encode($vehicles);
 
 pg_free_result($result);
 
