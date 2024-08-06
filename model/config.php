@@ -12,7 +12,6 @@ try {
         die("Error in connection: " . pg_last_error());
     }*/
     $stat = pg_connection_status($dbconn);
-    global $dbconn;
     //if ($stat === PGSQL_CONNECTION_OK){
     if ($stat !== PGSQL_CONNECTION_OK) {
         throw new Exception("Can't connect with database");
