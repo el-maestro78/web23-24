@@ -1,10 +1,12 @@
-CREATE DATABASE webproject24;
+--CREATE DATABASE webproject24;
 
 \c webproject24;
-
+--μου βγάζουν erron:webproject24=#
+/*ERROR:  syntax error at or near "NOT"
+LINE 2:     long DOUBLE PRECISION NOT NULL,*/
 CREATE TYPE coordinates AS (
-    long DOUBLE PRECISION NOT NULL,
-    lat DOUBLE PRECISION NOT NULL
+    long DOUBLE PRECISION,-- NOT NULL,
+    lat DOUBLE PRECISION-- NOT NULL
 );
 
 CREATE TABLE dbUser(
@@ -55,8 +57,8 @@ user_id INTEGER REFERENCES dbUser(user_id) NOT NULL
 
 CREATE TABLE base(
 base_id SERIAL PRIMARY KEY,
-lat DOUBLE PRECISION NOT NULL
-long DOUBLE PRECISION NOT NULL,
+lat DOUBLE PRECISION NOT NULL,
+long DOUBLE PRECISION NOT NULL
 );
 
 CREATE TABLE base_inventory(
@@ -102,7 +104,7 @@ req_id INTEGER REFERENCES requests(req_id) NOT NULL
 
 CREATE INDEX dbuser_index ON dbUser(username);
 CREATE INDEX items_index ON items(item_id);
-CREATE INDEX bases_index ON bases(base_id);
+CREATE INDEX bases_index ON base(base_id);
 CREATE INDEX vehicle_index ON vehicles(veh_id);
 
 CREATE VIEW rescuer AS
