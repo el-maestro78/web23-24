@@ -1,5 +1,6 @@
 <?php
     include("../../model/config.php");
+    $dbconn = getDbConnection();
 ?>
 
 <?php
@@ -274,24 +275,11 @@ function load_json(){
 
 //      3. Map Managemnet
 //TODO:
- # Marker loading is done on fetch_stores.php
-
-function load_vehicles(){
-
-}
-
-
-function load_requests(){
-
-
-}
-
-function load_offers()
-{
-
-
-}
-
+    # Bases' markers loading is done on fetch_stores.php
+    # Vehicles' markers loading is done on fetch_vehicles.php
+    # Requests' markers loading is done on fetch_vehicles.php
+    # Offers' markers loading is done on fetch_vehicles.php
+    # Drag n drop base ?
 function drag_n_drop_base(){
 
 }

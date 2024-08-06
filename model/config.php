@@ -12,7 +12,7 @@ try {
         die("Error in connection: " . pg_last_error());
     }*/
     $stat = pg_connection_status($dbconn);
-
+    global $dbconn;
     //if ($stat === PGSQL_CONNECTION_OK){
     if ($stat !== PGSQL_CONNECTION_OK) {
         throw new Exception("Can't connect with database");
@@ -20,4 +20,15 @@ try {
     }catch(Exception $e){
     echo $e->getMessage();
 }
+/*
+function getDbConnection()
+{
+    $dbPass = $_ENV['PASS'];
+    $dbconn = pg_connect("host=localhost dbname=webproject24 user=postgres password= $dbPass");
+    if (!$dbconn) {
+        die("Connection failed: " . pg_last_error());
+    }
+    return $dbconn;
+}*/
+
 ?>

@@ -1,24 +1,22 @@
 <?php
 include("../../model/config.php");
+include("./add_vehicles.php");
 ?>
 <?php
-
-// Fetch store locations
-$query = "SELECT veh_id , long, lat FROM vehicles";
+$query = "SELECT veh_id, long, lat FROM vehicles";
 $result = pg_query($dbconn, $query);
 
 if (!$result) {
     die("Error in SQL query: " . pg_last_error());
 }
 
-$bases = array();
+$vehicles = array();
 while ($row = pg_fetch_assoc($result)) {
-    $bases[] = $row;
+    $vehicles[] = $row;
 }
 
-
 header('Content-Type: application/json');
-echo json_encode($bases);
+json_encode($vehicles);
 
 pg_free_result($result);
 
