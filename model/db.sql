@@ -1,4 +1,4 @@
---CREATE DATABASE webproject24;
+CREATE DATABASE webproject24; --γτ comment αυτην την γραμμη? Μια φορα την επιλεγεις anyways
 
 \c webproject24;
 --μου βγάζουν erron:webproject24=#
@@ -26,7 +26,7 @@ lat DOUBLE PRECISION NOT NULL
 CREATE TABLE item_category(
 category_id SERIAL PRIMARY KEY,
 category_name VARCHAR(255),
-details VARCHAR[]
+details VARCHAR(255)
 );
 
 CREATE TABLE items(
@@ -34,7 +34,7 @@ item_id SERIAL PRIMARY KEY,
 iname VARCHAR(255),
 quantity INTEGER DEFAULT 0,
 category INTEGER REFERENCES item_category(category_id) NOT NULL,
-details VARCHAR[]
+details VARCHAR(255)
 );
 
 
@@ -71,9 +71,11 @@ req_id SERIAL PRIMARY KEY,
 pending BOOLEAN DEFAULT FALSE,
 quantity INTEGER DEFAULT 1,
 reg_date DATE NOT NULL,
-assign_date DATE NOT NULL,
+assign_date DATE DEFAULT NULL, -- NOT NULL, May not be assigned yet
 user_id INTEGER REFERENCES dbUser(user_id) NOT NULL,
-item_id INTEGER REFERENCES items(item_id) NOT NULL
+item_id INTEGER REFERENCES items(item_id) NOT NULL,
+long DOUBLE PRECISION NOT NULL,
+lat DOUBLE PRECISION NOT NULL
 );
 
 CREATE TABLE offers(
@@ -81,9 +83,11 @@ off_id SERIAL PRIMARY KEY,
 pending BOOLEAN DEFAULT FALSE,
 quantity INTEGER DEFAULT 1,
 reg_date DATE NOT NULL,
-assign_date DATE NOT NULL,
+assign_date DATE DEFAULT NULL, --NOT NULL May not be assigned yet
 user_id INTEGER REFERENCES dbUser(user_id) NOT NULL,
-item_id INTEGER REFERENCES items(item_id) NOT NULL
+item_id INTEGER REFERENCES items(item_id) NOT NULL,
+long DOUBLE PRECISION NOT NULL,
+lat DOUBLE PRECISION NOT NULL
 );
 
 CREATE TABLE tasks(

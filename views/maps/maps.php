@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https: //cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/images/markers-matte@2x.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMTnDxuhMjp4Jl4biHeOeGb4bYPCh8NcUX0Enn3" crossorigin="anonymous">
     <link rel=" stylesheet" href="./maps.css" />
-    <link rel="icon" href="../../favico/favicon.ico">
+    <link rel="icon" href="../favico/favicon.ico" type="image/x-icon">
     <title>Maps</title>
 </head>
 
@@ -21,21 +21,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js" integrity="sha512-Oj9plGLST4IMXFXDfqMdTP+gSInbodkyno117PSjo5R08eu6TdzY9WPnnwQZGx2O2lG/kN0MzQk95ulWsRFuLA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Font Awesome Kit-->
     <script src="https://kit.fontawesome.com/b3969ea94f.js" crossorigin="anonymous"></script>
+    <!-- For dynamic color determination and cleaner map.php file-->
+    <script src="./map.js"></script>
     <script>
         let map = L.map('mapid').setView([38.246242, 21.7350847], 16);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         }).addTo(map);
-
-
-        function createCustomIcon(type, color) {
-            return L.icon({
-                className: `${type} marker-${color}`,
-                html: `<div class="${type} marker-${color}">X</div>`,
-                iconSize: [25, 41],
-                iconAnchor: [12, 41]
-            });
-        }
 
         fetch('../../controller/admin/fetch_stores.php')
             .then(response => response.json())
@@ -43,7 +35,7 @@
                 data.forEach(store => {
                     let marker = L.marker([store.lat, store.long], {
                         icon: L.AwesomeMarkers.icon({
-                            icon: 'spinner',
+                            icon: 'house', //'spinner',
                             prefix: 'fa',
                             markerColor: 'black'
                         })
@@ -68,6 +60,42 @@
                 });
             })
             .catch(error => console.error('Error fetching vehicle data:', error));
+
+        fetch('../../controller/admin/fetch_offers.php')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(offer => {
+                    color = getDataColor(offer);
+                    let marker = L.marker([offer.lat, offer.long], {
+                        icon: L.AwesomeMarkers.icon({
+                            icon: 'gift',
+                            prefix: 'fa',
+                            markerColor: color,
+                            iconColor: 'white',
+                        })
+                    }).addTo(map);
+                    marker.bindPopup(`<b>Offer ID: ${offer.off_id}</b>`).openPopup();
+                });
+            })
+            .catch(error => console.error('Error fetching offer data:', error));
+
+        fetch('../../controller/admin/fetch_requests.php')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(request => {
+                    color = getDataColor(request);
+                    let marker = L.marker([request.lat, request.long], {
+                        icon: L.AwesomeMarkers.icon({
+                            icon: 'exclamation',
+                            prefix: 'fa',
+                            markerColor: color,
+                            iconColor: 'white',
+                        })
+                    }).addTo(map);
+                    marker.bindPopup(`<b>Request ID: ${request.req_id}</b>`).openPopup();
+                })
+            })
+            .catch(error => console.error('Error fetching request data:', error));
     </script>
 </body>
 

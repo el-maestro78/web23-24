@@ -1,6 +1,5 @@
 <?php
     include("../../model/config.php");
-    $dbconn = getDbConnection();
 ?>
 
 <?php
@@ -265,7 +264,7 @@ function details_item_category($item_categ, $categ_details){
 
 
 function load_json(){ 
-    // TODO, το link δεν λειτουργει...
+    // TODO
         $url = 'http://usidas.ceid.upatras.gr/web/2023/';
         $export_url = 'http://usidas.ceid.upatras.gr/web/2023/export.php';
         //update_item_quantity();
