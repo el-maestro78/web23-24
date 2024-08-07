@@ -3,7 +3,7 @@ Creates random position for the vehicles(in 5km radius from bases).
 Then calls update_vehicles to add them in database
 */ ?>
 <?php
-include('../admin/fetch_stores.php');
+include('../admin/get_store_pos.php');
 include("../../model/config.php");
 include('../../model/Classes/base.php');
 
