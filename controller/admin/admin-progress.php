@@ -5,9 +5,11 @@
 2.  Needs front end for offers, rescuers editing etc.
     Needs json and url load into database
 
-3.  Needs tasks(uncompleted and pending)
-    Needs offers
-    Needs popup implementation
+3.  
+    Needs popup implementation.
+    Needs mechanism that whenever a task get created the 
+    pending status on offer or request changes and when it gets 
+    completed the request gets completed. Stored function is the best way
 
 4.  Not implemented yet
     Needs filter for assigned & pending requests

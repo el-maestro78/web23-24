@@ -68,7 +68,8 @@ item_id INTEGER REFERENCES items(item_id) NOT NULL
 
 CREATE TABLE requests(
 req_id SERIAL PRIMARY KEY,
-pending BOOLEAN DEFAULT FALSE,
+pending BOOLEAN DEFAULT TRUE,
+completed BOOLEAN DEFAULT FALSE,
 quantity INTEGER DEFAULT 1,
 reg_date DATE NOT NULL,
 assign_date DATE DEFAULT NULL, -- NOT NULL, May not be assigned yet
@@ -80,7 +81,8 @@ lat DOUBLE PRECISION NOT NULL
 
 CREATE TABLE offers(
 off_id SERIAL PRIMARY KEY,
-pending BOOLEAN DEFAULT FALSE,
+pending BOOLEAN DEFAULT TRUE,
+completed BOOLEAN DEFAULT FALSE,
 quantity INTEGER DEFAULT 1,
 reg_date DATE NOT NULL,
 assign_date DATE DEFAULT NULL, --NOT NULL May not be assigned yet
@@ -95,7 +97,8 @@ tasks_id SERIAL PRIMARY KEY,
 user_id INTEGER REFERENCES dbUser(user_id) NOT NULL,
 veh_id INTEGER REFERENCES vehicles(veh_id) NOT NULL,
 off_id INTEGER REFERENCES offers(off_id),
-req_id INTEGER REFERENCES requests(req_id)
+req_id INTEGER REFERENCES requests(req_id),
+completed BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE news(

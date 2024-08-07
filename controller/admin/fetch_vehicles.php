@@ -3,7 +3,7 @@ include("./add_vehicles.php");
 include("../../model/config.php");
 ?>
 <?php
-$query = "SELECT veh_id, long, lat FROM vehicles";
+$query = "SELECT veh_id, username, long, lat FROM vehicles";
 $result = pg_query($dbconn, $query);
 
 if (!$result) {

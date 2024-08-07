@@ -56,7 +56,7 @@
                             markerColor: 'blue'
                         })
                     }).addTo(map);
-                    marker.bindPopup(`<b>Vehicle ID: ${vehicle.veh_id}</b>`).openPopup();
+                    marker.bindPopup(vehiclePopup(vehicle)).openPopup();
                 });
             })
             .catch(error => console.error('Error fetching vehicle data:', error));
@@ -74,7 +74,7 @@
                             iconColor: 'white',
                         })
                     }).addTo(map);
-                    marker.bindPopup(`<b>Offer ID: ${offer.off_id}</b>`).openPopup();
+                    marker.bindPopup(offerPopup(offer)).openPopup();
                 });
             })
             .catch(error => console.error('Error fetching offer data:', error));
@@ -92,7 +92,7 @@
                             iconColor: 'white',
                         })
                     }).addTo(map);
-                    marker.bindPopup(`<b>Request ID: ${request.req_id}</b>`).openPopup();
+                    marker.bindPopup(requestPopup(request)).openPopup();
                 })
             })
             .catch(error => console.error('Error fetching request data:', error));

@@ -1,7 +1,7 @@
 <?php
 include("../../model/config.php");
 
-$query = "SELECT req_id, pending, quantity, reg_date, assign_date, user_id, item_id, lat, long FROM requests";
+$query = "SELECT req_id, pending, completed, quantity, reg_date, assign_date, user_id, item_id, lat, long FROM requests";
 $result = pg_query($dbconn, $query);
 
 if (!$result) {
