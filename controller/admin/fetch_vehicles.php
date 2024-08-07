@@ -15,7 +15,7 @@ while ($row = pg_fetch_assoc($result)) {
     $vehicles[] = $row;
 }
 
-header('Content-Type: application/json');
+//header('Content-Type: application/json');
 echo json_encode($vehicles);
 
 pg_free_result($result);

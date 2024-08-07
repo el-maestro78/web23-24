@@ -3,8 +3,8 @@ Creates random position for the vehicles(in 5km radius from bases).
 Then calls update_vehicles to add them in database
 */ ?>
 <?php
-include("../../model/config.php");
 include('../admin/fetch_stores.php');
+include("../../model/config.php");
 include('../../model/Classes/base.php');
 
 $bases_obj = array();
@@ -29,8 +29,9 @@ $vehicles = array();
 foreach ($bases_obj as $base) {
     $vehicle_position = generateRandomCoordinates($base->lat, $base->long, 5); // 5km radius
     $vehicles[] = $vehicle_position;
-    echo "Vehicle Lat: " . $vehicle_position['lat'] . ", Vehicle Long: " . $vehicle_position['long'] . "<br>\n";
-    echo "Base ID: " . $base->base_id . ", Base Lat: " . $base->lat . ", Base Long: " . $base->long . "<br>\n";
+    //DEBUG
+    //echo "Vehicle Lat: " . $vehicle_position['lat'] . ", Vehicle Long: " . $vehicle_position['long'] . "<br>\n";
+    //echo "Base ID: " . $base->base_id . ", Base Lat: " . $base->lat . ", Base Long: " . $base->long . "<br>\n";
 }
 
 include("./update_vehicles.php");

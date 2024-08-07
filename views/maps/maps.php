@@ -52,22 +52,19 @@
 
         fetch('../../controller/admin/fetch_vehicles.php')
             .then(response => response.json())
-            .then(data => {
-                data.forEach(vehicle => {
+            .then(data => { data.forEach(vehicle => {
                     let marker = L.marker([vehicle.lat, vehicle.long], {
                         icon: L.AwesomeMarkers.icon({
-                            icon: 'spinner',
+                            icon: 'car',
                             prefix: 'fa',
                             markerColor: 'blue'
                         })
                     }).addTo(map);
-                    marker.bindPopup(`<b>Store ID: ${vehicle.veh_id}</b>`).openPopup();
+                    marker.bindPopup(`<b>Vehicle ID: ${vehicle.veh_id}</b>`).openPopup();
                 });
             })
-            .catch(error => console.error('Error fetching store data:', error));
+            .catch(error => console.error('Error fetching vehicle data:', error));
     </script>
-
-    <div id="mapid"></div>
 </body>
 
 </html>

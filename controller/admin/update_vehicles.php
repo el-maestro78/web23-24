@@ -61,7 +61,7 @@ if (pg_num_rows($result) !== 0){
     }
 }
 
-echo "Vehicles updated successfully.";
+//echo "Vehicles updated successfully."; //DEBUG
 ?>
 <?php
 include("../../model/dbclose.php");
