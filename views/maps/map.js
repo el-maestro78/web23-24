@@ -10,12 +10,107 @@ function getDataColor(data) {
     //return data.pending ? "red" : "yellow";
 }
 
-function vehiclePopup(data){
-    return `<b>Vehicle ID: ${data.username}</b>`;
+async function vehiclePopup(data){
+    let vehLoad = "";
+    let vehItems = "";
+    let vehTasks = "";
+    let itemsHtml = "";
+    try{
+        const vehResponse = await fetch(
+          `../../controller/admin/fetch_vehicle_popup.php?veh_id=${encodeURIComponent(
+            data.veh_id
+          )}`
+        );
+        if (!vehResponse.ok) throw new Error("Failed to fetch vehicle data");
+        const vehData = await vehResponse.json();
+        //example {"task_count":"1","load_data":[{"load":"5","iname":"spam, eggs & spam"}]}
+        //console.log(vehData);
+        if (vehData.load_data && vehData.load_data.length > 0) {
+          vehData.load_data.forEach((item) => {
+            itemsHtml += `<b>Item:</b> ${item.iname || "N/A"}<br>
+                          <b>Load:</b> ${item.load || "N/A"}<br><hr>`;
+          });
+          vehTasks = vehData.task_count;
+        } else {
+            vehLoad = vehData.load_data.load;
+            vehItems = vehData.load_data.iname;
+            itemsHtml += `<b>Item:</b> ${vehItems || "N/A"}<br>
+                          <b>Load:</b> ${vehLoad || "N/A"}<br><hr>`;
+            vehTasks = vehData.task_count;
+        }
+        if (vehTasks >= 1) vehStatus = 1;
+        else vehStatus = 0; 
+
+    }catch (error) {
+        console.error("Error fetching vehicle data: ", error);
+    }
+    //return `<b>Vehicle ID: ${data.username}</b>`;
+    return `
+        <div>
+            <b>Vehicle</b><br>
+            <b>Username Οχήματος:</b> ${data.username}<br><hr>
+            ${itemsHtml}
+            <b>Status:</b> ${vehStatus ? "On road" : "Idle"}<br>
+            <b>Tasks:</b> ${vehTasks || "N/A"}<br>
+        </div>`;
 }
 
-function offerPopup(data) {
-    return `<b>Offer ID: ${data.off_id}</b>`;
+async function offerPopup(data) {
+    let full_name = "";
+    let phone = "";
+    let item_name = "";
+    let vehUsername = "";
+
+    try {
+        const userResponse = await fetch(`../../controller/admin/fetch_user_by_id.php?user_id=${encodeURIComponent(data.user_id)}`);
+        const itemResponse = await fetch(`../../controller/admin/fetch_item_by_id.php?item_id=${encodeURIComponent(data.item_id)}`);
+
+        const userData = await userResponse.json();
+        if (userData.length > 0) {
+          full_name = `${userData[0].first_name} ${userData[0].surname}`;
+          phone = userData[0].phone;
+        }else{
+            full_name = `${userData.first_name} ${userData.surname}`;
+            phone = userData.phone;
+        }
+        
+
+        if (!itemResponse.ok) throw new Error("Failed to fetch item data");
+        const itemData = await itemResponse.json();
+        if (itemData.length > 0) {
+          item_name = itemData[0].iname;
+        } else {
+          item_name = itemData.iname;
+        }//console.log(item_name);
+        
+        if (data.pending !== "t"){
+            const vehResponse = await fetch(`../../controller/admin/fetch_veh_off_id.php?off_id=${encodeURIComponent(data.off_id)}`);
+            if (!vehResponse.ok) throw new Error("Failed to fetch vehicle data");
+            const vehData = await vehResponse.json();
+            //console.log(vehData)
+            if (vehData.length > 0) {
+                vehUsername = vehData[0].username;
+                
+            } else {
+                vehUsername = vehData.username;
+            } //console.log(vehUsername);
+        }
+    }catch(error){
+        console.error("Error fetching offer data for popup: ", error);
+    }
+  return `<div>
+        <b>Offer</b><br>
+        <b>Ονοματεπώνυμο:</b> ${full_name}<br>
+        <b>Τηλέφωνο:</b> ${phone}<br>
+        <b>Ημερομηνία Καταχώρησης:</b> ${data.reg_date}<br>
+        <b>Είδος:</b> ${item_name}<br>
+        <b>Ποσότητα:</b> ${data.quantity}<br>
+        <b>Ημερομηνία Ανάληψης:</b> ${
+          data.pending !== "t" ? data.assign_date : "N/A"
+        }<br>
+        <b>Username Οχήματος:</b> ${data.pending !== "t" ? vehUsername : "N/A"}
+    </div>
+        `;  
 }
 
 async function requestPopup(data) {
@@ -50,7 +145,7 @@ async function requestPopup(data) {
             const vehResponse = await fetch(`../../controller/admin/fetch_loaded_veh.php?req_id=${encodeURIComponent(data.req_id)}`);
             if (!vehResponse.ok) throw new Error("Failed to fetch vehicle data");
             const vehData = await vehResponse.json();
-            console.log(vehData)
+            //console.log(vehData)
             if (vehData.length > 0) {
                 vehUsername = vehData[0].username;
                 
@@ -59,7 +154,7 @@ async function requestPopup(data) {
             } //console.log(vehUsername);
         }
     }catch(error){
-        console.error("Error fetching user or veh data: ", error);
+        console.error("Error fetching request data for popup: ", error);
     }
   return `<div>
         <b>Request</b><br>

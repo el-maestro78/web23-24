@@ -37,10 +37,19 @@
                         icon: L.AwesomeMarkers.icon({
                             icon: 'house', //'spinner',
                             prefix: 'fa',
-                            markerColor: 'black'
+                            markerColor: 'black',
+                            draggable: true
                         })
                     }).addTo(map);
                     marker.bindPopup(`<b>Store ID: ${store.base_id}</b>`).openPopup();
+                    marker.on('dragend', function(event) {
+                        marker = event.target;
+                        let position = marker.getLatLng();
+                        marker.setLatLng(position, {
+                            draggable: true
+                        }).bindPopup(position).update();
+                        console.log("Marker dragged to: " + position.toString());
+                    });
                 });
             })
             .catch(error => console.error('Error fetching store data:', error));
@@ -56,7 +65,11 @@
                             markerColor: 'blue'
                         })
                     }).addTo(map);
-                    marker.bindPopup(vehiclePopup(vehicle)).openPopup();
+                    marker.on('click', async () => {
+                        const content = await vehiclePopup(vehicle);
+                        //console.log(content)
+                        marker.bindPopup(content).openPopup();
+                    });
                 });
             })
             .catch(error => console.error('Error fetching vehicle data:', error));
@@ -74,7 +87,11 @@
                             iconColor: 'white',
                         })
                     }).addTo(map);
-                    marker.bindPopup(offerPopup(offer)).openPopup();
+                    marker.on('click', async () => {
+                        const content = await offerPopup(offer);
+                        //console.log(content)
+                        marker.bindPopup(content).openPopup();
+                    });
                 });
             })
             .catch(error => console.error('Error fetching offer data:', error));

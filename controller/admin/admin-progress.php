@@ -7,6 +7,7 @@
 
 3.  
     Needs popup implementation.
+    Needs store to be draggable
     Needs mechanism that whenever a task get created the 
     pending status on offer or request changes and when it gets 
     completed the request gets completed. Stored function is the best way
@@ -36,7 +37,5 @@
     Needs front end.
     Creating announcements and storing in db
     Connecting announc with item
-
-
 */
 ?>

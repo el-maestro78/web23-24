@@ -47,7 +47,8 @@ lat DOUBLE PRECISION NOT NULL
 
 CREATE TABLE vehicle_load(
 veh_id INTEGER REFERENCES vehicles(veh_id) NOT NULL,
-item_id INTEGER REFERENCES items(item_id) NOT NULL
+item_id INTEGER REFERENCES items(item_id) NOT NULL,
+load INTEGER DEFAULT 1
 );
 
 CREATE TABLE vehicle_rescuers(
@@ -125,3 +126,5 @@ CREATE VIEW baseadmin AS
     FROM dbUser
     WHERE is_admin IS TRUE
     ;
+
+--Need to add stored functions....

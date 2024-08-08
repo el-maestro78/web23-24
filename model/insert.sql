@@ -21,21 +21,27 @@ INSERT INTO  items(item_id, iname, quantity, category, details) VALUES
 (2,'spam, eggs, spam, spam & spam', 100, 0, 'Better than spam eggs spam');
 
 INSERT INTO requests(req_id, pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES 
-(0, FALSE, FALSE, 1, current_date, current_date, 78, 1, 21.731021839078, 38.244808224971),
-(1, FALSE, FALSE, 1, current_date, current_date, 78, 2, 21.734499691362, 38.246439932828),
-(2, TRUE, FALSE, 1, current_date, NULL, 78, 0, 21.734503111278, 38.245888739736),
-(3, TRUE, FALSE, 1, current_date, NULL, 78, 1, 21.732724118553, 38.244914513495);
+(0, FALSE, FALSE, 5, current_date, current_date, 78, 1, 21.731021839078, 38.244808224971),
+(1, FALSE, FALSE, 10, current_date, current_date, 78, 2, 21.734499691362, 38.246439932828),
+(2, TRUE, FALSE, 5, current_date, NULL, 78, 0, 21.734503111278, 38.245888739736),
+(3, TRUE, FALSE, 10, current_date, NULL, 78, 1, 21.732724118553, 38.244914513495);
 
 INSERT INTO offers(off_id, pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES 
-(0, FALSE, FALSE, 1, current_date, current_date, 78, 1, 21.738, 38.268809889),
-(1, FALSE, FALSE, 1, current_date, current_date, 78, 2, 23.745, 38.0),
-(2, TRUE, FALSE, 1, current_date, NULL, 78, 0, 21.800, 38.2356855),
-(3, TRUE, FALSE, 1, current_date, NULL, 78, 1, 21.850, 38.230),
+(0, FALSE, FALSE, 5, current_date, current_date, 78, 1, 21.738, 38.268809889),
+(1, FALSE, FALSE, 10, current_date, current_date, 78, 2, 23.745, 38.0),
+(2, TRUE, FALSE, 5, current_date, NULL, 78, 0, 21.800, 38.2356855),
+(3, TRUE, FALSE, 10, current_date, NULL, 78, 1, 21.850, 38.230),
 (4, FALSE, TRUE, 1, current_date, NULL, 78, 1, 21.100, 38.230);
 
 INSERT INTO tasks(tasks_id, user_id, veh_id, off_id, req_id, completed) VALUES 
 (0, 78, 1, 0, NULL, FALSE),
+(5, 78, 1, NULL, 0, FALSE),
 (1, 78, 2, 1, NULL, FALSE),
-(2, 78, 3, NULL, 0, FALSE),
+(2, 78, 0, NULL, 0, FALSE),
 (3, 78, 0, NULL, 1, FALSE),
 (4, 78, 1, NULL, 0, TRUE);
+
+INSERT INTO vehicle_load(veh_id, item_id, load) VALUES
+(0, 1, 5),
+(0, 2, 10),
+(1, 2, 10);
