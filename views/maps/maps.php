@@ -92,7 +92,12 @@
                             iconColor: 'white',
                         })
                     }).addTo(map);
-                    marker.bindPopup(requestPopup(request)).openPopup();
+                    //marker.bindPopup(requestPopup(request)).openPopup();
+                    marker.on('click', async () => {
+                        const content = await requestPopup(request);
+                        //console.log(content)
+                        marker.bindPopup(content).openPopup();
+                    });
                 })
             })
             .catch(error => console.error('Error fetching request data:', error));

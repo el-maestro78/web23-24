@@ -1,8 +1,8 @@
 <?php
 include("../../model/config.php");
 $req_id = isset($_GET['req_id']) ? $_GET['req_id'] : '';
-
-if($req_id){
+//$req_id = 0;
+if($req_id !== null && $req_id != ""){
     $query = "
     SELECT vehicles.username 
     FROM tasks 

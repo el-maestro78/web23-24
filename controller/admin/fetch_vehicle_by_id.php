@@ -3,7 +3,7 @@ include("../../model/config.php");
 
 $veh_id = isset($_GET['veh_id']) ? $_GET['veh_id'] : '';
 
-if ($veh_id) {
+if($veh_id !== null && $veh_id != "") {
     // Prepare SQL query
     $query = "SELECT veh_id, first_name, surname, phone FROM dbUser WHERE veh_id=$1";
     

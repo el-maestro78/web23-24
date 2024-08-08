@@ -3,7 +3,7 @@ include("../../model/config.php");
 
 $item_id = isset($_GET['item_id']) ? $_GET['item_id'] : '';
 
-if ($item_id) {
+if ($item_id !== null && $item_id != "") {
     $query = "SELECT item_id, iname, quantity, category FROM items WHERE item_id=$1";
     $result = pg_query_params($dbconn, $query, array($item_id));
 
