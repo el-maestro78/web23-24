@@ -3,7 +3,7 @@ INSERT INTO base (lat, long) VALUES
 (38.258236, 21.743137),
 (38.244872, 21.731950);
 
-INSERT INTO vehicles (username, lat, long) VALUES
+INSERT INTO vehicles (veh_id, username, lat, long) VALUES
 (0, 'bear', 38.246444, 21.734203),
 (1, 'lion', 38.258236, 21.743137),
 (2, 'RAT', 38.244872, 21.731950),
@@ -20,18 +20,18 @@ INSERT INTO  items(item_id, iname, quantity, category, details) VALUES
 (1,'spam, eggs & spam', 10, 0,'Less spam in it'),
 (2,'spam, eggs, spam, spam & spam', 100, 0, 'Better than spam eggs spam');
 
-INSERT INTO requests(pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES 
+INSERT INTO requests(req_id, pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES 
 (0, FALSE, FALSE, 1, current_date, current_date, 78, 1, 21.731021839078, 38.244808224971),
 (1, FALSE, FALSE, 1, current_date, current_date, 78, 2, 21.734499691362, 38.246439932828),
 (2, TRUE, FALSE, 1, current_date, NULL, 78, 0, 21.734503111278, 38.245888739736),
 (3, TRUE, FALSE, 1, current_date, NULL, 78, 1, 21.732724118553, 38.244914513495);
 
-INSERT INTO offers(pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES 
+INSERT INTO offers(off_id, pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES 
 (0, FALSE, FALSE, 1, current_date, current_date, 78, 1, 21.738, 38.268809889),
-(1, FALSE, FALSE, 1, current_date, current_date, 78, 2, 23.745, 39.0),
+(1, FALSE, FALSE, 1, current_date, current_date, 78, 2, 23.745, 38.0),
 (2, TRUE, FALSE, 1, current_date, NULL, 78, 0, 21.800, 38.2356855),
 (3, TRUE, FALSE, 1, current_date, NULL, 78, 1, 21.850, 38.230),
-(4, FALSE, TRUE, 1, current_date, NULL, 78, 1, 22.850, 36.230);
+(4, FALSE, TRUE, 1, current_date, NULL, 78, 1, 21.100, 38.230);
 
 INSERT INTO tasks(tasks_id, user_id, veh_id, off_id, req_id, completed) VALUES 
 (0, 78, 1, 0, NULL, FALSE),

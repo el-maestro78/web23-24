@@ -13,52 +13,36 @@ if (!$result) {
     die("Error: " . pg_last_error());
 }
 $usernames= array();
-
-//$count = pg_fetch_result($result, 0, 0);
-//if ($count > 0){
+$ids = array();
 if (pg_num_rows($result) !== 0){
     while ($row = pg_fetch_assoc($result)) {
         $usernames[] = $row['username'];
+        $ids[] = $row['veh_id'];
     }
-    $delete_query = "DELETE FROM vehicles";
-    $delete_result = pg_query($dbconn, $delete_query);
-
-    if (!$delete_result) {
-        die("Error deleting vehicles: " . pg_last_error());
-    }
-    $insert_query = "INSERT INTO vehicles (username, lat, long) VALUES ";
-    $values = array();
+}
     $cnt = 0;
     foreach ($vehicles as $veh) {
         // Ensure username is properly quoted and escaped
+        $id = pg_escape_literal($ids[$cnt]);
         $username = pg_escape_literal($usernames[$cnt]);
-        $lat = $veh['lat'];
-        $long = $veh['long'];
-        $values[] = "($username, $lat, $long)";
+        $lat = pg_escape_literal($veh['lat']);
+        $long = pg_escape_literal($veh['long']);
         $cnt += 1;
-    }
-
-    $insert_query .= implode(", ", $values);
-    $insert_result = pg_query($dbconn, $insert_query);
-
-    if (!$insert_result) {
-        die("Error inserting vehicles: " . pg_last_error());
-    }
-}else{
-    $insert_query = "INSERT INTO vehicles (username, lat, long) VALUES ";
-    $values = array();
-    $cnt = 0;
-    foreach ($vehicles as $veh) {
-        $values[] = "({$cnt}, {$veh['lat']}, {$veh['long']})";
-        $cnt += 1;
-    }
-
-    $insert_query .= implode(", ", $values);
-    $insert_result = pg_query($dbconn, $insert_query);
-
-    if (!$insert_result) {
-        die("Error inserting vehicles: " . pg_last_error());
-    }
+        try{
+            $update_query = "UPDATE vehicles SET lat = $lat, long = $long WHERE veh_id = $id";
+            $update_result = pg_query($dbconn, $update_query);
+            if (!$update_result) {
+                die("Error updating vehicle: " . pg_last_error());
+            }
+        } catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
+        $insert_query = "INSERT INTO vehicles (veh_id, username, lat, long) VALUES ($id, $username, $lat, $long)";
+        $insert_result = pg_query($dbconn, $insert_query);
+        if (!$insert_result) {
+            die("Error inserting vehicle: " . pg_last_error());
+            }
+        }
+            
 }
 
 //echo "Vehicles updated successfully."; //DEBUG
