@@ -12,7 +12,6 @@ Aux. (Last)
 
 3.  
     Needs store to be draggable
-    Needs marker line for vehicles
 
 4.  Not implemented yet
     Needs filter for assigned & pending requests

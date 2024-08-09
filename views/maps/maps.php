@@ -31,10 +31,9 @@
 
         const polylineLayerGroup = L.layerGroup().addTo(map);
         map.on('click', (event) => {
-            // Clear polylines when clicking on the map
-            polylineLayerGroup.clearLayers();
+            polylineLayerGroup.clearLayers(); //clear vehicle lines
         });
-        
+
         fetch('../../controller/admin/fetch_stores.php')
             .then(response => response.json())
             .then(data => {
@@ -44,18 +43,22 @@
                             icon: 'house', //'spinner',
                             prefix: 'fa',
                             markerColor: 'black',
-                            draggable: true
-                        })
+                        }),
+                        draggable: true,
                     }).addTo(map);
                     marker.bindPopup(`<b>Store ID: ${store.base_id}</b>`).openPopup();
-                    marker.on('dragend', function(event) {
-                        marker = event.target;
-                        let position = marker.getLatLng();
-                        marker.setLatLng(position, {
-                            draggable: true
-                        }).bindPopup(position).update();
-                        console.log("Marker dragged to: " + position.toString());
+                    /*
+                    marker.on('dragstart', function(event) {
+                        console.log('Drag started');
                     });
+                    marker.on('drag', function(event) {
+                        let marker = event.target;
+                        let position = marker.getLatLng();
+                    });*/
+                    marker.on('dragend', (event) => {
+                        storedrag(event, store.base_id);
+                    });
+                    map.addLayer(marker);
                 });
             })
             .catch(error => console.error('Error fetching store data:', error));

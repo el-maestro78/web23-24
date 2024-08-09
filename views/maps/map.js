@@ -1,3 +1,8 @@
+/*
+* Auxiliary functions in order to reduce complexity from maps.php
+*
+*/
+
 /**
  * 
  * @param {JSON} data contains the request or offer json
@@ -8,6 +13,28 @@ function getDataColor(data) {
     if(data.pending !== "t") return "green" //'red';
     else return "red";//'yellow';
     //return data.pending ? "red" : "yellow";
+}
+
+
+async function storedrag(event, base_id){
+    let marker = event.target;
+    let position = marker.getLatLng();
+    let lat = position.lat;
+    let long = position.lng;
+
+    marker.setLatLng(position, {
+        draggable: 'true'
+    }).bindPopup(position).update();
+    try {
+      fetch(
+        `../../controller/admin/update_store_pos.php?base_id=${encodeURIComponent(base_id)}
+        &lat=${encodeURIComponent(lat)}
+        &long=${encodeURIComponent(long)}`
+      );
+    } catch (error) {
+      console.error("Error storing store data:", error);
+    }
+
 }
 
 async function vehiclePopup(data){
@@ -194,7 +221,7 @@ async function drawVehicleLine(marker, tasksProm) {
     try{
         const tasks = await tasksProm;
         if (tasks.length <= 0) {
-          console.log("Nothing");
+          //console.log("Nothing");
           return;
         }
         //console.log(tasks);
