@@ -197,12 +197,13 @@ async function drawVehicleLine(marker, tasksProm) {
           console.log("Nothing");
           return;
         }
-        console.log(tasks);
+        //console.log(tasks);
         tasks.forEach((task) => {
           const taskLatLng = [task.lat, task.long];
-          L.polyline([marker.getLatLng(), taskLatLng], { color: "blue" }).addTo(
+          const polyline = L.polyline([marker.getLatLng(), taskLatLng], { color: "blue" }).addTo(
             map
           );
+          polyline.addTo(polylineLayerGroup);
         });
     }catch{
         if (tasks.length <= 0) {

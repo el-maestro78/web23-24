@@ -29,6 +29,12 @@
             attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        const polylineLayerGroup = L.layerGroup().addTo(map);
+        map.on('click', (event) => {
+            // Clear polylines when clicking on the map
+            polylineLayerGroup.clearLayers();
+        });
+        
         fetch('../../controller/admin/fetch_stores.php')
             .then(response => response.json())
             .then(data => {
@@ -71,6 +77,7 @@
                         marker.bindPopup(content).openPopup();
                         let tasks = getVehicleTasks(vehicle.veh_id);
                         drawVehicleLine(marker, tasks);
+                        polylineLayerGroup.clearLayers();
                     });
                 });
             })
