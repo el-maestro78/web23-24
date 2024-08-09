@@ -69,6 +69,8 @@
                         const content = await vehiclePopup(vehicle);
                         //console.log(content)
                         marker.bindPopup(content).openPopup();
+                        let tasks = getVehicleTasks(vehicle.veh_id);
+                        drawVehicleLine(marker, tasks);
                     });
                 });
             })

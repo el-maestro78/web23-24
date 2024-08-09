@@ -3,16 +3,6 @@ include("../../model/config.php");
 
 $veh_id = isset($_GET['veh_id']) ? $_GET['veh_id'] : '';
 //$veh_id = 0;
-/*
-    vehLoad = vehData[0].load;
-    vehStatus = vehData[0].status;
-    vehTasks = vehData[0].tasks; done
-      $load_query = "
-    SELECT count(item_id) AS load_count, item.iname
-    FROM vehicle_load JOIN items ON items.item_id = vehicle_load.item_id
-    WHERE veh_id=$1
-    ";
-*/
 
 if($veh_id !== null && $veh_id != "") {
     $task_query = "

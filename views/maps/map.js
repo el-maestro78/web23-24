@@ -171,4 +171,51 @@ async function requestPopup(data) {
         `;  
 }
 
+async function getVehicleTasks(id){
+    const taskResp = await fetch(`../../controller/admin/fetch_tasks_for_line.php?veh_id=${encodeURIComponent(id)}`);
+    const taskData = await taskResp.json();
+    //console.log(taskData)
+    let tasks = [];
+    if (taskData.offers.length > 0){
+        taskData.offers.forEach((offer) => {
+        tasks.push({ ...offer});
+        });
+    }
+    if (taskData.requests.length > 0) {
+      taskData.requests.forEach((request) => {
+        tasks.push({ ...request});
+      });
+    }
+    return tasks;
+}
 
+
+async function drawVehicleLine(marker, tasksProm) {
+    try{
+        const tasks = await tasksProm;
+        if (tasks.length <= 0) {
+          console.log("Nothing");
+          return;
+        }
+        console.log(tasks);
+        tasks.forEach((task) => {
+          const taskLatLng = [task.lat, task.long];
+          L.polyline([marker.getLatLng(), taskLatLng], { color: "blue" }).addTo(
+            map
+          );
+        });
+    }catch{
+        if (tasks.length <= 0) {
+          console.log("Nothing");
+          return;
+        }
+        console.log(tasks);
+        tasks.forEach((task) => {
+          const taskLatLng = [task.lat, task.long];
+          L.polyline([marker.getLatLng(), taskLatLng], { color: "blue" }).addTo(
+            map
+          );
+        });
+    }
+    
+}

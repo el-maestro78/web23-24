@@ -1,16 +1,18 @@
 <?php
 /*
+Aux. (Last)
+    Needs mechanism that whenever a task get created the 
+    pending status on offer or request changes and when it gets 
+    completed the request gets completed. Stored function is the best way
+
 1.  Needs front end, mostly done
 
 2.  Needs front end for offers, rescuers editing etc.
     Needs json and url load into database
 
 3.  
-    Needs popup implementation.
     Needs store to be draggable
-    Needs mechanism that whenever a task get created the 
-    pending status on offer or request changes and when it gets 
-    completed the request gets completed. Stored function is the best way
+    Needs marker line for vehicles
 
 4.  Not implemented yet
     Needs filter for assigned & pending requests
