@@ -36,7 +36,7 @@
             <input type="password" id="password">
             <div class="gradient-line"></div>
 
-            <input type="submit" id="submit" value="Submit">
+            <input type="submit" class="button_input" id="submit" value="Submit">
         </div>
         </div>
 
@@ -47,6 +47,9 @@
     document.addEventListener('DOMContentLoaded', function() {
       const inputs = document.querySelectorAll('.form input');
       const lines = document.querySelectorAll('.gradient-line');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const submitButton = document.getElementById('submit');
 
       inputs.forEach((input, index) => {
         input.addEventListener('focus', () => {
@@ -60,6 +63,15 @@
         });
       });
     });
+    function checkInputs() {
+            if (emailInput.value !== '' && passwordInput.value !== '') {
+                submitButton.classList.add('gradient-border');
+            } else {
+                submitButton.classList.remove('gradient-border');
+            }
+        }
+        emailInput.addEventListener('input', checkInputs);
+        passwordInput.addEventListener('input', checkInputs);
     </script>
 
 </body>

@@ -69,8 +69,36 @@ label {
 }
 
 input {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.1); 
+  border-radius: 15px;
   border: 0;
+  padding-left: 10px;
+  color: #f2f2f2;
+  font-size: 20px;
+  height: 30px;
+  line-height: 30px;
+  outline: none !important;
+  width: 100%;
+}
+
+input {
+  background: rgba(255, 255, 255, 0.1); 
+  border-radius: 15px;
+  border: 0;
+  padding-left: 10px;
+  color: #f2f2f2;
+  font-size: 20px;
+  height: 30px;
+  line-height: 30px;
+  outline: none !important;
+  width: 100%;
+}
+
+.button_input {
+  background: transparent; 
+  border-radius: 15px;
+  border: 0;
+  padding-left: 10px;
   color: #f2f2f2;
   font-size: 20px;
   height: 30px;
@@ -81,9 +109,16 @@ input {
 
 .gradient-line {
   height: 2px;
+  width: 90%;
   background-image: linear-gradient(to right, #44d7ee, #daeffc);
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  margin: 0 auto;
+}
+
+.gradient-border {
+  border-image: linear-gradient(to right, #44d7ee, #daeffc);
+  border-image-slice: 1;
 }
 
 .active {
