@@ -21,13 +21,15 @@
     <div class="page">
     <div class="container">
 
-        <div class="left_box">
+        <div class="left_login_box">
         <div class="login">Login</div>
-        <div class="box_text">You must be loggined in in order to access our page. This is important to avoid fake help requests and have an organised track of all requests.</div>
+        <div class="box_text">You must be loggined in, in order to access our page. This is important to avoid fake help requests and have an organised track of all requests.</div>
+        <div class="box_text_2">Not a registered user?</div>
+        <a href="signup.php" class="signup-link">Sign Up</a>
         </div>
 
-        <div class="right_box">
-        <div class="form">
+        <div class="right_login_box">
+        <div class="login_form">
             <label for="email">Email</label>
             <input type="email" id="email">
             <div class="gradient-line"></div>
@@ -45,11 +47,8 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const inputs = document.querySelectorAll('.form input');
+      const inputs = document.querySelectorAll('.login_form input');
       const lines = document.querySelectorAll('.gradient-line');
-      const emailInput = document.getElementById('email');
-      const passwordInput = document.getElementById('password');
-      const submitButton = document.getElementById('submit');
 
       inputs.forEach((input, index) => {
         input.addEventListener('focus', () => {
@@ -63,15 +62,19 @@
         });
       });
     });
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const submitButton = document.getElementById('submit');
     function checkInputs() {
+
             if (emailInput.value !== '' && passwordInput.value !== '') {
                 submitButton.classList.add('gradient-border');
             } else {
                 submitButton.classList.remove('gradient-border');
             }
         }
-        emailInput.addEventListener('input', checkInputs);
-        passwordInput.addEventListener('input', checkInputs);
+      emailInput.addEventListener('input', checkInputs);
+      passwordInput.addEventListener('input', checkInputs);
     </script>
 
 </body>
