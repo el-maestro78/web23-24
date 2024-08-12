@@ -4,44 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='signup.css'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Sign Up</title>
 </head>
 <?php
-    include("../model/config.php");
+//    include("../model/config.php");
 //    $dbconn = getDbConnection();
-    include("../controller/login4all.php")
+//    include("../controller/login4all.php")
 ?>  
-<style>
-<?php include 'CSS/main.css'; ?>
-</style>
 <body>
     <div class="page">
     <div class="container">
 
-        <div class="left_signup_box">
+        <div class="left_box">
         <div class="signup">Sign Up</div>
-        <div class="left_signup_form">
-            <label for="email" class=left_signup_label>Email</label>
-            <input type="email" id="email" class="left_signup_input">
+        <div class="left_form">
+            <label for="email" class=left_label>Email</label>
+            <input type="email" id="email" class="left_input">
             <div class="gradient-line"></div>
 
-            <label for="password" class=left_signup_label>Password</label>
-            <input type="password" id="password" class="left_signup_input">
+            <label for="password" class=left_label>Password</label>
+            <input type="password" id="password" class="left_input">
             <div class="gradient-line"></div>
 
         </div>
         </div>
 
-        <div class="right_signup_box">
-        <div class="left_signup_form">
-            <label for="email">Email*</label>
+        <div class="right_box">
+        <div class="left_form">
+            <label for="email">Email</label>
             <input type="email" id="email">
             <div class="gradient-line"></div>
 
-            <label for="password">Password*</label>
+            <label for="password">Password</label>
             <input type="password" id="password">
             <div class="gradient-line"></div>
 
