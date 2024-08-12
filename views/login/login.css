@@ -23,17 +23,22 @@
 
   .box_text_2 {
     color: #999;
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 20px 0px 0px 40px;
+    margin: 20px 10px 0px 40px;
   }
   
-  .box_text_2,
-  .signup-link {
-    display: inline-block;
-    margin-right: 10px;
-    font-size: 14px;
+  .signup_link {
+    color: #44d7ee;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 20px 0px 0px;
   }
+
+  .box_text_2, .signup_link {
+    font-size: 14px;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle; 
+}
 
   .container {
     display: flex;

@@ -22,21 +22,35 @@
         <div class="left_box">
         <div class="signup">Sign Up</div>
         <div class="left_form">
+            <label for="fname" class=left_label>First Name</label>
+            <input type="text" id="fname" class="left_input" required>
+            <div class="gradient-line"></div>
+        
+            <label for="lname" class=left_label>Last Name</label>
+            <input type="text" id="lname" class="left_input" required>
+            <div class="gradient-line"></div>
+
             <label for="email" class=left_label>Email</label>
-            <input type="email" id="email" class="left_input">
+            <input type="email" id="email" class="left_input" required>
             <div class="gradient-line"></div>
 
             <label for="password" class=left_label>Password</label>
-            <input type="password" id="password" class="left_input">
+            <input type="password" id="password" class="left_input" required>
             <div class="gradient-line"></div>
+            <input type="checkbox" onclick="showPassword('password')">Show
 
+            <label for="password" class=left_label>Confirm Password</label>
+            <input type="password" id="conf_password" class="left_input" required>
+            <div class="gradient-line"></div>
+            <input type="checkbox" onclick="showPassword('conf_password')">Show
         </div>
         </div>
 
         <div class="right_box">
-        <div class="left_form">
-            <label for="email">Email</label>
-            <input type="email" id="email">
+        <div class="details">Lacation and Contact Details</div>
+        <div class="right_form">
+            <label for="street">Street</label>
+            <input type="text" id="street">
             <div class="gradient-line"></div>
 
             <label for="password">Password</label>
@@ -80,6 +94,15 @@
         }
       emailInput.addEventListener('input', checkInputs);
       passwordInput.addEventListener('input', checkInputs);
+
+      function showPassword(inputId) {
+        var x = document.getElementById(inputId);
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+      }
+    }
     </script>
 
 </body>

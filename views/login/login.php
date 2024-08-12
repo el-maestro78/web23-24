@@ -23,7 +23,7 @@
         <div class="login">Login</div>
         <div class="box_text">You must be loggined in, in order to access our page. This is important to avoid fake help requests and have an organised track of all requests.</div>
         <div class="box_text_2">Not a registered user?</div>
-        <a href="../signup/signup.php" class="signup-link">Sign Up</a>
+        <a href="../signup/civilian_signup.php" class="signup_link">Sign Up</a>
         </div>
 
         <div class="right_box">
@@ -45,7 +45,7 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const inputs = document.querySelectorAll('.login_form input');
+      const inputs = document.querySelectorAll('.form input');
       const lines = document.querySelectorAll('.gradient-line');
 
       inputs.forEach((input, index) => {
@@ -54,7 +54,7 @@
         });
 
         input.addEventListener('blur', () => {
-          if (!input.value.trim()) { // Check if the input is empty
+          if (!input.value.trim()) { 
             lines[index].classList.remove('active');
           }
         });

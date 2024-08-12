@@ -9,7 +9,6 @@
   .left_box {
     background: white;
     height: calc(100%);
-    top: 0px;
     position: relative;
     width: 40%;
   }
@@ -24,7 +23,7 @@
   .container {
     display: flex;
     justify-content: center;
-    height: 320px;
+    height: 720px;
     margin: 0 auto;
     width: 640px;
   }
@@ -63,6 +62,20 @@
     font-weight: 900;
     margin: 20px 40px 0px;
   }
+
+  .details {
+    font-size: 20px;
+    color: #d8dde2;
+    font-weight: bold;
+    margin: 20px 40px 0px;
+  }
+
+  .sub_details {
+    font-size: 20px;
+    color: #d8dde2;
+    font-weight: bold;
+    margin: 10px 40px 0px;
+  }
   
   input {
     background: rgba(255, 255, 255, 0.1); 
@@ -79,15 +92,7 @@
   
   .left_input {
     background: rgba(0, 0, 0, 0.1); 
-    border-radius: 15px;
-    border: 0;
-    padding-left: 10px;
-    color: #f2f2f2;
-    font-size: 20px;
-    height: 30px;
-    line-height: 30px;
-    outline: none !important;
-    width: 100%;
+    color: #606060;
   }
   
   .button_input {
