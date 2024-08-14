@@ -4,6 +4,10 @@
     color: #F1F1F2;
     position: relative;
     width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   .left_box {
@@ -80,8 +84,37 @@
     line-height: 30px;
     outline: none !important;
     width: 100%;
+    max-width: 200px;
   }
-  
+
+.password_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 200px;
+}
+
+.password_icon {
+  position: absolute;
+  right: 10px;
+  top: 45%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #f2f2f2;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+.password_icon img {
+    height: 25px;
+    width: auto;
+  }
+
   .button_input {
     background: transparent; 
     border-radius: 15px;
@@ -98,10 +131,11 @@
   .gradient-line {
     height: 2px;
     width: 90%;
+    max-width: 180px;
     background-image: linear-gradient(to right, #44d7ee, #daeffc);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    margin: 0 auto;
+    margin: 0 10px;
   }
   
   .gradient-border {

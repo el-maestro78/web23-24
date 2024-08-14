@@ -21,7 +21,7 @@
 
         <div class="left_box">
         <div class="signup">Sign Up</div>
-        <div class="left_form">
+        <div class="form">
             <label for="fname" class=left_label>First Name</label>
             <input type="text" id="fname" class="left_input" required>
             <div class="gradient-line"></div>
@@ -33,28 +33,49 @@
             <label for="email" class=left_label>Email</label>
             <input type="email" id="email" class="left_input" required>
             <div class="gradient-line"></div>
-
+            
             <label for="password" class=left_label>Password</label>
-            <input type="password" id="password" class="left_input" required>
+            <div class="password_container">
+             <input type="password" id="password" class="left_input" required>
+              <button type="button" class="password_icon" onclick="showPassword('password','pass_img')">
+              <img src="../media/hide_pass.png" alt="Show Password" id="pass_img">
+              </button>
+            </div>
             <div class="gradient-line"></div>
-            <input type="checkbox" onclick="showPassword('password')">Show
 
-            <label for="password" class=left_label>Confirm Password</label>
-            <input type="password" id="conf_password" class="left_input" required>
+            <label for="conf_password" class=left_label>Confirm Password</label>
+            <div class="password_container">
+             <input type="password" id="conf_password" class="left_input" required>
+              <button type="button" class="password_icon" onclick="showPassword('conf_password','conf_pass_img')">
+              <img src="../media/hide_pass.png" alt="Show Password" id="conf_pass_img">
+              </button>
+            </div>
             <div class="gradient-line"></div>
-            <input type="checkbox" onclick="showPassword('conf_password')">Show
         </div>
         </div>
 
         <div class="right_box">
-        <div class="details">Lacation and Contact Details</div>
-        <div class="right_form">
-            <label for="street">Street</label>
+        <div class="details">Location and Contact Details</div>
+        <div class="form">
+
+            <label for="country">Country</label> <br>
+            <input type="text" id="country">
+            <div class="gradient-line"></div>
+
+            <label for="city">City</label> <br>
+            <input type="text" id="city">
+            <div class="gradient-line"></div>
+
+            <label for="street">Street n' Number</label> <br>
             <input type="text" id="street">
             <div class="gradient-line"></div>
 
-            <label for="password">Password</label>
-            <input type="password" id="password">
+            <label for="zcode">Zip Code</label> <br>
+            <input type="text" id="zcode">
+            <div class="gradient-line"></div>
+
+            <label for="phonenr">Phone Number</label> <br>
+            <input type="text" id="phonenr">
             <div class="gradient-line"></div>
 
             <input type="submit" class="button_input" id="submit" value="Submit">
@@ -83,10 +104,27 @@
     });
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
+    const fnameInput = document.getElementById('fname');
+    const lnameInput = document.getElementById('lname');
+    const confPassInput = document.getElementById('conf_password');
+    const countryInput = document.getElementById('country');
+    const cityInput = document.getElementById('city');
+    const  streetInput= document.getElementById('street');
+    const  zcodeInput= document.getElementById('zcode');
+    const phonenrInput = document.getElementById('phonenr');
     const submitButton = document.getElementById('submit');
     function checkInputs() {
-
-            if (emailInput.value !== '' && passwordInput.value !== '') {
+            if (emailInput.value !== '' && 
+            passwordInput.value !== '' && 
+            fnameInput.value !== '' && 
+            lnameInput.value !== '' && 
+            confPassInput.value !== '' && 
+            countryInput.value !== '' && 
+            cityInput.value !== '' &&
+            streetInput.value !== '' && 
+            zcodeInput.value !== '' && 
+            phonenrInput.value !== '' && 
+            submitButton.value !== '') {
                 submitButton.classList.add('gradient-border');
             } else {
                 submitButton.classList.remove('gradient-border');
@@ -94,13 +132,26 @@
         }
       emailInput.addEventListener('input', checkInputs);
       passwordInput.addEventListener('input', checkInputs);
+      fnameInput.addEventListener('input', checkInputs);
+      lnameInput.addEventListener('input', checkInputs);
+      confPassInput.addEventListener('input', checkInputs);
+      countryInput.addEventListener('input', checkInputs);
+      cityInput.addEventListener('input', checkInputs);
+      streetInput.addEventListener('input', checkInputs);
+      zcodeInput.addEventListener('input', checkInputs);
+      phonenr.addEventListener('input', checkInputs);
 
-      function showPassword(inputId) {
-        var x = document.getElementById(inputId);
+      function showPassword(inputID, imgID) {
+        var x = document.getElementById(inputID);
+        var y = document.getElementById(imgID)
         if (x.type === "password") {
           x.type = "text";
+          y.src="../media/show_pass.png"
+          y.alt="Hide Password"
         } else {
           x.type = "password";
+          y.src="../media/hide_pass.png"
+          y.alt="Show Password"
       }
     }
     </script>

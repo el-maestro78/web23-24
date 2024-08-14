@@ -33,7 +33,12 @@
             <div class="gradient-line"></div>
 
             <label for="password">Password</label>
-            <input type="password" id="password">
+            <div class="password_container">
+             <input type="password" id="password" class="left_input" required>
+              <button type="button" class="password_icon" onclick="showPassword('password','pass_img')">
+              <img src="../media/hide_pass.png" alt="Show Password" id="pass_img">
+              </button>
+            </div>
             <div class="gradient-line"></div>
 
             <input type="submit" class="button_input" id="submit" value="Submit">
@@ -73,6 +78,20 @@
         }
       emailInput.addEventListener('input', checkInputs);
       passwordInput.addEventListener('input', checkInputs);
+
+      function showPassword(inputID, imgID) {
+        var x = document.getElementById(inputID);
+        var y = document.getElementById(imgID)
+        if (x.type === "password") {
+          x.type = "text";
+          y.src="../media/hide_pass.png"
+          y.alt="Hide Password"
+        } else {
+          x.type = "password";
+          y.src="../media/show_pass.png"
+          y.alt="Show Password"
+      }
+    }
     </script>
 
 </body>

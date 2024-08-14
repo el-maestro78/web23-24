@@ -20,20 +20,28 @@
     margin: 40px 40px 0px 40px;
   }
 
+  .registered_link {
+    color: #44d7ee;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 20px 0px 0px;
+  }
+
+  .box_text, .registered_link {
+    font-size: 14px;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle; 
+}
   .container {
     display: flex;
     justify-content: center;
-    height: 720px;
+    height: 560px;
     margin: 0 auto;
     width: 640px;
   }
  
-  .left_form {
-    margin: 0px 40px;
-    position: absolute;
-  }
-  
-  .right_form {
+  .form {
     margin: 0px 40px;
     position: absolute;
   }
@@ -88,13 +96,42 @@
     line-height: 30px;
     outline: none !important;
     width: 100%;
+    max-width: 200px;
   }
-  
+
+.password_container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 200px;
+}
+
+.password_icon {
+    position: absolute;
+    right: 10px;
+    top: 45%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #f2f2f2;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+  .password_icon img {
+      height: 25px;
+      width: auto;
+    }
+
   .left_input {
-    background: rgba(0, 0, 0, 0.1); 
-    color: #606060;
-  }
-  
+      background: rgba(0, 0, 0, 0.1); 
+      color: #606060;
+    }
+    
   .button_input {
     background: transparent; 
     border-radius: 15px;
@@ -114,7 +151,7 @@
     background-image: linear-gradient(to right, #44d7ee, #daeffc);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    margin: 0 auto;
+    margin: 0 10px;
   }
   
   .gradient-border {
