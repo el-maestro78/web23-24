@@ -9,9 +9,8 @@
  * @returns string
  */
 function getDataColor(data) {
-    if(data.pending !== "t") return "green" //'red';
-    else return "red";//'yellow';
-    //return data.pending ? "red" : "yellow";
+    if(data.pending !== "t") return "green";
+    else return "red";
 }
 
 function getDataType(data) {
@@ -19,22 +18,29 @@ function getDataType(data) {
     else return "pending";
 }
 
-async function getVehColor(data) {
-    const {vehStatus} = await vehicleTasks(data);
+function getVehColor(data) {
+    vehicleTasks(data).then(result => {
+        const { vehStatus} = result;
+        /*
+        if(vehStatus === 1) return "blue";
+        else return "gray"; */
 
-    if(vehStatus === 1)
-        return "blue";
-    else
-        return "black";
+        return vehStatus === 1 ? "blue" : "gray";
+    }).catch(error => {
+        console.error("Error occurred while fetching vehicle data: ", error);});
+        return '';
 }
 
-async function getVehType(data) {
-    const {vehStatus} = await vehicleTasks(data);
-
-    if(vehStatus === 1) return "assigned";
-    else return "pending";
+function getVehType(data) {
+    //const {vehStatus} = vehicleTasks(data);
+    vehicleTasks(data).then(result => {
+        const { vehStatus} = result;
+        if(vehStatus === 1) return "assigned";
+        else return "pending";
+    }).catch(error => {
+        console.error("Error occurred while fetching vehicle data: ", error);});
+        return '';
 }
-
 
 async function storedrag(event, base_id){
     let marker = event.target;

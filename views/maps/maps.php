@@ -34,6 +34,7 @@
     -->
     <!-- Aux functions for a cleaner maps.php file-->
     <script src="./map.js"></script>
+    <script src="./markers.js"></script>
     <script src="./icons.js"></script>
 
     <script>
@@ -53,16 +54,17 @@
         const vehicleLayer = L.layerGroup().addTo(map);
         const offerLayer = L.layerGroup().addTo(map);
         const requestLayer = L.layerGroup().addTo(map);*/
-        const markerLayer = L.layerGroup()
-        const vehicleLayer = L.layerGroup()
-        const vehicleIdleLayer= L.layerGroup()
-        const vehicleBusyLayer= L.layerGroup()
-        const offerLayer = L.layerGroup()
-        const offerPendingLayer = L.layerGroup()
-        const offerAssignedLayer = L.layerGroup()
-        const requestLayer = L.layerGroup()
-        const requestPendingLayer = L.layerGroup()
-        const requestAssignedLayer = L.layerGroup()
+        const markerLayer = L.layerGroup();
+        const baseLayer = L.layerGroup();
+        const vehicleLayer = L.layerGroup();
+        const vehicleIdleLayer= L.layerGroup();
+        const vehicleBusyLayer= L.layerGroup();
+        const offerLayer = L.layerGroup();
+        const offerPendingLayer = L.layerGroup();
+        const offerAssignedLayer = L.layerGroup();
+        const requestLayer = L.layerGroup();
+        const requestPendingLayer = L.layerGroup();
+        const requestAssignedLayer = L.layerGroup();
 
         // Vehicle Lines
         const polylineLayerGroup = L.layerGroup().addTo(map);
@@ -96,35 +98,45 @@
                         storedrag(event, store.base_id);
                     });
                     marker.addTo(markerLayer);
+                    marker.addTo(baseLayer);
                 });
             })
             .catch(error => console.error('Error fetching store data:', error));
 
+        //fetch_vehicles(map);
         fetch('../../controller/admin/fetch_vehicles.php')
             .then(response => response.json())
             .then(data => {
                 data.forEach(vehicle => {
-                    let vehColor = getVehColor(vehicle);
-                    let marker = L.marker([vehicle.lat, vehicle.long], {
-                        icon: L.AwesomeMarkers.icon({
-                            icon: 'car',
-                            prefix: 'fa',
-                            markerColor: vehColor,
-                        })
-                    }).addTo(map);
-                    marker.on('click', async () => {
-                        const content = await vehiclePopup(vehicle);
-                        //console.log(content)
-                        marker.bindPopup(content).openPopup();
-                        let tasks = getVehicleTasks(vehicle.veh_id);
-                        drawVehicleLine(marker, tasks);
-                        polylineLayerGroup.clearLayers();
+                    vehicleTasks(vehicle).then(result => {
+                        const { vehStatus } = result;
+                        const vehColor = (vehStatus === 1) ? "blue" : "gray";
+                        const vehType = (vehStatus === 1) ? "assigned" : "pending";
+
+                        let marker = L.marker([vehicle.lat, vehicle.long], {
+                            icon: L.AwesomeMarkers.icon({
+                                icon: 'car',
+                                prefix: 'fa',
+                                markerColor: vehColor,
+                            })
+                        }).addTo(map);
+
+                        marker.on('click', async () => {
+                            const content = await vehiclePopup(vehicle);
+                            marker.bindPopup(content).openPopup();
+                            let tasks = await getVehicleTasks(vehicle.veh_id);
+                            drawVehicleLine(marker, tasks);
+                            polylineLayerGroup.clearLayers();
+                        });
+
+                        marker.addTo(markerLayer);
+                        marker.addTo(vehicleLayer);
+
+                        if (vehType === 'assigned') marker.addTo(vehicleBusyLayer);
+                        else marker.addTo(vehicleIdleLayer);
+                    }).catch(error => {
+                        console.error("Error occurred while fetching vehicle data: ", error);
                     });
-                    const type = await getVehType(vehicle);
-                    marker.addTo(markerLayer);
-                    marker.addTo(vehicleLayer);
-                    if (type === 'assigned') marker.addTo(vehicleBusyLayer);
-                    else marker.addTo(vehicleIdleLayer);
                 });
             })
             .catch(error => console.error('Error fetching vehicle data:', error));
@@ -147,9 +159,11 @@
                         //console.log(content)
                         marker.bindPopup(content).openPopup();
                     });
-                    marker.type = getDataType(offer);
+                    let type = getDataType(offer);
                     marker.addTo(markerLayer);
                     marker.addTo(offerLayer);
+                    if(type === 'assigned') marker.addTo(offerAssignedLayer);
+                    else marker.addTo(offerPendingLayer);
                 });
             })
             .catch(error => console.error('Error fetching offer data:', error));
@@ -173,15 +187,18 @@
                         //console.log(content)
                         marker.bindPopup(content).openPopup();
                     });
-                    marker.type = getDataType(request);
+                    let type = getDataType(request);
                     marker.addTo(markerLayer);
                     marker.addTo(requestLayer);
+                    if(type === 'assigned') marker.addTo(requestAssignedLayer);
+                    else marker.addTo(requestPendingLayer);
                 })
             })
             .catch(error => console.error('Error fetching request data:', error));
 
         const overlayMaps = {
             "All": markerLayer,
+            "Bases": baseLayer,
             "Vehicles": vehicleLayer,
             "Vehicles on road": vehicleBusyLayer,
             "Vehicles Idle": vehicleIdleLayer,
