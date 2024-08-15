@@ -199,18 +199,22 @@
         const overlayMaps = {
             "All": markerLayer,
             "Bases": baseLayer,
-            "Vehicles": vehicleLayer,
+            //"Vehicles": vehicleLayer,
             "Vehicles on road": vehicleBusyLayer,
             "Vehicles Idle": vehicleIdleLayer,
             "Requests": requestLayer,
             "Requests pending": requestPendingLayer ,
             "Requests assigned": requestAssignedLayer ,
-            "Offers": offerLayer,
+            //"Offers": offerLayer,
             "Offers pending": offerPendingLayer,
             "Offers assigned": offerAssignedLayer
         };
-        let control = L.control.layers(overlayMaps).addTo(map);
+        let control = L.control.layers(null, overlayMaps).addTo(map);
             //control.addOverlay(vehicleLayer, "Vehicles")
+        function initializeMap() {
+            markerLayer.addTo(map);
+        }
+        initializeMap();
     </script>
 
 
