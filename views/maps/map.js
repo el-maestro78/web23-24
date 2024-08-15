@@ -15,6 +15,12 @@ function getDataColor(data) {
     //return data.pending ? "red" : "yellow";
 }
 
+function getDataType(data) {
+    //console.log(data);
+    if(data.pending !== "t") return "assigned"
+    else return "pending";
+}
+
 async function storedrag(event, base_id){
     let marker = event.target;
     let position = marker.getLatLng();
@@ -245,30 +251,4 @@ async function drawVehicleLine(marker, tasksProm) {
     }
     
 }
-
-function createFilter(map, layer) {
-    const searchControl = new L.Control.Search({
-        layer: layer,        // The layer with searchable items
-        propertyName: 'type',
-        initial: false,
-        collapsed: false,
-        zoom: 10,
-        position: 'topright',
-        textPlaceholder: 'Search for markers',
-        marker: true,
-    });
-
-    searchControl.on('search:locationfound', function(e) {
-        const marker = e.layer;
-    });
-    searchControl.on('search:collapsed', function() {
-        displayFilterOptions();
-    });
-    
-    map.addControl(searchControl);
-    return searchControl;
-}
-
-
-
 

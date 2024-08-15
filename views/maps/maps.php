@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https: //cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/images/markers-matte@2x.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMTnDxuhMjp4Jl4biHeOeGb4bYPCh8NcUX0Enn3" crossorigin="anonymous">
     <link rel=" stylesheet" href="./maps.css" />
-    <link rel="stylesheet" href="./icons.css" />
     <link rel="icon" href="../favico/favicon.ico" type="image/x-icon">
      <!-- Leaflet Control (filter-search) -->
     <link rel="stylesheet" href="../../node_modules/leaflet-search/src/leaflet-search.css" />
@@ -38,16 +37,31 @@
     <script src="./icons.js"></script>
 
     <script>
-        let map = L.map('mapid').setView([38.246242, 21.7350847], 16);
+        //let map = L.map('mapid').setView([38.246242, 21.7350847], 16);
+        let map = L.map('mapid',{
+            center: [38.246242, 21.7350847],
+            zoom: 16,
+        });
+
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         }).addTo(map);
 
         // Filters
+        /*
         const markerLayer = L.layerGroup().addTo(map);
         const vehicleLayer = L.layerGroup().addTo(map);
         const offerLayer = L.layerGroup().addTo(map);
-        const requestLayer = L.layerGroup().addTo(map);
+        const requestLayer = L.layerGroup().addTo(map);*/
+        const markerLayer = L.layerGroup()
+        const vehicleLayer = L.layerGroup()
+        const vehiclePendingLayer= L.layerGroup()
+        const offerLayer = L.layerGroup()
+        const offerPendingLayer = L.layerGroup()
+        const offerAssignedLayer = L.layerGroup()
+        const requestLayer = L.layerGroup()
+        const requestPendingLayer = L.layerGroup()
+        const requestAssignedLayer = L.layerGroup()
 
         // Vehicle Lines
         const polylineLayerGroup = L.layerGroup().addTo(map);
@@ -104,8 +118,10 @@
                         drawVehicleLine(marker, tasks);
                         polylineLayerGroup.clearLayers();
                     });
+                    marker.type = 'idle';
                     marker.addTo(markerLayer);
                     marker.addTo(vehicleLayer);
+                   // marker.type ? : ;
                 });
             })
             .catch(error => console.error('Error fetching vehicle data:', error));
@@ -128,6 +144,7 @@
                         //console.log(content)
                         marker.bindPopup(content).openPopup();
                     });
+                    marker.type = getDataType(offer);
                     marker.addTo(markerLayer);
                     marker.addTo(offerLayer);
                 });
@@ -153,14 +170,32 @@
                         //console.log(content)
                         marker.bindPopup(content).openPopup();
                     });
+                    marker.type = getDataType(request);
                     marker.addTo(markerLayer);
                     marker.addTo(requestLayer);
                 })
             })
             .catch(error => console.error('Error fetching request data:', error));
 
-            let control = createFilter(map, markerLayer);
+        const overlayMaps = {
+            "All": markerLayer,
+            "Vehicles": vehicleLayer,
+            "Vehicles on road": vehicleLayer,
+            "Vehicles Idle": vehicleLayer,
 
+        };
+        requests ={
+            "Requests": requestLayer,
+            "Requests pending": requestLayer,
+            "Requests assigned": requestLayer,
+        };
+        offers ={
+            "Offers": offerLayer,
+            "Offers pending": offerLayer,
+            "Offers assigned": offerLayer
+        };
+            let control = L.control.layers(overlayMaps, offers).addTo(map);
+            //control.addOverlay(vehicleLayer, "Vehicles")
     </script>
 
 
