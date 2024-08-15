@@ -55,7 +55,8 @@
         const requestLayer = L.layerGroup().addTo(map);*/
         const markerLayer = L.layerGroup()
         const vehicleLayer = L.layerGroup()
-        const vehiclePendingLayer= L.layerGroup()
+        const vehicleIdleLayer= L.layerGroup()
+        const vehicleBusyLayer= L.layerGroup()
         const offerLayer = L.layerGroup()
         const offerPendingLayer = L.layerGroup()
         const offerAssignedLayer = L.layerGroup()
@@ -103,11 +104,12 @@
             .then(response => response.json())
             .then(data => {
                 data.forEach(vehicle => {
+                    let vehColor = getVehColor(vehicle);
                     let marker = L.marker([vehicle.lat, vehicle.long], {
                         icon: L.AwesomeMarkers.icon({
                             icon: 'car',
                             prefix: 'fa',
-                            markerColor: 'blue'
+                            markerColor: vehColor,
                         })
                     }).addTo(map);
                     marker.on('click', async () => {
@@ -118,10 +120,11 @@
                         drawVehicleLine(marker, tasks);
                         polylineLayerGroup.clearLayers();
                     });
-                    marker.type = 'idle';
+                    const type = await getVehType(vehicle);
                     marker.addTo(markerLayer);
                     marker.addTo(vehicleLayer);
-                   // marker.type ? : ;
+                    if (type === 'assigned') marker.addTo(vehicleBusyLayer);
+                    else marker.addTo(vehicleIdleLayer);
                 });
             })
             .catch(error => console.error('Error fetching vehicle data:', error));
@@ -130,7 +133,7 @@
             .then(response => response.json())
             .then(data => {
                 data.forEach(offer => {
-                    color = getDataColor(offer);
+                    let color = getDataColor(offer);
                     let marker = L.marker([offer.lat, offer.long], {
                         icon: L.AwesomeMarkers.icon({
                             icon: 'gift',
@@ -155,7 +158,7 @@
             .then(response => response.json())
             .then(data => {
                 data.forEach(request => {
-                    color = getDataColor(request);
+                    let color = getDataColor(request);
                     let marker = L.marker([request.lat, request.long], {
                         icon: L.AwesomeMarkers.icon({
                             icon: 'exclamation',
@@ -180,21 +183,16 @@
         const overlayMaps = {
             "All": markerLayer,
             "Vehicles": vehicleLayer,
-            "Vehicles on road": vehicleLayer,
-            "Vehicles Idle": vehicleLayer,
-
-        };
-        requests ={
+            "Vehicles on road": vehicleBusyLayer,
+            "Vehicles Idle": vehicleIdleLayer,
             "Requests": requestLayer,
-            "Requests pending": requestLayer,
-            "Requests assigned": requestLayer,
-        };
-        offers ={
+            "Requests pending": requestPendingLayer ,
+            "Requests assigned": requestAssignedLayer ,
             "Offers": offerLayer,
-            "Offers pending": offerLayer,
-            "Offers assigned": offerLayer
+            "Offers pending": offerPendingLayer,
+            "Offers assigned": offerAssignedLayer
         };
-            let control = L.control.layers(overlayMaps, offers).addTo(map);
+        let control = L.control.layers(overlayMaps).addTo(map);
             //control.addOverlay(vehicleLayer, "Vehicles")
     </script>
 

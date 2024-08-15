@@ -9,17 +9,32 @@
  * @returns string
  */
 function getDataColor(data) {
-    //console.log(data);
     if(data.pending !== "t") return "green" //'red';
     else return "red";//'yellow';
     //return data.pending ? "red" : "yellow";
 }
 
 function getDataType(data) {
-    //console.log(data);
     if(data.pending !== "t") return "assigned"
     else return "pending";
 }
+
+async function getVehColor(data) {
+    const {vehStatus} = await vehicleTasks(data);
+
+    if(vehStatus === 1)
+        return "blue";
+    else
+        return "black";
+}
+
+async function getVehType(data) {
+    const {vehStatus} = await vehicleTasks(data);
+
+    if(vehStatus === 1) return "assigned";
+    else return "pending";
+}
+
 
 async function storedrag(event, base_id){
     let marker = event.target;
@@ -43,6 +58,19 @@ async function storedrag(event, base_id){
 }
 
 async function vehiclePopup(data){
+    const {vehLoad, vehTasks, vehStatus, vehItems, itemsHtml } = await vehicleTasks(data);
+
+    return `
+        <div>
+            <b>Vehicle</b><br>
+            <b>Username Οχήματος:</b> ${data.username}<br><hr>
+            ${itemsHtml}
+            <b>Status:</b> ${vehStatus ? "On road" : "Idle"}<br>
+            <b>Tasks:</b> ${vehTasks || "N/A"}<br>
+        </div>`;
+}
+
+async function vehicleTasks(data){
     let vehLoad = "";
     let vehItems = "";
     let vehTasks = "";
@@ -71,20 +99,12 @@ async function vehiclePopup(data){
             vehTasks = vehData.task_count;
         }
         if (vehTasks >= 1) vehStatus = 1;
-        else vehStatus = 0; 
-
+        else vehStatus = 0;
     }catch (error) {
         console.error("Error fetching vehicle data: ", error);
+        return ''
     }
-    //return `<b>Vehicle ID: ${data.username}</b>`;
-    return `
-        <div>
-            <b>Vehicle</b><br>
-            <b>Username Οχήματος:</b> ${data.username}<br><hr>
-            ${itemsHtml}
-            <b>Status:</b> ${vehStatus ? "On road" : "Idle"}<br>
-            <b>Tasks:</b> ${vehTasks || "N/A"}<br>
-        </div>`;
+    return {vehLoad, vehTasks, vehStatus, vehItems, itemsHtml};
 }
 
 async function offerPopup(data) {
