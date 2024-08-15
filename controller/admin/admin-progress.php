@@ -13,16 +13,12 @@ Aux. (Last)
 3.  
     DONE
 
-4.  Not implemented yet
-    Needs filter for assigned & pending requests
-    Needs filter for pending offers
-    Needs filter for vehicle with assigned requests
-    Needs filter for vehicle without assigned requests
-    Needs to connect vehicles with tasks with lines
+4.
+    DONE
 
 5.  Not implemented yet
     Needs front end
-    Table to see all itesm in both stores & vehicles
+    Table to see all items in both stores & vehicles
     Filter table by item-category
 
 6.  Not implemented yet  

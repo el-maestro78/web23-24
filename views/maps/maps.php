@@ -34,7 +34,6 @@
     -->
     <!-- Aux functions for a cleaner maps.php file-->
     <script src="./map.js"></script>
-    <script src="./markers.js"></script>
     <script src="./icons.js"></script>
 
     <script>
