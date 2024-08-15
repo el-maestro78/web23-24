@@ -11,7 +11,7 @@ Aux. (Last)
     Needs json and url load into database
 
 3.  
-    Needs store to be draggable
+    DONE
 
 4.  Not implemented yet
     Needs filter for assigned & pending requests

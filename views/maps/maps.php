@@ -10,30 +10,52 @@
     <link rel="stylesheet" href="https: //cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/images/markers-matte@2x.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMTnDxuhMjp4Jl4biHeOeGb4bYPCh8NcUX0Enn3" crossorigin="anonymous">
     <link rel=" stylesheet" href="./maps.css" />
+    <link rel="stylesheet" href="./icons.css" />
     <link rel="icon" href="../favico/favicon.ico" type="image/x-icon">
+     <!-- Leaflet Control (filter-search) -->
+    <link rel="stylesheet" href="../../node_modules/leaflet-search/src/leaflet-search.css" />
+    <link rel="stylesheet" href="../../node_modules/leaflet-search/dist/leaflet-search.min.css" />
     <title>Maps</title>
 </head>
 
 <body>
     <div id="mapid"></div>
+    <!-- Leaflet.js -->
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+    <!-- Leaflet awesome Markers -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js" integrity="sha512-8BqQ2RH4L4sQhV41ZB24fUc1nGcjmrTA6DILV/aTPYuUzo+wBdYdp0fvQ76Sxgf36p787CXF7TktWlcxu/zyOg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js" integrity="sha512-Oj9plGLST4IMXFXDfqMdTP+gSInbodkyno117PSjo5R08eu6TdzY9WPnnwQZGx2O2lG/kN0MzQk95ulWsRFuLA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Font Awesome Kit-->
+    <!-- Font Awesome Kit for markers-->
     <script src="https://kit.fontawesome.com/b3969ea94f.js" crossorigin="anonymous"></script>
-    <!-- For dynamic color determination and cleaner map.php file-->
+    <!-- Leaflet Control (filter-search) -->
+    <script src="../../node_modules/leaflet-search/dist/leaflet-search.src.js"></script>
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leafletsearch/3.0.2/leaflet-search.min.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/leafletsearch@3.0.2/dist/leaflet-search.min.css"> </script>
+    -->
+    <!-- Aux functions for a cleaner maps.php file-->
     <script src="./map.js"></script>
+    <script src="./icons.js"></script>
+
     <script>
         let map = L.map('mapid').setView([38.246242, 21.7350847], 16);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        // Filters
+        const markerLayer = L.layerGroup().addTo(map);
+        const vehicleLayer = L.layerGroup().addTo(map);
+        const offerLayer = L.layerGroup().addTo(map);
+        const requestLayer = L.layerGroup().addTo(map);
+
+        // Vehicle Lines
         const polylineLayerGroup = L.layerGroup().addTo(map);
         map.on('click', (event) => {
             polylineLayerGroup.clearLayers(); //clear vehicle lines
         });
 
+        // Marker fetching
         fetch('../../controller/admin/fetch_stores.php')
             .then(response => response.json())
             .then(data => {
@@ -58,7 +80,7 @@
                     marker.on('dragend', (event) => {
                         storedrag(event, store.base_id);
                     });
-                    map.addLayer(marker);
+                    marker.addTo(markerLayer);
                 });
             })
             .catch(error => console.error('Error fetching store data:', error));
@@ -82,6 +104,8 @@
                         drawVehicleLine(marker, tasks);
                         polylineLayerGroup.clearLayers();
                     });
+                    marker.addTo(markerLayer);
+                    marker.addTo(vehicleLayer);
                 });
             })
             .catch(error => console.error('Error fetching vehicle data:', error));
@@ -104,6 +128,8 @@
                         //console.log(content)
                         marker.bindPopup(content).openPopup();
                     });
+                    marker.addTo(markerLayer);
+                    marker.addTo(offerLayer);
                 });
             })
             .catch(error => console.error('Error fetching offer data:', error));
@@ -127,10 +153,19 @@
                         //console.log(content)
                         marker.bindPopup(content).openPopup();
                     });
+                    marker.addTo(markerLayer);
+                    marker.addTo(requestLayer);
                 })
             })
             .catch(error => console.error('Error fetching request data:', error));
+
+            let control = createFilter(map, markerLayer);
+
     </script>
+
+
+
 </body>
 
 </html>
+
