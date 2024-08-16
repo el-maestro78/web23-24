@@ -13,18 +13,31 @@ $veh_load_result = pg_query($dbconn, $veh_load_query);
 if (!$veh_load_result) die( http_response_code(500));
 $veh_load_array = pg_fetch_all($veh_load_result);
 
-$item_assoc = [];
+$combined_items = [];
 foreach ($items_array as $item) {
-    $item_assoc[$items_array['item_id']] = $item['quantity'];
+    $item_id = $item['item_id'];
+    $combined_items[$item_id] = $item;
 }
-foreach ($veh_load_array  as $item) {
-    if (!isset($item['load'])) {
-        $item['load'] = 0;
-    }
-    if (isset($item_assoc[$item['item_id']])) {
-        $item['load'] += $item_assoc[$item['item_id']];
+
+foreach ($veh_load_array as $veh_load) {
+    $item_id = $veh_load['item_id'];
+    if (isset($combined_items[$item_id])) {
+        $combined_items[$item_id]['quantity'] += $veh_load['load'];
+    }else{
+        $combined_items[$item_id]['quantity'] = $veh_load['load'];
     }
 }
-echo json_encode($item_assoc);
+/*
+echo json_encode($items_array, JSON_PRETTY_PRINT);
+echo '<br/>';
+echo '<br/>';
+echo json_encode($veh_load_array, JSON_PRETTY_PRINT);
+echo '<br/>';
+echo '<br/>';
+echo '<br/>';
+echo '<br/>';
+echo json_encode($combined_items, JSON_PRETTY_PRINT);
+*/
+echo json_encode($combined_items);
 
 include("../../model/dbclose.php");
