@@ -13,12 +13,14 @@ INSERT INTO dbUser(user_id, first_name,surname,username,pass,is_resc,is_admin,em
 (78, 'Admin', 'Adminopoulos', 'tester', 'pass', FALSE, TRUE, 'admin@admin.org', 6987654321, 38.246444, 21.734203);
 
 INSERT INTO item_category(category_id, category_name, details) VALUES
-(0, 'spam', 'Another Viking victory');
+(0, 'spam', 'Another Viking victory'),
+(1, 'athletic', 'Good old exercise');
 
 INSERT INTO  items(item_id, iname, quantity, category, details) VALUES
 (0,'spam', 1, 0, 'Just spam'),
 (1,'spam, eggs & spam', 10, 0,'Less spam in it'),
-(2,'spam, eggs, spam, spam & spam', 100, 0, 'Better than spam eggs spam');
+(2,'spam, eggs, spam, spam & spam', 100, 0, 'Better than spam eggs spam'),
+(3,'Basketball Ball', 50, 1, 'Just a basketball ball');
 
 INSERT INTO requests(req_id, pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES 
 (0, FALSE, FALSE, 5, current_date, current_date, 78, 1, 21.731021839078, 38.244808224971),

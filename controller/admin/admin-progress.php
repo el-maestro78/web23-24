@@ -17,8 +17,6 @@ Aux. (Last)
     DONE
 
 5.
-    Needs front end
-    Table to see all items in both stores & vehicles
     Filter table by item-category
 
 6.  Not implemented yet  

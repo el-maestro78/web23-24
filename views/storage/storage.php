@@ -11,9 +11,9 @@
 
     <body>
         <?php include '../toolbar.php'; ?>
-        <?php include '../../controller/admin/fetch_storage.php';
-        /*
-         "item_id":"0","iname":"spam","quantity":"1","category":"0","details":"Just spam"}*/
+        <?php
+            include '../../controller/admin/fetch_storage.php';
+            include './filter_storage_by_quantity.php';
         if (!empty($combined_items)) {
             echo "<table>
                     <thead>
@@ -25,26 +25,22 @@
                             <th>Details</th>
                         </tr>
                     </thead>
-                    <tbody>";
-
-            // Loop through combined items and display in table rows
-            foreach ($combined_items as $item) {
-                echo "<tr>
-                        <td>{$item['item_id']}</td>
-                        <td>{$item['iname']}</td>
-                        <td>{$item['quantity']}</td>
-                        <td>{$item['category']}</td>
-                        <td>{$item['details']}</td>
-                      </tr>";
-            }
-
+                    <tbody>";?>
+             <?php foreach ($combined_items as $item): ?>
+                        <tr data-category="<?= $item['category'] ?>">
+                            <td><?= $item['item_id'] ?></td>
+                            <td><?= $item['iname'] ?></td>
+                            <td><?= $item['quantity'] ?></td>
+                            <td><?= $item['category'] ?></td>
+                            <td><?= $item['details'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+        <?php
             echo "</tbody>
                 </table>";
         } else {
             echo "<br/><div class='no-items-message'><b>No items to display.<b/></div>";
         }  ?>
-        <script>
-
-        </script>
+        <script src="storage.js"></script>
     </body>
 </html>

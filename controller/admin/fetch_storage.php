@@ -1,9 +1,17 @@
 <?php
-
 include '../../model/config.php';
 
 // Get from  Quantity from Storage
-$item_query = "SELECT * FROM items";
+//$item_query = "SELECT * FROM items";
+$item_query='SELECT
+                items.item_id,
+                items.iname,
+                items.quantity,
+                item_category.category_name as category,
+                items.details
+            FROM items JOIN item_category 
+            ON items.category=item_category.category_id
+            ';
 $item_result = pg_query($dbconn, $item_query);
 if (!$item_result) die( http_response_code(500));
 $items_array = pg_fetch_all($item_result);
@@ -27,6 +35,7 @@ foreach ($veh_load_array as $veh_load) {
         $combined_items[$item_id]['quantity'] = $veh_load['load'];
     }
 }
+$categories = array_unique(array_column($combined_items, 'category'));
 /*
 echo json_encode($items_array, JSON_PRETTY_PRINT);
 echo '<br/>';
