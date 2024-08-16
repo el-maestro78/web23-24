@@ -38,6 +38,6 @@ echo '<br/>';
 echo '<br/>';
 echo json_encode($combined_items, JSON_PRETTY_PRINT);
 */
-echo json_encode($combined_items);
+//echo json_encode($combined_items);
 
 include("../../model/dbclose.php");

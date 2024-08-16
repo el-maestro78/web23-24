@@ -1,0 +1,25 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+}
+
+table thead th {
+    background-color: rgba(65, 128, 69, 0.86);
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table tbody td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.no-items-message {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 20px;
+}
