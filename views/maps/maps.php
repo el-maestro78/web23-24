@@ -18,6 +18,7 @@
 </head>
 
 <body>
+    <?php include '../toolbar.php'; ?>
     <div id="mapid"></div>
     <!-- Leaflet.js -->
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
