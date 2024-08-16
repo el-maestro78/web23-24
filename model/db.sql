@@ -114,6 +114,9 @@ CREATE INDEX dbuser_index ON dbUser(username);
 CREATE INDEX items_index ON items(item_id);
 CREATE INDEX bases_index ON base(base_id);
 CREATE INDEX vehicle_index ON vehicles(veh_id);
+CREATE INDEX tasks_index ON tasks(tasks_id);
+CREATE INDEX offer_index ON offers(off_id);
+CREATE INDEX tasks_index ON requests(req_id);
 
 CREATE VIEW rescuer AS
     SELECT user_id, first_name, surname, username, pass

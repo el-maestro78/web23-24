@@ -23,4 +23,3 @@ if($req_id !== null && $req_id != ""){
 }
 
 include("../../model/dbclose.php");
-?>
