@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    </head>
     <style>
         .topnav {
           overflow: hidden;
           background-color: #333;
+          z-index: 1;
         }
 
         .topnav a {
@@ -12,7 +17,7 @@
           text-align: center;
           padding: 14px 16px;
           text-decoration: none;
-          font-size: 17px;
+          font-size: 15px;
         }
 
         .topnav a:hover {
@@ -24,12 +29,60 @@
             background-color: #04AA6D;
             color: white;
         }
+        /* NEW */
+
+        .profile-icon {
+            font-size: 30px;
+            cursor: pointer;
+            color: #f2f2f2;
+        }
+        .dropbtn {
+          background-color: #04AA6D;
+          color: white;
+          padding: 16px;
+          font-size: 16px;
+          border: none;
+        }
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f1f1f1;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {background-color: #ddd;}
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {display: block;}
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {background-color: #3e8e41;}
     </style>
 
     <body>
         <!-- Only for testing!! -->
         <?php include "index.php"?>
-        <?php //($_SESSION['role']='admin') ?>
+        <?php ($_SESSION['role']='admin') ?>
+        <?php ($_SESSION['user_id']=0) ?>
         <?php $current_page = $_SERVER['REQUEST_URI']; ?>
 
         <nav class="topnav">
@@ -49,8 +102,31 @@
                 <a href="<?php echo $base_url; ?>/404.php" class="<?php echo strpos($current_page, 'rescuer_link1.php') !== false ? 'active' : ''; ?>">Add things here only for rescuer</a>
                 <a href="<?php echo $base_url; ?>/404.php" class="<?php echo strpos($current_page, 'rescuer_link2.php') !== false ? 'active' : ''; ?>">Add things here only for rescuer</a>
             <?php endif; ?>
-        </nav>
+            <div class="dropdown">
+                  <i class="bi bi-person-circle profile-icon" id="profileIcon"></i>
+                  <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                  </div>
+            </div>
 
+        </nav>
+        <script>
+            document.getElementById("profileIcon").addEventListener("click", function() {
+                var popup = document.getElementById("profilePopup");
+                popup.style.display = (popup.style.display === "block") ? "none" : "block";
+            });
+
+            // Close the popup if the user clicks outside of it
+            window.addEventListener("click", function(event) {
+                var popup = document.getElementById("dropdown-content");
+                if (event.target !== document.getElementById("profileIcon") && event.target !== popup) {
+                    popup.style.display = "none";
+                }
+            });
+
+        </script>
 
     </body>
 </html>

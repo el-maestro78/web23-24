@@ -26,7 +26,8 @@ INSERT INTO requests(req_id, pending, completed, quantity, reg_date, assign_date
 (0, FALSE, FALSE, 5, current_date, current_date, 78, 1, 21.731021839078, 38.244808224971),
 (1, FALSE, FALSE, 10, current_date, current_date, 78, 2, 21.734499691362, 38.246439932828),
 (2, TRUE, FALSE, 5, current_date, NULL, 78, 0, 21.734503111278, 38.245888739736),
-(3, TRUE, FALSE, 10, current_date, NULL, 78, 1, 21.732724118553, 38.244914513495);
+(3, TRUE, FALSE, 10, current_date, NULL, 78, 1, 21.732724118553, 38.244914513495),
+(4, FALSE, TRUE, 25, current_date, current_date, 78, 3, 21.78, 38.45);
 
 INSERT INTO offers(off_id, pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES 
 (0, FALSE, FALSE, 5, current_date, current_date, 78, 1, 21.738, 38.268809889),
