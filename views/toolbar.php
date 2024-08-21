@@ -52,7 +52,6 @@
         <?php //($_SESSION['role']='admin') ?>
         <?php //($_SESSION['user_id']=1) ?>
         <?php $current_page = $_SERVER['REQUEST_URI']; ?>
-
         <nav class="topnav">
             <a href="<?php echo $base_url; ?>/views/home_page.php" class="<?php echo strpos($current_page, 'home_page.php') !== false ? 'active' : ''; ?>">Home</a>
             <a href="<?php echo $base_url; ?>/views/maps/maps.php" class="<?php echo strpos($current_page, 'maps.php') !== false ? 'active' : ''; ?>">Maps</a>

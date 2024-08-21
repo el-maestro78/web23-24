@@ -1,9 +1,6 @@
 CREATE DATABASE webproject24;
 
 \c webproject24;
---μου βγάζουν erron:webproject24=#
-/*ERROR:  syntax error at or near "NOT"
-LINE 2:     long DOUBLE PRECISION NOT NULL,*/
 
 CREATE TABLE dbUser(
 user_id SERIAL PRIMARY KEY,
