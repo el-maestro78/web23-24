@@ -35,10 +35,10 @@
 
                     <label for="password">Password</label>
                     <div class="password_container">
-                     <input type="password" id="password" class="left_input" required>
-                      <button type="button" class="password_icon" onclick="showPassword('password','pass_img')">
-                      <img src="../media/hide_pass.png" alt="Show Password" id="pass_img">
-                      </button>
+                        <input type="password" id="password" class="left_input" required>
+                        <button type="button" class="password_icon" onclick="showPassword('password','pass_img')">
+                            <img src="../media/hide_pass.png" alt="Show Password" id="pass_img">
+                        </button>
                     </div>
                     <div class="gradient-line"></div>
                     <input type="submit" class="button_input" id="submit" value="Submit">
@@ -50,9 +50,10 @@
     <script defer>
     document.addEventListener('DOMContentLoaded', function() {
       const inputs = document.querySelectorAll('.form input');
-      const lines = document.querySelectorAll('.gradient-line');
+      const lines = document.querySelectorAll('.form .gradient-line');
 
       inputs.forEach((input, index) => {
+       /*
         input.addEventListener('focus', () => {
           lines[index].classList.add('active');
         });
@@ -62,6 +63,20 @@
             lines[index].classList.remove('active');
           }
         });
+
+        */
+        const line = lines[index];
+        if (line) {
+            input.addEventListener('focus', () => {
+                line.classList.add('active');
+            });
+
+            input.addEventListener('blur', () => {
+                if (!input.value.trim()) {
+                    line.classList.remove('active');
+                }
+            });
+        }
       });
     });
     const emailInput = document.getElementById('email');
