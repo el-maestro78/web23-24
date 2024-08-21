@@ -10,7 +10,8 @@
     </head>
 
     <body>
-        <?php include '../toolbar.php'; ?>
+        <?php include '../toolbar.php';
+        include '../../auxiliary.php';?>
         <?php
             include '../../controller/admin/fetch_storage.php';
             include './filter_storage_by_quantity.php';

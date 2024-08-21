@@ -12,14 +12,15 @@
 <body>
 
     <?php
-    include 'toolbar.php'
+    include 'toolbar.php';
+    include '../auxiliary.php';
     ?>
     <script>
         
     </script>
     <h1> Home Page </h1>
     <p> More to be added </P>
-<a href="login.php">
+<a href="./login/login.php">
     <button>Back to Login Page</button>
 </a>
 </body>

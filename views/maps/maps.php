@@ -18,6 +18,7 @@
 </head>
 
 <body>
+    <?php include '../../auxiliary.php'; ?>
     <?php include '../toolbar.php'; ?>
     <div id="mapid"></div>
     <!-- Leaflet.js -->

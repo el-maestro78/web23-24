@@ -13,10 +13,7 @@
 </head>
 
 <body>
-<?php
-    include("../../model/config.php");
-    // include("../controller/login4all.php")
-?>
+<?php include '../../auxiliary.php'; ?>
     <div class="page">
         <div class="container">
 

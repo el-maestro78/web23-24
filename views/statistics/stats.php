@@ -7,7 +7,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <?php include '../toolbar.php'; ?>
+    <?php include '../toolbar.php';
+    include '../../auxiliary.php';
+    ?>
 <h2>Statistics</h2>
 <form id="dateForm">
     Start Date: <input type="date" id="startDate" name="start_date" required>
