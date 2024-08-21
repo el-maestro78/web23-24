@@ -15,7 +15,7 @@
 //    include("../model/config.php");
 //    $dbconn = getDbConnection();
 //    include("../controller/login4all.php")
-include '../../auxiliary.php';
+include '../../ini.php';
 ?>  
 <body>
     <div class="page">

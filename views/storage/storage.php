@@ -11,7 +11,7 @@
 
     <body>
         <?php include '../toolbar.php';
-        include '../../auxiliary.php';?>
+        include '../../ini.php';?>
         <?php
             include '../../controller/admin/fetch_storage.php';
             include './filter_storage_by_quantity.php';

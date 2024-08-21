@@ -11,7 +11,9 @@ INSERT INTO vehicles (veh_id, username, lat, long) VALUES
 
 INSERT INTO dbUser(user_id, first_name,surname,username,pass,is_resc,is_admin,email,phone,long,lat) VALUES 
 (78, 'Admin', 'Adminopoulos', 'tester', 'pass', FALSE, TRUE, 'admin@admin.org', 6987654321, 38.246444, 21.734203),
-(16,'Dr','Gumpy','tester2','pass',TRUE,FALSE,'a@a',6987654321, 21.734203, 38.246444);
+(16,'Dr','Gumpy','tester2','pass',TRUE,FALSE,'a@a',6987654321, 21.734203, 38.246444),
+(23,'Michael','Palin','tester3','s',FALSE,FALSE,'s@s',6987654321, 39.8, 22.5),
+(50,'Eric','Idle','tester4','a',FALSE,TRUE,'@',6987654321, 39.8, 22.5);
 
 INSERT INTO item_category(category_id, category_name, details) VALUES
 (0, 'spam', 'Another Viking victory'),

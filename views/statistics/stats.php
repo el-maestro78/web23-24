@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php include '../toolbar.php';
-    include '../../auxiliary.php';
+    include '../../ini.php';
     ?>
 <h2>Statistics</h2>
 <form id="dateForm">

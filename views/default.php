@@ -12,7 +12,9 @@
     <title>Sign Up</title>
 </head>
 <body>
-    <?php 
+    <?php
+        include '../../ini.php';
+        include '../toolbar.php';
         echo "Hi";
     ?>
     <script>

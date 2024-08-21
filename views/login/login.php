@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<?php include '../../auxiliary.php'; ?>
+<?php include '../../ini.php'; ?>
     <div class="page">
         <div class="container">
 

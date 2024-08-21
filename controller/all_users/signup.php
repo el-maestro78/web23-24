@@ -1,6 +1,6 @@
 <?php
 include("../../model/config.php");
-include("../../auxiliary.php");
+include("../../ini.php");
 
 /*
  * FOR sign in
