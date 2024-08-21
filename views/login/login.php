@@ -8,20 +8,21 @@
     <link rel='stylesheet' type='text/css' media='screen' href='login.css'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="icon" href="../favico/favicon.ico" type="image/x-icon">
     <title>Login</title>
 </head>
-<?php
-//    include("../model/config.php");
-//    $dbconn = getDbConnection();
-//    include("../controller/login4all.php")
-?> 
+
 <body>
+<?php
+    include("../../model/config.php");
+    // include("../controller/login4all.php")
+?>
     <div class="page">
     <div class="container">
 
         <div class="left_box">
         <div class="login">Login</div>
-        <div class="box_text">You must be loggined in, in order to access our page. This is important to avoid fake help requests and have an organised track of all requests.</div>
+        <div class="box_text">You must be logged in, in order to access our page. This is important to avoid fake help requests and have an organised track of all requests.</div>
         <div class="box_text_2">Not a registered user?</div>
         <a href="../signup/civilian_signup.php" class="signup_link">Sign Up</a>
         </div>
@@ -40,7 +41,6 @@
               </button>
             </div>
             <div class="gradient-line"></div>
-
             <input type="submit" class="button_input" id="submit" value="Submit">
         </div>
         </div>
@@ -48,7 +48,7 @@
     </div>
     </div>
 
-    <script>
+    <script defer>
     document.addEventListener('DOMContentLoaded', function() {
       const inputs = document.querySelectorAll('.form input');
       const lines = document.querySelectorAll('.gradient-line');
@@ -91,6 +91,34 @@
           y.src="../media/show_pass.png"
           y.alt="Show Password"
       }
+    }
+    submitButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        submitCredentials();
+    });
+
+    function submitCredentials() {
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        fetch('../../controller/all_users/check_cred.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ email: email, password: password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            if (data.exists) {
+                window.location.href = "../home_page.php";
+            } else {
+                alert('Invalid credentials, please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred, please try again later.');
+        });
     }
     </script>
 
