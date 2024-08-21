@@ -29,10 +29,6 @@
     <script src="https://kit.fontawesome.com/b3969ea94f.js" crossorigin="anonymous"></script>
     <!-- Leaflet Control (filter-search) -->
     <script src="../../node_modules/leaflet-search/dist/leaflet-search.src.js"></script>
-    <!--
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leafletsearch/3.0.2/leaflet-search.min.js"> </script>
-    <script src="https://cdn.jsdelivr.net/npm/leafletsearch@3.0.2/dist/leaflet-search.min.css"> </script>
-    -->
     <!-- Aux functions for a cleaner maps.php file-->
     <script src="./map.js"></script>
     <script src="./icons.js"></script>
