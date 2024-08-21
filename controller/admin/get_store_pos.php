@@ -1,7 +1,5 @@
 <?php
 include("../../model/config.php");
-?>
-<?php
 
 // Fetch store locations
 $query = "SELECT base_id, long, lat FROM base";
@@ -20,8 +18,3 @@ while ($row = pg_fetch_assoc($result)) {
 //echo json_encode($bases);
 
 pg_free_result($result);
-
-?>
-<?php
-include("../../model/dbclose.php");
-?>

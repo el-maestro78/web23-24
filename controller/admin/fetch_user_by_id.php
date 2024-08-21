@@ -22,5 +22,3 @@ if ($user_id !== null && $user_id != "") {
     http_response_code(400);
     echo json_encode(['error' => 'Missing user_id']);
 }
-include("../../model/dbclose.php");
-?>

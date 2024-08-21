@@ -18,5 +18,3 @@ if ($item_id !== null && $item_id != "") {
     http_response_code(400);
     echo json_encode(['error' => 'Missing item_id']);
 }
-include("../../model/dbclose.php");
-?>

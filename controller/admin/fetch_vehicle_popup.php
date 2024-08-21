@@ -34,5 +34,3 @@ if($veh_id !== null && $veh_id != "") {
     http_response_code(400);
     echo json_encode(['error' => 'Missing veh_id']);
 }
-include("../../model/dbclose.php");
-?>

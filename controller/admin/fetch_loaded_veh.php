@@ -22,4 +22,3 @@ if($req_id !== null && $req_id != ""){
     echo json_encode(['error' => 'Missing req_id']);
 }
 
-include("../../model/dbclose.php");

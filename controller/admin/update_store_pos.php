@@ -27,5 +27,3 @@ if ($base_check && $lat_check && $long_check) {
     http_response_code(400);
     echo json_encode(['error' => 'Missing base_id']);
 }
-include("../../model/dbclose.php");
-?>

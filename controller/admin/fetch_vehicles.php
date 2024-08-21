@@ -1,8 +1,7 @@
 <?php
 include("./add_vehicles.php");
 include("../../model/config.php");
-?>
-<?php
+
 $query = "SELECT veh_id, username, long, lat FROM vehicles";
 $result = pg_query($dbconn, $query);
 
@@ -20,7 +19,3 @@ echo json_encode($vehicles);
 
 pg_free_result($result);
 
-?>
-<?php
-include("../../model/dbclose.php");
-?>

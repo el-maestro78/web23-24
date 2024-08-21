@@ -35,5 +35,3 @@ foreach ($bases_obj as $base) {
 }
 
 include("./update_vehicles.php");
-include("../../model/dbclose.php");
-?>

@@ -11,13 +11,13 @@ Aux. (Last)
     Needs json and url load into database
 
 3.  
-    DONE
+    Επιβεβαίωση πριν επικυρωθεί οποιαδήποτε αλλαγή (αλλαγη Θεσης της βασης).
 
 4.
     DONE
 
 5.
-    Filter table by item-category
+    DONE
 
 6.  Not implemented yet  
     Needs front end
@@ -33,4 +33,3 @@ Aux. (Last)
     Creating announcements and storing in db
     Connecting announc with item
 */
-?>
