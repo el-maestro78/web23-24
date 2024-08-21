@@ -5,7 +5,8 @@ Aux. (Last)
     pending status on offer or request changes and when it gets 
     completed the request gets completed. Stored function is the best way
 
-1.  Needs front end, mostly done
+1.
+    DONE
 
 2.  Needs front end for offers, rescuers editing etc.
     Needs json and url load into database
