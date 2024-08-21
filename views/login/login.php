@@ -18,34 +18,33 @@
     // include("../controller/login4all.php")
 ?>
     <div class="page">
-    <div class="container">
+        <div class="container">
 
-        <div class="left_box">
-        <div class="login">Login</div>
-        <div class="box_text">You must be logged in, in order to access our page. This is important to avoid fake help requests and have an organised track of all requests.</div>
-        <div class="box_text_2">Not a registered user?</div>
-        <a href="../signup/civilian_signup.php" class="signup_link">Sign Up</a>
-        </div>
-
-        <div class="right_box">
-        <div class="form">
-            <label for="email">Email</label>
-            <input type="email" id="email">
-            <div class="gradient-line"></div>
-
-            <label for="password">Password</label>
-            <div class="password_container">
-             <input type="password" id="password" class="left_input" required>
-              <button type="button" class="password_icon" onclick="showPassword('password','pass_img')">
-              <img src="../media/hide_pass.png" alt="Show Password" id="pass_img">
-              </button>
+            <div class="left_box">
+                <div class="login">Login</div>
+                <div class="box_text">You must be logged in, in order to access our page. This is important to avoid fake help requests and have an organised track of all requests.</div>
+                <div class="box_text_2">Not a registered user?</div>
+                <a href="../signup/civilian_signup.php" class="signup_link">Sign Up</a>
             </div>
-            <div class="gradient-line"></div>
-            <input type="submit" class="button_input" id="submit" value="Submit">
-        </div>
-        </div>
 
-    </div>
+            <div class="right_box">
+                <div class="form">
+                    <label for="email">Email</label>
+                    <input type="email" id="email">
+                    <div class="gradient-line"></div>
+
+                    <label for="password">Password</label>
+                    <div class="password_container">
+                     <input type="password" id="password" class="left_input" required>
+                      <button type="button" class="password_icon" onclick="showPassword('password','pass_img')">
+                      <img src="../media/hide_pass.png" alt="Show Password" id="pass_img">
+                      </button>
+                    </div>
+                    <div class="gradient-line"></div>
+                    <input type="submit" class="button_input" id="submit" value="Submit">
+                </div>
+            </div>
+        </div>
     </div>
 
     <script defer>
