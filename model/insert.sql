@@ -23,7 +23,7 @@ INSERT INTO dbUser(user_id, first_name,surname,username,pass,is_resc,is_admin,em
 
 INSERT INTO item_category(category_id, category_name, details) VALUES
 (0, 'spam', 'Another Viking victory'),
-(1, 'athletic', 'Good old exercise'
+(1, 'athletic', 'Good old exercise');
 
 INSERT INTO  items(item_id, iname, quantity, category, details) VALUES
 (0,'spam', 1, 0, 'Just spam'),
