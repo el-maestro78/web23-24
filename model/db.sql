@@ -1,3 +1,4 @@
+DROP DATABASE webproject24;
 CREATE DATABASE webproject24;
 
 \c webproject24;
