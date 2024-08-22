@@ -9,7 +9,7 @@ INSERT INTO vehicles (veh_id, username, lat, long) VALUES
 (2, 'RAT', 38.244872, 21.731950),
 (3, 'giraffe', 38.244872, 21.731950);
 
-INSERT INTO dbuser(user_id, first_name,surname,username,pass,is_resc,is_admin,email,phone,long,lat) VALUES 
+INSERT INTO dbUser(user_id, first_name,surname,username,pass,is_resc,is_admin,email,phone,long,lat) VALUES 
 (78, 'Admin', 'Adminopoulos', 'tester', 'pass', FALSE, TRUE, 'admin@admin.org', 6987654321, 38.246444, 21.734203),
 (16,'Dr','Gumpy','tester2','pass',TRUE,FALSE,'a@a',6987654321, 21.734203, 38.246444),
 (23,'Michael','Palin','tester3','s',FALSE,FALSE,'s@s',6987654321, 39.8, 22.5),
@@ -19,7 +19,7 @@ INSERT INTO dbuser(user_id, first_name,surname,username,pass,is_resc,is_admin,em
 (3, 'TestUser3fn', 'TestUser3ln', 'testuser3', 'pass3', FALSE, FALSE, 'testuser1@gmail.com', 6903333333, 43.8, 23.5),
 (11, 'Rescuer1fn', 'Rescuer1ln', 'rescuer1', 'pass11', TRUE, FALSE, 'rescuer1@gmmail.com', 6911111111, 44.8, 24.5),
 (12, 'Rescuer2fn', 'Rescuer2ln', 'rescuer2', 'pass12', TRUE, FALSE, 'rescuer2@gmmail.com', 6912121212, 45.8, 25.5),
-(11, 'Rescuer3fn', 'Rescuer3ln', 'rescuer3', 'pass13', TRUE, FALSE, 'rescuer3@gmmail.com', 6913131313, 44.8, 24.5);
+(13, 'Rescuer3fn', 'Rescuer3ln', 'rescuer3', 'pass13', TRUE, FALSE, 'rescuer3@gmmail.com', 6913131313, 44.8, 24.5);
 
 INSERT INTO item_category(category_id, category_name, details) VALUES
 (0, 'spam', 'Another Viking victory'),
