@@ -17,9 +17,9 @@ INSERT INTO dbUser(user_id, first_name,surname,username,pass,is_resc,is_admin,em
 (1, 'TestUser1fn', 'TestUser1ln', 'testuser1', 'pass1', FALSE, FALSE, 'testuser1@gmail.com', 6901111111, 41.8, 21.5),
 (2, 'TestUser2fn', 'TestUser2ln', 'testuser2', 'pass2', FALSE, FALSE, 'testuser2@gmail.com', 6902222222, 42.8, 22.5),
 (3, 'TestUser3fn', 'TestUser3ln', 'testuser3', 'pass3', FALSE, FALSE, 'testuser1@gmail.com', 6903333333, 43.8, 23.5),
-(11, 'Rescuer1fn', 'Rescuer1ln', 'rescuer1', 'pass11', TRUE, FALSE, 'rescuer1@gmmail.com', 6911111111, 44.8, 24.5),
-(12, 'Rescuer2fn', 'Rescuer2ln', 'rescuer2', 'pass12', TRUE, FALSE, 'rescuer2@gmmail.com', 6912121212, 45.8, 25.5),
-(13, 'Rescuer3fn', 'Rescuer3ln', 'rescuer3', 'pass13', TRUE, FALSE, 'rescuer3@gmmail.com', 6913131313, 44.8, 24.5);
+(11, 'Rescuer1fn', 'Rescuer1ln', 'rescuer1', 'pass11', TRUE, FALSE, 'rescuer1@gmail.com', 6911111111, 44.8, 24.5),
+(12, 'Rescuer2fn', 'Rescuer2ln', 'rescuer2', 'pass12', TRUE, FALSE, 'rescuer2@gmail.com', 6912121212, 45.8, 25.5),
+(13, 'Rescuer3fn', 'Rescuer3ln', 'rescuer3', 'pass13', TRUE, FALSE, 'rescuer3@gmail.com', 6913131313, 44.8, 24.5);
 
 INSERT INTO item_category(category_id, category_name, details) VALUES
 (0, 'spam', 'Another Viking victory'),
