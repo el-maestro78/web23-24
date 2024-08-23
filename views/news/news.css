@@ -1,0 +1,92 @@
+.news_box {
+    background: #3e5672;
+    height: calc(100%);
+    position: relative;
+    width: 40%;
+  }
+
+.box_text {
+    color: #999;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 40px 40px 0px 40px;
+}
+
+.registered_link {
+    color: #44d7ee;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 20px 0px 0px;
+}
+
+.box_text, .registered_link {
+    font-size: 14px;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    height: 560px;
+    margin: 0 auto;
+    width: 640px;
+}
+
+.form {
+    margin: 0px 40px;
+    position: absolute;
+}
+
+label {
+    color:  #c2c2c5;
+    display: block;
+    font-size: 14px;
+    height: 16px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.left_label {
+    color:  #9a9a9c;
+    display: block;
+    font-size: 14px;
+    height: 16px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.rescAddAccount{
+    font-size: 25px;
+    color: #f3f3f3;
+    font-weight: 900;
+    margin: 20px 40px 0px;
+}
+
+.details {
+    font-size: 20px;
+    color: #d8dde2;
+    font-weight: bold;
+    margin: 20px 40px 0px;
+}
+
+.sub_details {
+    font-size: 20px;
+    color: #d8dde2;
+    font-weight: bold;
+    margin: 10px 40px 0px;
+}
+
+input {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    border: 0;
+    padding-left: 10px;
+    color: #f2f2f2;
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
+    outline: none !important;
+    width: 100%;
+    max-width: 200px;
+}

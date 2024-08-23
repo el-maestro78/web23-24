@@ -25,9 +25,8 @@ Aux. (Last)
     Graph for new & completed offers, requests.
     Should change with time-toggle(1m,6m,1y etc)
 
-7.  Not implemented yet 
-    Needs front end
-    Adding new accounts for rescuers in db.
+7.
+    DONE
     
 8.  Not implemented yet
     Needs front end.
