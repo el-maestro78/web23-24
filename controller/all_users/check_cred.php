@@ -50,33 +50,3 @@ if (pg_num_rows($result) > 0) {
 } else {
     echo json_encode(['exists' => false]);
 }
-
-/*
- $query = "
-        SELECT
-        user_id,
-        first_name,
-        surname,
-        username,
-        pass,
-        is_resc,
-        is_admin,
-        email,
-        phone,
-        long,
-        lat FROM dbUser WHERE email = '$email' AND pass = '$password'";
-$result = pg_query($dbconn, $query);
-     echo json_encode([
-            'exists' => true,
-            'user_id' => $result['user_id'],
-            'first_name' => $result['first_name'],
-            'surname' => $result['surname'],
-            'username' => $result['username'],
-            'is_resc' => $result['is_resc'],
-            'is_admin' => $result['is_admin'],
-            'email' => $result['email'],
-            'phone' => $result['phone'],
-            'long' => $result['long'],
-            'lat' => $result['lat']
-        ]);
- */
