@@ -11,6 +11,7 @@
     <body>
         <?php
         include '../../ini.php';
+        include '../../check_login.php';
         include '../toolbar.php';
 
         echo '<h1>HI</h1>';

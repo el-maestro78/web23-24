@@ -8,6 +8,7 @@
     <body>
         <?php
         include '../../ini.php';
+        include '../../check_login.php';
         include '../../views/toolbar.php';
         echo 'Session Data<br/>';
         echo 'User ID: ' . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Not set') . '<br/>';

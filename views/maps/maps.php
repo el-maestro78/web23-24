@@ -19,6 +19,7 @@
 
 <body>
     <?php include '../../ini.php'; ?>
+    <?php include '../../check_login.php'; ?>
     <?php include '../toolbar.php'; ?>
     <div id="mapid"></div>
     <!-- Leaflet.js -->

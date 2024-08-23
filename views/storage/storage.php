@@ -12,6 +12,7 @@
     <body>
         <?php
         include '../../ini.php';
+        include '../../check_login.php';
         include '../toolbar.php';
         include '../../controller/admin/fetch_storage.php';
         include './filter_storage_by_quantity.php';
