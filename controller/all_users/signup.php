@@ -6,7 +6,7 @@ include("../../ini.php");
  * FOR sign in
  */
 
-$input = json_decode(file_get_contents('php://input'), true);
+
 $email = validate_input($input['email']);
 $password = validate_input($input['password']);
 

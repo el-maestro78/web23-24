@@ -141,7 +141,7 @@ include '../../ini.php';
       cityInput.addEventListener('input', checkInputs);
       streetInput.addEventListener('input', checkInputs);
       zcodeInput.addEventListener('input', checkInputs);
-      phonenr.addEventListener('input', checkInputs);
+      phonenrInput.addEventListener('input', checkInputs);
 
       function showPassword(inputID, imgID) {
         var x = document.getElementById(inputID);

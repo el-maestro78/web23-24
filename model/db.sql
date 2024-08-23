@@ -11,10 +11,10 @@ username VARCHAR(255) NOT NULL UNIQUE,
 pass VARCHAR(255) NOT NULL,
 is_resc BOOLEAN DEFAULT FALSE,
 is_admin BOOLEAN DEFAULT FALSE,
-email VARCHAR(255) DEFAULT '',
+email VARCHAR(255) DEFAULT '' UNIQUE,
 phone BIGINT NOT NULL,
-long DOUBLE PRECISION NOT NULL,
-lat DOUBLE PRECISION NOT NULL
+long DOUBLE PRECISION, --NOT NULL
+lat DOUBLE PRECISION -- NOT NULL
 );
 
 CREATE TABLE item_category(
@@ -104,14 +104,6 @@ item_id INTEGER REFERENCES items(item_id) NOT NULL,
 req_id INTEGER REFERENCES requests(req_id) NOT NULL
 );
 
-CREATE INDEX dbuser_index ON dbUser(username);
-CREATE INDEX items_index ON items(item_id);
-CREATE INDEX bases_index ON base(base_id);
-CREATE INDEX vehicle_index ON vehicles(veh_id);
-CREATE INDEX tasks_index ON tasks(tasks_id);
-CREATE INDEX offer_index ON offers(off_id);
-CREATE INDEX tasks_index ON requests(req_id);
-
 CREATE VIEW rescuer AS
     SELECT user_id, first_name, surname, username, pass
     FROM dbUser
@@ -123,5 +115,14 @@ CREATE VIEW baseadmin AS
     FROM dbUser
     WHERE is_admin IS TRUE
     ;
+
+
+CREATE INDEX dbuser_index ON dbUser(username);
+CREATE INDEX items_index ON items(item_id);
+CREATE INDEX bases_index ON base(base_id);
+CREATE INDEX vehicle_index ON vehicles(veh_id);
+CREATE INDEX tasks_index ON tasks(tasks_id);
+CREATE INDEX offer_index ON offers(off_id);
+CREATE INDEX requests_index ON requests(req_id);
 
 --Need to add stored functions....

@@ -32,7 +32,7 @@
         }
 
         .loginbtn {
-          background-color: #04AA6D;
+          background-color: #04aa12;
           color: white;
           padding: 14px 16px;
           font-size: 15px;
@@ -61,7 +61,8 @@
             <a href="<?php echo $base_url; ?>/views/about/about.php" class="<?php echo strpos($current_page, 'about.php') !== false ? 'active' : ''; ?>">About</a>
 
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
-                <a href="<?php echo $base_url; ?>/views/storage/storage.php" class="<?php echo strpos($current_page, 'storage.php') !== false ? 'active' : ''; ?>">Storage</a>
+                <a href="<?php echo $base_url; ?>/views/storage/storage.php" class="<?php echo strpos($current_page, 'storage.php') !== false ? 'active' : ''; ?>">View Stock</a>
+                <a href="<?php echo $base_url; ?>/views/storeManage/storeManage.php" class="<?php echo strpos($current_page, 'storeManage.php') !== false ? 'active' : ''; ?>">Storage Management</a>
                 <a href="<?php echo $base_url; ?>/views/statistics/stats.php" class="<?php echo strpos($current_page, 'stats.php') !== false ? 'active' : ''; ?>">Statistics</a>
                 <a href="<?php echo $base_url; ?>/views/addAccount/addAccount.php" class="<?php echo strpos($current_page, 'addAccount.php') !== false ? 'active' : ''; ?>">Add Account</a>
             <?php endif; ?>

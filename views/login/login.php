@@ -50,18 +50,6 @@
       const lines = document.querySelectorAll('.form .gradient-line');
 
       inputs.forEach((input, index) => {
-       /*
-        input.addEventListener('focus', () => {
-          lines[index].classList.add('active');
-        });
-
-        input.addEventListener('blur', () => {
-          if (!input.value.trim()) { 
-            lines[index].classList.remove('active');
-          }
-        });
-
-        */
         const line = lines[index];
         if (line) {
             input.addEventListener('focus', () => {
@@ -80,7 +68,6 @@
     const passwordInput = document.getElementById('password');
     const submitButton = document.getElementById('submit');
     function checkInputs() {
-
             if (emailInput.value !== '' && passwordInput.value !== '') {
                 submitButton.classList.add('gradient-border');
             } else {

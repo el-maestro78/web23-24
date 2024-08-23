@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Service Statistics</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="../favico/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <?php include '../toolbar.php';
+    <?php
     include '../../ini.php';
+    include '../toolbar.php';
     ?>
 <h2>Statistics</h2>
 <form id="dateForm">

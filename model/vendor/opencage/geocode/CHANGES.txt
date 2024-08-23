@@ -1,0 +1,43 @@
+3.3.0 -- Mon Mar 11 2024
+=====================================================
+- add an HTTP header: User-Agent
+
+3.2.2 -- Mon Feb 26 2024
+=====================================================
+- add setProxy method
+
+3.2.1 -- Fri Jan 26 2024
+=====================================================
+- add testing against PHP 8.3
+- add PHPStan linting
+
+3.2.0 -- Wed Jul 26 2023
+=====================================================
+- requires PHP >= 8.0, PHP 7.4 no longer supported 
+- add testing against PHP 8.2
+
+3.1.1 -- Wed Dec 22 2021
+=====================================================
+- add testing against PHP 8.1
+
+3.1.0 -- Wed Sep 15 2021
+=====================================================
+- Error response when curl encounters a network issue (e.g. DNS, old TLS cipher). Before it
+   would silently fail.
+- Use test API keys in test suite for HTTP 200 and 402 responses
+
+3.0.0 -- Thu Jan 28 2021
+=====================================================
+- deprecate PHP 5.6, added PHP 8
+
+2.1.0 -- Thu May 9 2019
+=====================================================
+- file_get_contents printed errors and returned false. Instead those are
+   caughed now and an empty valid JSON document with the error code is
+   returned. file_get_contents is only used when the curl fetching doesn't
+   work (rare)
+
+2.0.3 -- Sat Apr 27 2019
+=====================================================
+- API returns HTTP 401 for invalid key
+- add Vagrant setup for testing

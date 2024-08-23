@@ -10,8 +10,8 @@
     </head>
     <body>
         <?php
-        include './toolbar.php';
         include '../ini.php';
+        include './toolbar.php';
         ?>
         <script>
 

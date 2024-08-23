@@ -1,18 +1,18 @@
   .right_box {
-    background: #3e5672;
+    background: rgba(65, 128, 69, 0.86);
     box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.22);
     color: #F1F1F2;
     position: relative;
     width: 40%;
   }
-  
+
   .left_box {
-    background: white;
+    background: #3e5672;
     height: calc(100%);
     position: relative;
     width: 40%;
   }
-  
+
   .box_text {
     color: #999;
     font-size: 14px;
@@ -31,22 +31,21 @@
     font-size: 14px;
     line-height: 1.5;
     display: inline-block;
-    vertical-align: middle; 
+    vertical-align: middle;
 }
   .container {
     display: flex;
     justify-content: center;
     height: 560px;
-    margin-top: 0.5cm;
-    /*margin: 0 auto; */
+    margin: 0 auto;
     width: 640px;
   }
- 
+
   .form {
     margin: 0px 40px;
     position: absolute;
   }
-  
+
   label {
     color:  #c2c2c5;
     display: block;
@@ -55,7 +54,7 @@
     margin-top: 20px;
     margin-bottom: 5px;
   }
-  
+
   .left_label {
     color:  #9a9a9c;
     display: block;
@@ -64,10 +63,10 @@
     margin-top: 20px;
     margin-bottom: 5px;
   }
-  
-  .signup {
-    font-size: 30px;
-    color: #3e5672;
+
+  .rescAddAccount{
+    font-size: 25px;
+    color: #f3f3f3;
     font-weight: 900;
     margin: 20px 40px 0px;
   }
@@ -85,9 +84,9 @@
     font-weight: bold;
     margin: 10px 40px 0px;
   }
-  
+
   input {
-    background: rgba(255, 255, 255, 0.1); 
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     border: 0;
     padding-left: 10px;
@@ -129,12 +128,12 @@
     }
 
   .left_input {
-      background: rgba(0, 0, 0, 0.1); 
-      color: #606060;
+      background: rgba(0, 0, 0, 0.1);
+      color: #f6f6f6;
     }
-    
+
   .button_input {
-    background: transparent; 
+    background: transparent;
     border-radius: 15px;
     border: 0;
     padding-left: 10px;
@@ -145,7 +144,7 @@
     outline: none !important;
     width: 100%;
   }
-  
+
   .gradient-line {
     height: 2px;
     width: 90%;
@@ -154,13 +153,13 @@
     transition: opacity 0.3s ease-in-out;
     margin: 0 10px;
   }
-  
+
   .gradient-border {
     background: linear-gradient(to right, #44d7ee, #daeffc);
     border-radius: 15px;
     padding: 2px;
   }
-  
+
   .gradient-border::after {
     content: '';
     display: block;
@@ -168,22 +167,24 @@
     border-radius: 13px;
     padding: 10px;
   }
-  
+
   .active {
     opacity: 1;
   }
-  
+
   #submit {
     color: #707075;
     margin-top: 40px;
     transition: color 300ms;
   }
-  
+
   #submit:focus {
     color: #f2f2f2;
   }
-  
+  #submit:hover{
+    color: #ffffff;
+  }
+
   #submit:active {
     color: #d0d0d2;
   }
-  

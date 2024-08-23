@@ -10,11 +10,11 @@
     </head>
 
     <body>
-        <?php include '../toolbar.php';
-        include '../../ini.php';?>
         <?php
-            include '../../controller/admin/fetch_storage.php';
-            include './filter_storage_by_quantity.php';
+        include '../../ini.php';
+        include '../toolbar.php';
+        include '../../controller/admin/fetch_storage.php';
+        include './filter_storage_by_quantity.php';
         if (!empty($combined_items)) {
             echo "<table>
                     <thead>
@@ -42,6 +42,6 @@
         } else {
             echo "<br/><div class='no-items-message'><b>No items to display.<b/></div>";
         }  ?>
-        <script src="storage.js"></script>
+        <script src="storage.js" defer></script>
     </body>
 </html>

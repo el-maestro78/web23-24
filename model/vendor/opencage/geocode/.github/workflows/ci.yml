@@ -1,0 +1,52 @@
+name: CI Tests
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '15 22 2 * *'
+
+env:
+  OPENCAGE_API_KEY: ${{ secrets.GEO_CODER_OPENCAGE_API_KEY }}
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        # https://www.php.net/supported-versions.php
+        php-version: ['8.1', '8.2', '8.3']
+
+    name: PHP OpenCage Geocode
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-progress --no-suggest --no-interaction
+
+      - name: Run tests
+        run: |
+          composer validate
+          ./vendor/bin/phpunit
+          SKIP_CURL=1 ./vendor/bin/phpunit
+
+      - name: Run proxy tests
+        run: |
+          docker run -d --name=tinyproxy -p 8888:8888 monokal/tinyproxy:latest ANY
+          PROXY=http://0.0.0.0:8888 ./vendor/bin/phpunit
+          docker rm -f tinyproxy
+
+      - name: Run Linter
+        run: ./vendor/bin/phpcs .
+
+      - name: Run PHPStan
+        run: ./vendor/bin/phpstan analyse --level 5 src tests demo
