@@ -25,7 +25,7 @@ if (!$result) {
 }
 if (pg_num_rows($result) > 0) {
     $row = pg_fetch_assoc($result);
-    //session_start();
+    session_start();
     $GLOBALS['logged_in'] = true;
     $_SESSION['user_id']=$row['user_id'];
     $_SESSION['first_name']=$row['first_name'];
