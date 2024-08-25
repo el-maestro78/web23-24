@@ -28,8 +28,6 @@ Aux. (Last)
 7.
     DONE
     
-8.  Not implemented yet
-    Needs front end.
-    Creating announcements and storing in db
-    Connecting announc with item
+8.
+    DONE
 */

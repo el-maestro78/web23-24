@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' type='text/css' media='screen' href='../storage/storage.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='storeManage.css'>
         <link rel="icon" href="../favico/favicon.ico" type="image/x-icon">
         <title>Manage Storage</title>
@@ -15,7 +16,41 @@
         include '../../check_login.php';
         include '../toolbar.php';
         ?>
+        <?php
+        include '../../controller/admin/fetch_storage.php';
+        include '../storage/filter_storage_by_quantity.php';
+        if (!empty($combined_items)) {
+            echo "<table>
+                    <thead>
+                        <tr>
+                            <th>Item ID</th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>Item Category</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>";?>
+             <?php foreach ($combined_items as $item): ?>
+                        <tr data-category="<?= $item['category'] ?>">
+                            <td><?= $item['item_id'] ?></td>
+                            <td><?= $item['iname'] ?></td>
+                            <td><?= $item['quantity'] ?></td>
+                            <td><?= $item['category'] ?></td>
+                            <td><?= $item['details'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+        <?php
+            echo "</tbody>
+                </table>";
+        } else {
+            echo "<br/><div class='no-items-message'><b>No items to display.<b/></div>";
+        }  ?>
+
+
         <script>
+
+
             /*
             fetch(../../controller/admin/add_item.php);
             fetch(../../controller/admin/details_item_category.php);
@@ -25,8 +60,8 @@
             //fetch(../../controller/admin/update_item_category.php);
             fetch(../../controller/admin/update_item_details.php);
             fetch(../../controller/admin/update_item_quantity.php);
-             */
+            //*/
         </script>
-
+        <script src="../storage/storage.js" defer></script>
     </body>
 </html>
