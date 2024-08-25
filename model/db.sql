@@ -100,8 +100,7 @@ CREATE TABLE news(
 news_id SERIAL PRIMARY KEY,
 descr VARCHAR(255),
 base_id INTEGER REFERENCES base(base_id) NOT NULL,
-item_id INTEGER REFERENCES items(item_id) NOT NULL,
-req_id INTEGER REFERENCES requests(req_id) NOT NULL
+item_id INTEGER REFERENCES items(item_id) NOT NULL  --req_id INTEGER REFERENCES requests(req_id)
 );
 
 CREATE VIEW rescuer AS

@@ -16,9 +16,11 @@ try {
     if ($stat !== PGSQL_CONNECTION_OK) {
         throw new Exception("Can't connect with database");
     }
+    global $dbconn;
     }catch(Exception $e){
     echo $e->getMessage();
 }
+
 /*
 function getDbConnection()
 {

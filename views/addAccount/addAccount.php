@@ -118,13 +118,7 @@
         }
 
     }
-    emailInput.addEventListener('input', checkInputs);
-    passwordInput.addEventListener('input', checkInputs);
-    fnameInput.addEventListener('input', checkInputs);
-    lnameInput.addEventListener('input', checkInputs);
-    usernameInput.addEventListener('input', checkInputs);
-    confPassInput.addEventListener('input', checkInputs);
-    phonenrInput.addEventListener('input', checkInputs);
+
     function showPassword(inputID, imgID) {var x = document.getElementById(inputID);var y = document.getElementById(imgID)
         if (x.type === "password") {
             x.type = "text";
