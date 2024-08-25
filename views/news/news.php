@@ -40,7 +40,7 @@
             function populateItemSelects(itemData) {
                 const itemSelects = document.querySelectorAll('#item-container select');
                 itemSelects.forEach(select => {
-                    select.innerHTML = ''; // Clear previous options
+                    select.innerHTML = '';
                     itemData.forEach(item => {
                         const option = document.createElement('option');
                         option.value = item.item_id;
@@ -67,24 +67,18 @@
                 populateItemSelects(itemsData);
             });
 
-            // Fetch bases and items data from server
             fetch('../../controller/admin/get_items_for_announc.php')
                 .then(response => response.json())
                 .then(data => {
                     if (data.items && data.bases) {
                         itemsData = data.items;
-
                         const baseSelect = document.getElementById('base');
-
-                        // Populate base select options
                         data.bases.forEach(base => {
                             const option = document.createElement('option');
                             option.value = base.base_id;
                             option.text = `Base ${base.base_id}`;
                             baseSelect.appendChild(option);
                         });
-
-                        // Populate item select options initially
                         populateItemSelects(itemsData);
                     } else {
                         console.error('Unexpected data format:', data);

@@ -14,8 +14,7 @@ $items = 1;
 */
 $descr = validate_input($_POST['details']);
 $base_id = validate_input($_POST['base']);
-$items = json_decode($_POST['items'], true);
-//$items = $items[0];
+$items = json_decode($_POST['item'], true);
 if (!is_array($items)) {
     echo json_encode(['created' => false, 'error' => 'Invalid items format','array' => $items]);
     exit;
