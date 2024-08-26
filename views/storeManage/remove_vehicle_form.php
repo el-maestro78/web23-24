@@ -19,39 +19,59 @@
         //Vehicle load
         include '../../controller/admin/fetch_veh_loaded_items.php';
     ?>
+    <?php
+    $vehicle_items = [];
+        foreach ($vehicle_load_array as $veh) {
+            $vehicle = $veh['veh_id'];
+            $id = $veh['item_id'];
+            $name = $veh['iname'];
+            $quant = $veh['load'];
+            if (!isset($vehicle_items[$vehicle])) {
+                $vehicle_items[$vehicle] = [];
+            }
+            $vehicle_items[$vehicle][] = ['id' => $id, 'name' => $name, 'quantity' => $quant];
+        }
+    ?>
     <div class="container">
-            <div class="form_box">
-                <div class="details">Remove Item from Vehicle Load</div>
-                <div class="form">
-                    <label for="vehicle" class="insert_label">Select Vehicle</label>
-                    <select id="vehicle" class="select_input" required>
-                        <?php
-                            foreach ($vehicle_load_array as $veh) {
-                                $vehicle = $veh['veh_id'];
-                                $id = $veh['item_id'];
-                                $name = $veh['iname'];
-                                $quant = $veh['load'];
-                                echo "<option value=\"$vehicle\">Vehicle: $vehicle</option>";
-                            }
-                        ?>
-                    </select>
-                    <label for="item" class="insert_label">Select Item</label>
-                    <select id="item" class="select_input" required>
-                        <?php
-                            foreach ($vehicle_load_array as $veh) {
-                                $vehicle = $veh['veh_id'];
-                                $id = $veh['item_id'];
-                                $name = $veh['iname'];
-                                $quant = $veh['load'];
-                                echo "<option value=\"$id\">$name - $quant</option>";
-                            }
-                        ?>
-                    </select>
-                    <input type="submit" class="button_input" id="submit" value="Submit">
-                </div>
+        <div class="form_box">
+            <div class="details">Remove Item from Vehicle Load</div>
+            <div class="form">
+                <label for="vehicle" class="insert_label">Select Vehicle</label>
+                <select id="vehicle" class="select_input" required>
+                    <option value="" disabled selected>Select a vehicle</option>
+                    <?php foreach ($vehicle_items as $vehicle => $items): ?>
+                        <option value="<?php echo $vehicle; ?>">Vehicle: <?php echo $vehicle; ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <label for="item" class="insert_label">Select Item</label>
+                <select id="item" class="select_input" required>
+                    <option value="" disabled selected>Select an item</option>
+                </select>
+
+                <input type="submit" class="button_input" id="submit" value="Submit">
             </div>
+        </div>
     </div>
+
     <script>
+        const vehicleItems = <?php echo json_encode($vehicle_items); ?>;
+        const vehicleSelect = document.getElementById('vehicle');
+        const itemSelect = document.getElementById('item');
+
+        vehicleSelect.addEventListener('change', function() {
+            const selectedVehicle = this.value;
+            itemSelect.innerHTML = '<option value="" disabled selected>Select an item</option>';
+
+            if (selectedVehicle && vehicleItems[selectedVehicle]) {
+                vehicleItems[selectedVehicle].forEach(function(item) {
+                    const option = document.createElement('option');
+                    option.value = item.id;
+                    option.textContent = `${item.name} - ${item.quantity}`;
+                    itemSelect.appendChild(option);
+                });
+            }
+        });
         const vehInput = document.getElementById('vehicle');
         const itemInput = document.getElementById('item');
         const submit = document.getElementById('submit');
