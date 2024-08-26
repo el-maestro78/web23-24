@@ -33,3 +33,5 @@ else{
         echo json_encode(['exists' => false, 'created'=> true]);
     }
 }
+
+include "../../model/dbclose.php";
