@@ -3,26 +3,27 @@ include "../../model/config.php";
 include "../../ini.php";
 include "../../auxiliary.php";
 
-$item_name = validate_input($_POST['item_name']);
-$item_details = validate_input($_POST['item_details']);
+$item_name = validate_input($_POST['item']);
+$item_details = validate_input($_POST['details']);
 
 $sql = <<< EOF
         SELECT iname
         FROM items
-        WHERE iname = $item_name;
-       EOF;
-$check_if_already_exists = pg_query($dbconn, $sql);
+        WHERE item_id = $1;
+EOF;
+$check_if_already_exists = pg_query_params($dbconn, $sql, array($item_name));
 if ($check_if_already_exists && pg_num_rows($check_if_already_exists) <= 0) {
-    echo "Item $item_name doesn't exist";
+    echo json_encode(['exists' => false, 'created'=> false, 'error' => pg_last_error($dbconn)]);
 } else {
     $sql = <<< EOF
-            "UPDATE items 
-           SET details = $item_details
-           WHERE iname = $item_name";
-       EOF;
-    $result = pg_query($dbconn, $sql);
-    if (!$result) {
-        $error_message = "Problem with updating details for item $item_categ";
-        echo $error_message;
+            UPDATE items 
+            SET details = $2
+            WHERE item_id = $1;
+EOF;
+    $result = pg_query_params($dbconn, $sql, array($item_name, $item_details));
+    if(!$result) {
+        echo json_encode(['exists' => true, 'created'=> false, 'error' => pg_last_error($dbconn)]);
+    }else{
+        echo json_encode(['exists' => true, 'created'=> true]);
     }
 }

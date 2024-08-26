@@ -25,7 +25,7 @@
                 <div class="form">
                     <label for="item_name" class="insert_label">Item Name</label>
                     <input type="text" id="item_name" class="insert_input" required>
-                    <label for="category" class="insert_label">Select Item</label>
+                    <label for="category" class="insert_label">Select Category</label>
                     <select id="category" class="categ_input" required>
                         <?php
                             foreach ($categories_array as $category) {
