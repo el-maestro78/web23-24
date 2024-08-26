@@ -25,7 +25,12 @@
         include '../../controller/admin/fetch_veh_loaded_items.php';
 
         ?>
-        <?php include '../storage/filter_storage_by_quantity.php';?>
+        <div id="itemFilters">
+            <?php include '../storage/filter_storage_by_quantity.php';?>
+            <button type="button" id="add-item-button" class="button_add">Add Another Item</button>
+            <button type="button" id="modify-item-button" class="button_modify">Modify Item</button>
+            <button type="button" id="remove-item-button" class="button_remove">Remove Item</button>
+        </div>
         <?php if (!empty($combined_items)) : ?>
             <div class="table-container">
                 <table id="items-table">
@@ -52,9 +57,13 @@
                 </table>
             </div>
         <?php else : ?>
-            <br/><div class='no-items-message'><b>No items to display.<b/></div>
+            <br/><div class='no-items-message'><b>No items to display.</b></div>
         <?php endif; ?>
-        <?php include './filter_categories.php'; ?>
+        <!--Not Sure if Need this TODO-->
+        <?php //include './filter_categories.php'; ?>
+        <button type="button" id="add-item-button" class="button_add">Add Another Category</button>
+        <button type="button" id="modify-item-button" class="button_modify">Modify Category</button>
+        <button type="button" id="remove-item-button" class="button_remove">Remove Category</button>
         <?php if (!empty($categories_array)) : ?>
             <div class="table-container">
                 <table>
@@ -77,12 +86,15 @@
                 </table>
             </div>
         <?php else : ?>
-            <br/><div class='no-items-message'><b>No categories to display.<b/></div>
+            <br/><div class='no-items-message'><b>No categories to display.</b></div>
         <?php endif; ?>
         <?php include './filter_vehicles.php'; ?>
+        <button type="button" id="add-item-button" class="button_add">Load Item</button>
+        <button type="button" id="modify-item-button" class="button_modify">Modify Quantity</button>
+        <button type="button" id="remove-item-button" class="button_remove">Remove Item</button>
         <?php if (!empty($vehicle_load_array)) : ?>
             <div class="table-container">
-                <table>
+                <table id="vehicle-table">
                     <thead>
                         <tr>
                             <th>Vehicle ID</th>
@@ -94,7 +106,7 @@
                     </thead>
                     <tbody>
                         <?php foreach ($vehicle_load_array as $veh): ?>
-                            <tr >  <?php //data-category="<?= $categ['category']" ?>
+                            <tr data-category="<?= $veh['veh_id']?>">
                                 <td><?= $veh['veh_id'] ?></td>
                                 <td><?= $veh['username'] ?></td>
                                 <td><?= $veh['item_id'] ?></td>
@@ -106,7 +118,7 @@
                 </table>
             </div>
         <?php else : ?>
-            <br/><div class='no-items-message'><b>No vehicles to display.<b/></div>
+            <br/><div class='no-items-message'><b>No vehicles to display.</b></div>
         <?php endif; ?>
         <script>
 

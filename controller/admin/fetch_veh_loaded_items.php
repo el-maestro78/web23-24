@@ -14,4 +14,6 @@ $veh_load_result = pg_query($dbconn, $veh_load);
 if (!$veh_load_result) die( http_response_code(500));
 $vehicle_load_array = pg_fetch_all($veh_load_result);
 
+$vehicle_bases = array_unique(array_column($vehicle_load_array, 'veh_id'));
+
 include("../../model/dbclose.php");

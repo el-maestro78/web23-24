@@ -11,3 +11,18 @@ categoryFilter.addEventListener('change', function() {
         }
     });
 });
+
+
+const vehicleFilter = document.getElementById('vehicleFilter');
+const vehicleRows = document.querySelectorAll('#vehicle-table tbody tr');
+vehicleFilter.addEventListener('change', function() {
+    const selectedVehicle = this.value;
+    vehicleRows.forEach(row => {
+        const vehicle = row.getAttribute('data-category');
+        if (selectedVehicle === 'all' || vehicle === selectedVehicle) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
