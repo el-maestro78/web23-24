@@ -25,6 +25,15 @@
         include '../../controller/admin/fetch_veh_loaded_items.php';
 
         ?>
+        <div id='load-json' class="load-json-div">
+            <!-- LOAD from json and update through their database button TODO-->
+            Load via Json &nbsp;
+            <button type="button" id="add-json-button" class="button_add">Load Json</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Update via Database &nbsp;
+            <button type="button" id="update-button" class="button_modify">Update</button>
+        </div>
+        <hr/>
         <div id="itemFilters">
             <button type="button" id="add-item-button" class="button_add">Add Another Item</button>
             <button type="button" id="modify-item-button" class="button_modify">Modify Item</button>
@@ -125,6 +134,9 @@
             <br/><div class='no-items-message'><b>No vehicles to display.</b></div>
         <?php endif; ?>
         <script>
+            const loadJson = document.getElementById('add-json-button');
+            const updateDb = document.getElementById('update-button');
+
             const addItem = document.getElementById('add-item-button');
             const modifyItem = document.getElementById('modify-item-button');
             const removeItem = document.getElementById('remove-item-button');
@@ -137,43 +149,53 @@
             const modifyVehicle = document.getElementById('modify-vehicle-button');
             const removeVehicle = document.getElementById('remove-vehicle-button');
 
+            loadJson.addEventListener('click', function(event){
+               event.preventDefault();
+               alert('Nothing yet');
+            });
+            updateDb.addEventListener('click', function(event){
+               event.preventDefault();
+               alert('Nothing yet');
+            });
+
+
             addItem.addEventListener('click', function(event){
                event.preventDefault();
-               window.location.href = 'add_item_form.php'
+               window.location.href = 'add_item_form.php';
             });
             modifyItem.addEventListener('click', function(event){
                event.preventDefault();
-               window.location.href = 'modify_item_form.php'
+               window.location.href = 'modify_item_form.php';
             });
             removeItem.addEventListener('click', function(event){
                event.preventDefault();
-               window.location.href = 'remove_item_form.php'
+               window.location.href = 'remove_item_form.php';
             });
 
             addCategory.addEventListener('click', function(event){
                event.preventDefault();
-               window.location.href = 'add_category_form.php'
+               window.location.href = 'add_category_form.php';
             });
             modifyCategory.addEventListener('click', function(event){
                event.preventDefault();
-               window.location.href = 'modify_category_form.php'
+               window.location.href = 'modify_category_form.php';
             });
             removeCategory.addEventListener('click', function(event){
                event.preventDefault();
-               window.location.href = 'remove_category_form.php'
+               window.location.href = 'remove_category_form.php';
             });
 
             addVehicle.addEventListener('click', function(event){
                event.preventDefault();
-               window.location.href = 'add_vehicle_form.php'
+               window.location.href = 'add_vehicle_form.php';
             });
             modifyVehicle.addEventListener('click', function(event){
                event.preventDefault();
-               window.location.href = 'modify_vehicle_form.php'
+               window.location.href = 'modify_vehicle_form.php';
             });
             removeVehicle.addEventListener('click', function(event){
                event.preventDefault();
-               window.location.href = 'remove_vehicle_form.php'
+               window.location.href = 'remove_vehicle_form.php';
             });
             /*
             fetch(../../controller/admin/add_item.php);

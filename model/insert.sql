@@ -3,11 +3,11 @@ INSERT INTO base (lat, long) VALUES
 (38.258236, 21.743137),
 (38.244872, 21.731950);
 
-INSERT INTO vehicles (veh_id, username, lat, long) VALUES
-(0, 'bear', 38.246444, 21.734203),
-(1, 'lion', 38.258236, 21.743137),
-(2, 'RAT', 38.244872, 21.731950),
-(3, 'giraffe', 38.244872, 21.731950);
+INSERT INTO vehicles (username, lat, long) VALUES
+('bear', 38.246444, 21.734203),
+('lion', 38.258236, 21.743137),
+('RAT', 38.244872, 21.731950),
+('giraffe', 38.244872, 21.731950);
 
 INSERT INTO dbUser(first_name,surname,username,pass,is_resc,is_admin,email,phone,long,lat) VALUES
 ( 'Admin', 'Adminopoulos', 'tester', 'pass', FALSE, TRUE, 'admin@admin.org', 6987654321, 38.246444, 21.734203),
@@ -21,39 +21,39 @@ INSERT INTO dbUser(first_name,surname,username,pass,is_resc,is_admin,email,phone
 ( 'Rescuer2fn', 'Rescuer2ln', 'rescuer2', 'pass12', TRUE, FALSE, 'rescuer2@gmail.com', 6912121212, 45.8, 25.5),
 ( 'Rescuer3fn', 'Rescuer3ln', 'rescuer3', 'pass13', TRUE, FALSE, 'rescuer3@gmail.com', 6913131313, 44.8, 24.5);
 
-INSERT INTO item_category(category_id, category_name, details) VALUES
-(0, 'spam', 'Another Viking victory'),
-(1, 'athletic', 'Good old exercise');
+INSERT INTO item_category(category_name, details) VALUES
+('spam', 'Another Viking victory'),
+('athletic', 'Good old exercise');
 
-INSERT INTO  items(item_id, iname, quantity, category, details) VALUES
-(0,'spam', 1, 0, 'Just spam'),
-(1,'spam, eggs & spam', 10, 0,'Less spam in it'),
-(2,'spam, eggs, spam, spam & spam', 100, 0, 'Better than spam eggs spam'),
-(3,'Basketball Ball', 50, 1, 'Just a basketball ball');
+INSERT INTO  items(iname, quantity, category, details) VALUES
+('spam', 1, 1, 'Just spam'),
+('spam, eggs & spam', 10, 1,'Less spam in it'),
+('spam, eggs, spam, spam & spam', 100, 1, 'Better than spam eggs spam'),
+('Basketball Ball', 50, 2, 'Just a basketball ball');
 
-INSERT INTO requests(req_id, pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES 
-(0, FALSE, FALSE, 5, current_date, current_date, 1, 1, 21.731021839078, 38.244808224971),
-(1, FALSE, FALSE, 10, current_date, current_date, 1, 2, 21.734499691362, 38.246439932828),
-(2, TRUE, FALSE, 5, current_date, NULL, 1, 0, 21.734503111278, 38.245888739736),
-(3, TRUE, FALSE, 10, current_date, NULL, 1, 1, 21.732724118553, 38.244914513495),
-(4, FALSE, TRUE, 25, current_date, current_date, 1, 3, 21.78, 38.45);
+INSERT INTO requests(pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES
+(FALSE, FALSE, 5, current_date, current_date, 1, 1, 21.731021839078, 38.244808224971),
+(FALSE, FALSE, 10, current_date, current_date, 1, 2, 21.734499691362, 38.246439932828),
+(TRUE, FALSE, 5, current_date, NULL, 1, 3, 21.734503111278, 38.245888739736),
+(TRUE, FALSE, 10, current_date, NULL, 1, 1, 21.732724118553, 38.244914513495),
+(FALSE, TRUE, 25, current_date, current_date, 1, 3, 21.78, 38.45);
 
-INSERT INTO offers(off_id, pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES 
-(0, FALSE, FALSE, 5, current_date, current_date, 1, 1, 21.738, 38.268809889),
-(1, FALSE, FALSE, 10, current_date, current_date, 1, 2, 23.745, 38.0),
-(2, TRUE, FALSE, 5, current_date, NULL, 1, 0, 21.800, 38.2356855),
-(3, TRUE, FALSE, 10, current_date, NULL, 1, 1, 21.850, 38.230),
-(4, FALSE, TRUE, 1, current_date, NULL, 1, 1, 21.100, 38.230);
+INSERT INTO offers(pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES
+(FALSE, FALSE, 5, current_date, current_date, 1, 1, 21.738, 38.268809889),
+(FALSE, FALSE, 10, current_date, current_date, 1, 2, 23.745, 38.0),
+(TRUE, FALSE, 5, current_date, NULL, 1, 1, 21.800, 38.2356855),
+(TRUE, FALSE, 10, current_date, NULL, 1, 2, 21.850, 38.230),
+(FALSE, TRUE, 1, current_date, NULL, 1, 1, 21.100, 38.230);
 
-INSERT INTO tasks(tasks_id, user_id, veh_id, off_id, req_id, completed) VALUES 
-(0, 1, 1, 0, NULL, FALSE),
-(5, 1, 1, NULL, 0, FALSE),
-(1, 1, 2, 1, NULL, FALSE),
-(2, 1, 0, NULL, 0, FALSE),
-(3, 1, 0, NULL, 1, FALSE),
-(4, 1, 1, NULL, 0, TRUE);
+INSERT INTO tasks(user_id, veh_id, off_id, req_id, completed) VALUES
+(1, 1, 2, NULL, FALSE),
+(1, 1, NULL, 1, FALSE),
+(1, 2, 1, NULL, FALSE),
+(1, 2, NULL, 1, FALSE),
+(1, 3, NULL, 2, FALSE),
+(1, 3, NULL, 1, TRUE);
 
 INSERT INTO vehicle_load(veh_id, item_id, load) VALUES
-(0, 1, 5),
-(0, 2, 10),
-(1, 2, 10);
+(1, 1, 5),
+(1, 2, 10),
+(2, 2, 10);

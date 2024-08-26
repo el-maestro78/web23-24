@@ -92,3 +92,9 @@ tr:hover {
 .button_remove:hover {
     background-color: #822e2e;
 }
+.load-json-div{
+    justify-content: center;
+    margin-top: 3px;
+    align-items: center;
+    padding: 1px;
+}

@@ -3,32 +3,33 @@ include "../../model/config.php";
 include "../../ini.php";
 include "../../auxiliary.php";
 
-$item_name = validate_input($_POST['item_name']);
-$item_quant = validate_input($_POST['item_quant']);
-$item_categ = validate_input($_POST['item_categ']);
-$item_details = validate_input($_POST['item_details'] ?? '');
+$item_name = validate_input($_POST['item']);
+$item_quant = validate_input($_POST['quantity']);
+$item_categ = validate_input($_POST['category']);
+$item_details = validate_input($_POST['details'] ?? '');
 
 
 $sql = <<< EOF
         SELECT iname
         FROM item
-        WHERE iname=$item_name;
+        WHERE iname=$1;
        EOF;
-$check_if_already_exists = pg_query($dbconn, $sql);
+$check_if_already_exists = pg_query_params($dbconn, $sql,array($item_name));
 if($check_if_already_exists && pg_num_rows($check_if_already_exists) > 0){
-    echo "Item $item_name already exists";
+    echo json_encode(['exists' => true, 'created'=> false, 'error' => pg_last_error($dbconn)]);
 }
 else{
     if ($item_quant <= 0) {
-        $item_quant == 0;
+        $item_quant = 0;
     }
     $sql = <<< EOF
         INSERT INTO items(iname, quantity, category, details) 
-        VALUES ($item_name, $item_quant, $item_categ, $item_details)";
+        VALUES ($1,$2,$3,$4);
        EOF;
-    $result = pg_query($dbconn, $sql);
+    $result = pg_query_params($dbconn, $sql, array($item_name, $item_quant, $item_categ, $item_details));
     if (!$result) {
-        $error_message = "Problem with item $item_name";
-        echo $error_message;
+        echo json_encode(['exists' => false, 'created'=> false, 'error' => pg_last_error($dbconn)]);
+    }else{
+        echo json_encode(['exists' => false, 'created'=> true]);
     }
 }

@@ -34,8 +34,8 @@
             </div>
         </div>
         <script>
-            let itemCount = 1; // Initial count for item selects
-            let itemsData = []; // Global variable to store fetched item data
+            let itemCount = 1;
+            let itemsData = [];
 
             function populateItemSelects(itemData) {
                 const itemSelects = document.querySelectorAll('#item-container select');
@@ -108,7 +108,7 @@
                     if (data.created) {
                         alert('Created successfully');
                     } else {
-                        alert('Error: ' + data.array) //data.error
+                        alert('Error: ' + data.error) //data.array
                     }
                 })
                 .catch(error => console.error('Error submitting news:', error));

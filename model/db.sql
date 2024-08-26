@@ -1,3 +1,4 @@
+\c postgres;
 DROP DATABASE webproject24;
 CREATE DATABASE webproject24;
 
@@ -89,7 +90,7 @@ lat DOUBLE PRECISION NOT NULL
 
 
 CREATE TABLE announcements (
-    ann_id INT AUTO_INCREMENT PRIMARY KEY,
+    ann_id SERIAL PRIMARY KEY,
     ann_title VARCHAR(255) NOT NULL,
     ann_description TEXT,
     ann_date DATE NOT NULL
