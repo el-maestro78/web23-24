@@ -43,7 +43,12 @@
 
         submit.addEventListener('click', function (event){
             event.preventDefault()
-            submit_data();
+            const userConfirmed = confirm('Are you sure you want to remove this item?');
+            if (userConfirmed) {
+                submit_data();
+            }else {
+                alert('Removal canceled.');
+            }
         });
 
         function submit_data(){
@@ -63,7 +68,7 @@
                     } else if(!data.removed && !data.exists){
                         alert('Item doesn\'t exist');
                     }else{
-                    alert('Error: Item is needed or loaded in a vehicle');// + data.error);
+                    alert('Error: ' + data.error);// Item is needed or loaded in a vehicle');
                 }
             })
             .catch(error => console.error('Error removing this item from the database:', error));

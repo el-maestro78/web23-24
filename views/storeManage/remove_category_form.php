@@ -43,7 +43,12 @@
 
         submit.addEventListener('click', function (event){
             event.preventDefault()
-            submit_data();
+            const userConfirmed = confirm('Are you sure you want to remove this category?');
+            if (userConfirmed) {
+                submit_data();
+            }else {
+                alert('Removal canceled.');
+            }
         });
 
         function submit_data(){
@@ -58,40 +63,16 @@
             .then(response => response.json())
             .then(data =>{
                 if (data.removed) {
-                        alert('Removed successfully');
-                        window.location.href ='storeManage.php';
+                    alert('Removed successfully');
+                    window.location.href ='storeManage.php';
                 } else if(!data.removed && !data.exists){
-                        alert('Item doesn\'t exist');
+                    alert('Category doesn\'t exist');
                 }else{
-                    const userConfirmed = confirm('Are you sure you want to remove this category?');
-                    if (userConfirmed) {
-                        remove_everything(category, params);
-                    }else {
-                        alert('Removal canceled.');
-                    }
+                     alert('Error: ' + data.error);
                 }
             })
-            .catch(error => console.error('Error removing this item from the database:', error));
+            .catch(error => console.error('Error removing this category from the database:', error));
         }
-         function remove_everything(category, params){
-
-            fetch('../../controller/admin/remove_item_category.php', {
-                method:'POST',
-                body:params
-            })
-            .then(response => response.json())
-            .then(data =>{
-                if (data.removed) {
-                        alert('Removed successfully');
-                        window.location.href ='storeManage.php';
-                } else if(!data.removed && !data.exists){
-                        alert('Item doesn\'t exist');
-                }else{
-
-                }
-            })
-            .catch(error => console.error('Error removing this item from the database:', error));
-         }
 
     </script>
 </body>
