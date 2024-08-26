@@ -17,7 +17,7 @@
         include '../../controller/admin/fetch_storage.php';
         include './filter_storage_by_quantity.php';
         if (!empty($combined_items)) {
-            echo "<table>
+            echo "<table id='items-table'>
                     <thead>
                         <tr>
                             <th>Item ID</th>

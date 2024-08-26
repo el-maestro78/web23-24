@@ -1,8 +1,6 @@
 <?php
 include '../../model/config.php';
 
-// Get from  Quantity from Storage
-//$item_query = "SELECT * FROM items";
 $item_query='SELECT
                 items.item_id,
                 items.iname,

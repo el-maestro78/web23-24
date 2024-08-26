@@ -1,5 +1,5 @@
 const categoryFilter = document.getElementById('categoryFilter');
-const rows = document.querySelectorAll('tbody tr');
+const rows = document.querySelectorAll('#items-table tbody tr');
 categoryFilter.addEventListener('change', function() {
     const selectedCategory = this.value;
     rows.forEach(row => {
