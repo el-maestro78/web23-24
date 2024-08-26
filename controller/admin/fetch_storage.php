@@ -21,6 +21,8 @@ $veh_load_array = pg_fetch_all($veh_load_result);
 
 $combined_items = [];
 foreach ($items_array as $item) {
+    $item['storage'] = $item['quantity'];
+    $item['vehload'] = 0;
     $item_id = $item['item_id'];
     $combined_items[$item_id] = $item;
 }
@@ -29,6 +31,7 @@ foreach ($veh_load_array as $veh_load) {
     $item_id = $veh_load['item_id'];
     if (isset($combined_items[$item_id])) {
         $combined_items[$item_id]['quantity'] += $veh_load['load'];
+        $combined_items[$item_id]['vehload'] = $veh_load['load'];
     }else{
         $combined_items[$item_id]['quantity'] = $veh_load['load'];
     }

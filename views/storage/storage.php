@@ -19,10 +19,12 @@
         if (!empty($combined_items)) {
             echo "<table id='items-table'>
                     <thead>
-                        <tr>
+                         <tr>
                             <th>Item ID</th>
                             <th>Item Name</th>
                             <th>Quantity</th>
+                            <th>On Storage</th>
+                            <th>On Vehicle</th>
                             <th>Item Category</th>
                             <th>Details</th>
                         </tr>
@@ -30,11 +32,13 @@
                     <tbody>";?>
              <?php foreach ($combined_items as $item): ?>
                         <tr data-category="<?= $item['category'] ?>">
-                            <td><?= $item['item_id'] ?></td>
-                            <td><?= $item['iname'] ?></td>
-                            <td><?= $item['quantity'] ?></td>
-                            <td><?= $item['category'] ?></td>
-                            <td><?= $item['details'] ?></td>
+                                <td><?= $item['item_id'] ?></td>
+                                <td><?= $item['iname'] ?></td>
+                                <td><?= $item['quantity'] ?></td>
+                                <td><?= $item['storage'] ?></td>
+                                <td><?= $item['vehload'] ?></td>
+                                <td><?= $item['category'] ?></td>
+                                <td><?= $item['details'] ?></td>
                         </tr>
                     <?php endforeach; ?>
         <?php
