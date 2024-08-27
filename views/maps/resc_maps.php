@@ -18,11 +18,10 @@
 </head>
 
 <body>
-
     <?php include '../../ini.php'; ?>
     <?php include '../../check_login.php'; ?>
     <?php
-        if($_SESSION['role'] !== 'admin'){
+        if($_SESSION['role'] !== 'rescuer'){
             header("Location: ../home_page.php", true, 302);
             exit();
         }
@@ -39,7 +38,7 @@
     <!-- Leaflet Control (filter-search) -->
     <script src="../../node_modules/leaflet-search/dist/leaflet-search.src.js"></script>
     <!-- Aux functions for a cleaner maps.php file-->
-    <script src="./map.js"></script>
+    <script src="./resc_map.js"></script>
     <script src="./icons.js"></script>
 
     <script>
@@ -52,24 +51,6 @@
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         }).addTo(map);
-
-        // Filters
-        /*
-        const markerLayer = L.layerGroup().addTo(map);
-        const vehicleLayer = L.layerGroup().addTo(map);
-        const offerLayer = L.layerGroup().addTo(map);
-        const requestLayer = L.layerGroup().addTo(map);*/
-        const markerLayer = L.layerGroup();
-        const baseLayer = L.layerGroup();
-        const vehicleLayer = L.layerGroup();
-        const vehicleIdleLayer= L.layerGroup();
-        const vehicleBusyLayer= L.layerGroup();
-        const offerLayer = L.layerGroup();
-        const offerPendingLayer = L.layerGroup();
-        const offerAssignedLayer = L.layerGroup();
-        const requestLayer = L.layerGroup();
-        const requestPendingLayer = L.layerGroup();
-        const requestAssignedLayer = L.layerGroup();
 
         // Vehicle Lines
         const polylineLayerGroup = L.layerGroup().addTo(map);
@@ -88,30 +69,8 @@
                             prefix: 'fa',
                             markerColor: 'black',
                         }),
-                        draggable: true,
+                        draggable: false,
                     }).addTo(map);
-                    marker.bindPopup(`<b>Store ID: ${store.base_id}</b>`).openPopup();
-                    /*
-                        marker.on('dragstart', function(event) {
-                        let position = marker.getLatLng();
-                    });
-                    marker.on('drag', function(event) {
-                        let marker = event.target;
-                        let position = marker.getLatLng();
-                    });*/
-                    let start_pos = marker.getLatLng();
-                    marker.on('dragend', (event) => {
-                        const userConfirm = confirm('Are you sure you want to move the marker here?')
-                        if (userConfirm){
-                            storedrag(event, store.base_id);
-                        }else{
-                            marker.setLatLng(start_pos, {
-                            draggable: true
-                            }).update();
-                        }
-                    });
-                    marker.addTo(markerLayer);
-                    marker.addTo(baseLayer);
                 });
             })
             .catch(error => console.error('Error fetching store data:', error));
@@ -141,12 +100,6 @@
                             drawVehicleLine(marker, tasks);
                             polylineLayerGroup.clearLayers();
                         });
-
-                        marker.addTo(markerLayer);
-                        marker.addTo(vehicleLayer);
-
-                        if (vehType === 'assigned') marker.addTo(vehicleBusyLayer);
-                        else marker.addTo(vehicleIdleLayer);
                     }).catch(error => {
                         console.error("Error occurred while fetching vehicle data: ", error);
                     });
@@ -208,26 +161,6 @@
                 })
             })
             .catch(error => console.error('Error fetching request data:', error));
-
-        const overlayMaps = {
-            "All": markerLayer,
-            "Bases": baseLayer,
-            //"Vehicles": vehicleLayer,
-            "Vehicles on road": vehicleBusyLayer,
-            "Vehicles Idle": vehicleIdleLayer,
-            "Requests": requestLayer,
-            "Requests pending": requestPendingLayer ,
-            "Requests assigned": requestAssignedLayer ,
-            //"Offers": offerLayer,
-            "Offers pending": offerPendingLayer,
-            "Offers assigned": offerAssignedLayer
-        };
-        let control = L.control.layers(null, overlayMaps).addTo(map);
-            //control.addOverlay(vehicleLayer, "Vehicles")
-        function initializeMap() {
-            markerLayer.addTo(map);
-        }
-        initializeMap();
     </script>
 </body>
 

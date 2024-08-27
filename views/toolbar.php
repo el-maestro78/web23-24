@@ -55,7 +55,15 @@
         <?php $current_page = $_SERVER['REQUEST_URI']; ?>
         <nav class="topnav">
             <a href="<?php echo $base_url; ?>/views/home_page.php" class="<?php echo strpos($current_page, 'home_page.php') !== false ? 'active' : ''; ?>">Home</a>
-            <a href="<?php echo $base_url; ?>/views/maps/maps.php" class="<?php echo strpos($current_page, 'maps.php') !== false ? 'active' : ''; ?>">Maps</a>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
+                 <a href="<?php echo $base_url; ?>/views/maps/maps.php" class="<?php echo strpos($current_page, 'maps.php') !== false ? 'active' : ''; ?>">Maps</a>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'rescuer') : ?>
+                <a href="<?php echo $base_url; ?>/views/maps/resc_maps.php" class="<?php echo strpos($current_page, 'resc_maps.php') !== false ? 'active' : ''; ?>">Maps</a>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'civilian') : ?>
+                <a href="<?php echo $base_url; ?>/views/maps/civ_maps.php" class="<?php echo strpos($current_page, 'civ_maps.php') !== false ? 'active' : ''; ?>">Maps</a>
+            <?php endif; ?>
             <a href="<?php echo $base_url; ?>/views/news/civ_news.php" class="<?php echo strpos($current_page, 'civ_news.php') !== false ? 'active' : ''; ?>">News</a>
             <a href="<?php echo $base_url; ?>/views/contact/contact.php" class="<?php echo strpos($current_page, 'contact.php') !== false ? 'active' : ''; ?>">Contact</a>
             <a href="<?php echo $base_url; ?>/views/about/about.php" class="<?php echo strpos($current_page, 'about.php') !== false ? 'active' : ''; ?>">About</a>
