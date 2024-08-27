@@ -90,10 +90,10 @@
             })
             .then(response => response.json())
             .then(data =>{
-                if (data.created) {
+                if (data.updated) {
                         alert('Updated successfully');
                         window.location.href ='storeManage.php';
-                    } else if(!data.created && !data.exists){
+                    } else if(!data.updated && !data.exists){
                         alert('Item doesn\'t exist');
                     }else{
                     alert('Error: ' + data.error);
@@ -116,10 +116,10 @@
             })
             .then(response => response.json())
             .then(data =>{
-                if (data.created) {
+                if (data.updated) {
                         alert('Updated successfully');
                         window.location.href ='storeManage.php';
-                    } else if(!data.created && !data.exists){
+                    } else if(!data.updated && !data.exists){
                         alert('Item doesn\'t exist');
                     }else{
                     alert('Error: ' + data.error);
