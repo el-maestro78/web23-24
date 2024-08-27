@@ -37,6 +37,7 @@
         <div id="itemFilters">
             <button type="button" id="add-item-button" class="button_add">Add Another Item</button>
             <button type="button" id="modify-item-button" class="button_modify">Modify Item</button>
+            <button type="button" id="modify-items_categ-button" class="button_modify">Modify Item's Category</button>
             <button type="button" id="remove-item-button" class="button_remove">Remove Item</button>
             <?php include '../storage/filter_storage_by_quantity.php';?>
         </div>
@@ -139,6 +140,7 @@
 
             const addItem = document.getElementById('add-item-button');
             const modifyItem = document.getElementById('modify-item-button');
+            const modifyItemsCategory = document.getElementById('modify-items_categ-button');
             const removeItem = document.getElementById('remove-item-button');
 
             const addCategory = document.getElementById('add-categ-button');
@@ -162,6 +164,10 @@
             addItem.addEventListener('click', function(event){
                event.preventDefault();
                window.location.href = 'add_item_form.php';
+            });
+            modifyItemsCategory.addEventListener('click', function(event){
+               event.preventDefault();
+               window.location.href = 'modify_category_of_item.php';
             });
             modifyItem.addEventListener('click', function(event){
                event.preventDefault();

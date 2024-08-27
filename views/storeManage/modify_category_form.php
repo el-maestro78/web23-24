@@ -17,8 +17,6 @@
         include '../../ini.php';
         include '../../check_login.php';
         include '../toolbar.php';
-        //Get the $items_array
-        include '../../controller/admin/fetch_items.php';
         // get $categories array
         include '../../controller/admin/fetch_item_categ.php';
     ?>
