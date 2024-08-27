@@ -85,15 +85,23 @@
                     }).addTo(map);
                     marker.bindPopup(`<b>Store ID: ${store.base_id}</b>`).openPopup();
                     /*
-                    marker.on('dragstart', function(event) {
-                        console.log('Drag started');
+                        marker.on('dragstart', function(event) {
+                        let position = marker.getLatLng();
                     });
                     marker.on('drag', function(event) {
                         let marker = event.target;
                         let position = marker.getLatLng();
                     });*/
+                    let start_pos = marker.getLatLng();
                     marker.on('dragend', (event) => {
-                        storedrag(event, store.base_id);
+                        const userConfirm = confirm('Are you sure you want to move the marker here?')
+                        if (userConfirm){
+                            storedrag(event, store.base_id);
+                        }else{
+                            marker.setLatLng(start_pos, {
+                            draggable: true
+                            }).update();
+                        }
                     });
                     marker.addTo(markerLayer);
                     marker.addTo(baseLayer);

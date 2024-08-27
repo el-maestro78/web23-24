@@ -49,8 +49,8 @@ async function storedrag(event, base_id){
     let long = position.lng;
 
     marker.setLatLng(position, {
-        draggable: 'true'
-    }).bindPopup(position).update();
+        draggable: true
+    }).update();
     try {
       fetch(
         `../../controller/admin/update_store_pos.php?base_id=${encodeURIComponent(base_id)}
