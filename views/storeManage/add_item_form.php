@@ -36,7 +36,7 @@
                         ?>
                     </select>
                     <label for="quantity" class="insert_label">Quantity</label>
-                    <input type="number" id="quantity" class="insert_input" required step="1" min="0">
+                    <input type="number" id="quantity" class="insert_quantity" required step="1" min="0">
                     <label for="details" class="descr">Add more details</label> <br>
                     <textarea id="details" class="insert_label" rows="5" cols="40" required></textarea>
                     <input type="submit" class="button_input" id="submit" value="Submit">

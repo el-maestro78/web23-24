@@ -122,8 +122,8 @@
                             <tr data-category="<?= $veh['veh_id']?>">
                                 <td><?= $veh['veh_id'] ?></td>
                                 <td><?= $veh['username'] ?></td>
-                                <td><?= $veh['item_id'] ?></td>
-                                <td><?= $veh['iname'] ?></td>
+                                <td><?= $veh['item_id'] ?? '-' ?></td>
+                                <td><?= $veh['iname'] ?? '-' ?></td>
                                 <td><?= $veh['load'] ?></td>
                             </tr>
                         <?php endforeach; ?>
