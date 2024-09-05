@@ -3,15 +3,8 @@
 include '../../model/config.php';
 include '../../ini.php';
 include '../../auxiliary.php';
-/*
 
-
-$descr = "spam spam";
-$base_id = 1;
-$items = 1;
-
-
-*/
+$title = validate_input($_POST['title']);
 $descr = validate_input($_POST['details']);
 $base_id = validate_input($_POST['base']);
 $items = json_decode($_POST['item'], true);
@@ -21,8 +14,8 @@ if (!is_array($items)) {
 }
 pg_query($dbconn, "BEGIN");
 $query = <<< EOF
-        INSERT INTO news(descr, base_id, item_id) 
-        VALUES ($1, $2, $3);
+        INSERT INTO news(title, descr, base_id, date, item_id) 
+        VALUES ($1, $2, $3, $4, $5);
 EOF;
 
 $result = pg_prepare($dbconn, "news_insert_query", $query);
@@ -33,7 +26,7 @@ if (!$result) {
 }
 $success = true;
 foreach ($items as $item_id) {
-    $final = pg_execute($dbconn, "news_insert_query", array($descr, $base_id, $item_id));
+    $final = pg_execute($dbconn, "news_insert_query", array($title, $descr, $base_id, date('Y-m-d'), $item_id));
     if (!$final) {
         $success = false;
         echo json_encode(['error' => 'Error inserting data']);
@@ -48,26 +41,4 @@ if ($success) {
     echo json_encode(['created'=> false, 'error' => 'Error inserting data']);
 }
 
-
-
-
-/*
-$result = pg_prepare($dbconn, "news_insert_query", $query);
-if ($result) {
-    foreach ($items as $item) {
-        $final = pg_execute($dbconn, "news_insert_query",array($descr, $base_id, $item_id));
-        if (!$final) {
-            $success = false;
-            error_log(pg_last_error($dbconn));
-            break;
-        }
-    }
-    if($success){
-        echo json_encode(['created'=> false, 'error' => pg_last_error($dbconn)]);
-        exit;
-    }
-} else {
-    echo json_encode(['created'=> false,'error' => pg_last_error($dbconn)]);
-    exit;
-}*/
 include '../../model/dbclose.php';

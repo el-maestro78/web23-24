@@ -33,10 +33,22 @@
     font-weight: bold;
     color: #555;
 }
+.text_label {
+    color: #ffffff;
+    display: block;
+    font-size: 14px;
+    height: 16px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
 .item_label{
     margin-bottom: 8px;
     font-weight: bold;
     color: #555;
+}
+.text_input {
+    background: rgba(0, 0, 0, 0.1);
+    color: #000000;
 }
 .news_input, select, textarea {
     padding: 10px;

@@ -1,4 +1,3 @@
-<!-- Do Not Change -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

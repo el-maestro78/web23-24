@@ -20,6 +20,8 @@
             <div class="news_box">
                 <div class="details">Add a new Announcement</div>
                 <div class="form">
+                    <label for="title" class=news_label>First Name</label>
+                    <input type="text" id="title" class="text_input" required>
                     <label for="base" class=news_label>Select Base in Need</label>
                     <select id="base" class="news_input" required></select>
                     <div id="item-container">
@@ -89,12 +91,14 @@
                 });
 
             function submit_news() {
+                const title = titleInput.value;
                 const base = baseInput.value;
                 const details = detailsInput.value;
                 const itemSelects = document.querySelectorAll('#item-container select');
                 const items = Array.from(itemSelects).map(select => select.value);
 
                 const params = new URLSearchParams();
+                params.append('title', title);
                 params.append('details', details);
                 params.append('item', JSON.stringify(items));
                 params.append('base', base);
@@ -113,13 +117,17 @@
                 })
                 .catch(error => console.error('Error submitting news:', error));
             }
-
+            const titleInput = document.getElementById('title');
             const baseInput = document.getElementById('base');
             const detailsInput = document.getElementById('details');
             const submit = document.getElementById('submit');
             submit.addEventListener('click', function (event) {
                 event.preventDefault();
-                submit_news();
+                if(titleInput.value !== "") {
+                    submit_news();
+                }else{
+                    alert('You must give a title')
+                }
             });
 
         </script>

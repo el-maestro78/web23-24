@@ -59,3 +59,8 @@ INSERT INTO vehicle_load(veh_id, item_id, load) VALUES
 (1, 1, 5),
 (1, 2, 10),
 (2, 2, 10);
+
+INSERT INTO news(title, descr, date, base_id, item_id) VALUES
+('Test', 'Bored already?', current_date, 1, 1),
+('Test2', 'Yes?', current_date, 1, 1),
+('Test3', 'Tired too?', current_date, 1, 1);

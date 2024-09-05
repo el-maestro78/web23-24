@@ -16,9 +16,52 @@
             include '../../check_login.php';
             include '../toolbar.php';
         ?>
-
+        <div class="container">
+        <h2>News List</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Base ID</th>
+                    <th>Item ID</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+    </div>
         <script>
+            const params = new URLSearchParams();
+            params.append('details', '');
+            fetch('../../controller/admin/fetch_news.php', {
+                method: 'POST',
+                body: params
+            })
+            .then(response => response.json())
+            .then(data =>{
+                const tableBody = document.getElementById('table-body');
+                data.forEach(announc =>{
+                    let title = announc.title;
+                    let descr = announc.descr;
+                    let date = announc.date;
+                    let base_id  = announc.base_id;
+                    let item_name = announc.item_name;
+                    let row = document.createElement('tr');
 
+                    row.innerHTML = `
+                        <td>${title}</td>
+                        <td>${descr}</td>
+                        <td>${date}</td>
+                        <td>${base_id}</td>
+                        <td>${item_name}</td>
+                    `;
+
+                tableBody.appendChild(row);
+                })
+            })
+            .catch(error => console.error('Error fetching news:', error))
         </script>
     </body>
 </html>

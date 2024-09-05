@@ -108,7 +108,9 @@ CREATE TABLE tasks(
 
 CREATE TABLE news(
     news_id SERIAL PRIMARY KEY,
-    descr VARCHAR(255),
+    title VARCHAR(255) NOT NULL,
+    descr TEXT NOT NULL,
+    date DATE NOT NULL,
     base_id INTEGER REFERENCES base(base_id) ON DELETE CASCADE NOT NULL,
     item_id INTEGER REFERENCES items(item_id) ON DELETE CASCADE NOT NULL
 );
