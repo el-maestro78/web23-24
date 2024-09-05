@@ -3,6 +3,7 @@
     gap: 20px;
     justify-content: space-between;
     align-items: flex-start;
+    margin-left: 10px;
 }
 
 .table-container {
@@ -58,6 +59,7 @@ tr:hover {
     color: white;
     border: none;
     padding: 7px;
+    margin-left: 10px;
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
@@ -95,6 +97,8 @@ tr:hover {
 .load-json-div{
     justify-content: center;
     margin-top: 3px;
+    margin-left: 10px;
     align-items: center;
     padding: 1px;
+    gap: 20px;
 }

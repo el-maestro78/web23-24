@@ -54,31 +54,32 @@
         <?php //($_SESSION['user_id']=1) ?>
         <?php $current_page = $_SERVER['REQUEST_URI']; ?>
         <nav class="topnav">
-            <a href="<?php echo $base_url; ?>/views/home_page.php" class="<?php echo strpos($current_page, 'home_page.php') !== false ? 'active' : ''; ?>">Home</a>
+            <a href="<?php echo $base_url; ?>/views/home_page.php" class="<?php echo str_contains($current_page, 'home_page.php') ? 'active' : ''; ?>">Home</a>
             <!--Maps-->
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
-                 <a href="<?php echo $base_url; ?>/views/maps/maps.php" class="<?php echo strpos($current_page, 'maps.php') !== false ? 'active' : ''; ?>">Maps</a>
+                 <a href="<?php echo $base_url; ?>/views/maps/maps.php" class="<?php echo str_contains($current_page, 'maps.php') ? 'active' : ''; ?>">Maps</a>
             <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'rescuer') : ?>
-                <a href="<?php echo $base_url; ?>/views/maps/resc_maps.php" class="<?php echo strpos($current_page, 'resc_maps.php') !== false ? 'active' : ''; ?>">Maps</a>
+                <a href="<?php echo $base_url; ?>/views/maps/resc_maps.php" class="<?php echo str_contains($current_page, 'resc_maps.php') ? 'active' : ''; ?>">Maps</a>
             <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'civilian') : ?>
-                <a href="<?php echo $base_url; ?>/views/maps/civ_maps.php" class="<?php echo strpos($current_page, 'civ_maps.php') !== false ? 'active' : ''; ?>">Maps</a>
+                <a href="<?php echo $base_url; ?>/views/maps/civ_maps.php" class="<?php echo str_contains($current_page, 'civ_maps.php') ? 'active' : ''; ?>">Maps</a>
             <?php endif; ?>
 
-            <a href="<?php echo $base_url; ?>/views/news/civ_news.php" class="<?php echo strpos($current_page, 'civ_news.php') !== false ? 'active' : ''; ?>">News</a>
-            <a href="<?php echo $base_url; ?>/views/contact/contact.php" class="<?php echo strpos($current_page, 'contact.php') !== false ? 'active' : ''; ?>">Contact</a>
-            <a href="<?php echo $base_url; ?>/views/about/about.php" class="<?php echo strpos($current_page, 'about.php') !== false ? 'active' : ''; ?>">About</a>
+            <a href="<?php echo $base_url; ?>/views/news/civ_news.php" class="<?php echo str_contains($current_page, 'civ_news.php') ? 'active' : ''; ?>">News</a>
+            <a href="<?php echo $base_url; ?>/views/contact/contact.php" class="<?php echo str_contains($current_page, 'contact.php') ? 'active' : ''; ?>">Contact</a>
+            <a href="<?php echo $base_url; ?>/views/about/about.php" class="<?php echo str_contains($current_page, 'about.php') ? 'active' : ''; ?>">About</a>
 
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
-                <a href="<?php echo $base_url; ?>/views/news/news.php" class="<?php echo strpos($current_page, 'news.php') !== false ? 'active' : ''; ?>"> Add News</a>
-                <a href="<?php echo $base_url; ?>/views/storage/storage.php" class="<?php echo strpos($current_page, 'storage.php') !== false ? 'active' : ''; ?>">View Stock</a>
-                <a href="<?php echo $base_url; ?>/views/storeManage/storeManage.php" class="<?php echo strpos($current_page, 'storeManage.php') !== false ? 'active' : ''; ?>">Storage Management</a>
-                <a href="<?php echo $base_url; ?>/views/statistics/stats.php" class="<?php echo strpos($current_page, 'stats.php') !== false ? 'active' : ''; ?>">Statistics</a>
-                <a href="<?php echo $base_url; ?>/views/addAccount/addAccount.php" class="<?php echo strpos($current_page, 'addAccount.php') !== false ? 'active' : ''; ?>">Add Account</a>
+                <a href="<?php echo $base_url; ?>/views/news/news.php" class="<?php echo (str_contains($current_page, 'news.php') && !str_contains($current_page, 'civ')) ? 'active' : ''; ?>"> Add News</a>
+                <a href="<?php echo $base_url; ?>/views/storage/storage.php" class="<?php echo str_contains($current_page, 'storage.php') ? 'active' : ''; ?>">View Stock</a>
+                <a href="<?php echo $base_url; ?>/views/storeManage/storeManage.php" class="<?php echo str_contains($current_page, 'storeManage.php') ? 'active' : ''; ?>">Storage Management</a>
+                <a href="<?php echo $base_url; ?>/views/statistics/stats.php" class="<?php echo str_contains($current_page, 'stats.php') ? 'active' : ''; ?>">Statistics</a>
+                <a href="<?php echo $base_url; ?>/views/addAccount/addAccount.php" class="<?php echo str_contains($current_page, 'addAccount.php') ? 'active' : ''; ?>">Add Account</a>
             <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'rescuer') : ?>
-                <a href="<?php echo $base_url; ?>/404.php" class="<?php echo strpos($current_page, 'rescuer_link1.php') !== false ? 'active' : ''; ?>">resc1</a>
-                <a href="<?php echo $base_url; ?>/404.php" class="<?php echo strpos($current_page, 'rescuer_link2.php') !== false ? 'active' : ''; ?>">resc2</a>
+                <a href="<?php echo $base_url; ?>/404.php" class="<?php echo str_contains($current_page, 'rescuer_link1.php') ? 'active' : ''; ?>">resc1</a>
+                <a href="<?php echo $base_url; ?>/404.php" class="<?php echo str_contains($current_page, 'rescuer_link2.php') ? 'active' : ''; ?>">resc2</a>
             <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'civilian') : ?>
-                <a href="<?php echo $base_url; ?>/404.php" class="<?php echo strpos($current_page, 'civ_link1.php') !== false ? 'active' : ''; ?>">Add things here only for civ</a>
+                <a href="<?php echo $base_url; ?>/views/offers/offers.php" class="<?php echo str_contains($current_page, 'offers.php') ? 'active' : ''; ?>">Offers</a>
+                <a href="<?php echo $base_url; ?>/views/requests/requests.php" class="<?php echo str_contains($current_page, 'civ_link1.php') ? 'active' : ''; ?>">Requests</a>
             <?php endif; ?>
 
             <div class="Log-btns">

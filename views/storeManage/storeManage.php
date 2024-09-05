@@ -203,16 +203,6 @@
                event.preventDefault();
                window.location.href = 'remove_vehicle_form.php';
             });
-            /*
-            fetch(../../controller/admin/add_item.php);
-            fetch(../../controller/admin/details_item_category.php);
-            fetch(../../controller/admin/load_items_json.php);
-            fetch(../../controller/admin/remove_item_category.php);
-            //fetch(../../controller/admin/update_item.php);
-            //fetch(../../controller/admin/update_item_category.php);
-            fetch(../../controller/admin/update_item_details.php);
-            fetch(../../controller/admin/update_item_quantity.php);
-            //*/
         </script>
         <script src="../storage/storage.js" defer></script>
     </body>
