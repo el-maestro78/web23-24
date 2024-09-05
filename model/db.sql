@@ -3,6 +3,7 @@ DROP DATABASE webproject24;
 CREATE DATABASE webproject24;
 
 \c webproject24;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE TABLE dbUser(
     user_id SERIAL PRIMARY KEY,
