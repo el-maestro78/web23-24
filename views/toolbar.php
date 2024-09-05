@@ -55,15 +55,15 @@
         <?php $current_page = $_SERVER['REQUEST_URI']; ?>
         <nav class="topnav">
             <a href="<?php echo $base_url; ?>/views/home_page.php" class="<?php echo strpos($current_page, 'home_page.php') !== false ? 'active' : ''; ?>">Home</a>
+            <!--Maps-->
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
                  <a href="<?php echo $base_url; ?>/views/maps/maps.php" class="<?php echo strpos($current_page, 'maps.php') !== false ? 'active' : ''; ?>">Maps</a>
-            <?php endif; ?>
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'rescuer') : ?>
+            <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'rescuer') : ?>
                 <a href="<?php echo $base_url; ?>/views/maps/resc_maps.php" class="<?php echo strpos($current_page, 'resc_maps.php') !== false ? 'active' : ''; ?>">Maps</a>
-            <?php endif; ?>
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'civilian') : ?>
+            <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'civilian') : ?>
                 <a href="<?php echo $base_url; ?>/views/maps/civ_maps.php" class="<?php echo strpos($current_page, 'civ_maps.php') !== false ? 'active' : ''; ?>">Maps</a>
             <?php endif; ?>
+
             <a href="<?php echo $base_url; ?>/views/news/civ_news.php" class="<?php echo strpos($current_page, 'civ_news.php') !== false ? 'active' : ''; ?>">News</a>
             <a href="<?php echo $base_url; ?>/views/contact/contact.php" class="<?php echo strpos($current_page, 'contact.php') !== false ? 'active' : ''; ?>">Contact</a>
             <a href="<?php echo $base_url; ?>/views/about/about.php" class="<?php echo strpos($current_page, 'about.php') !== false ? 'active' : ''; ?>">About</a>
@@ -74,12 +74,10 @@
                 <a href="<?php echo $base_url; ?>/views/storeManage/storeManage.php" class="<?php echo strpos($current_page, 'storeManage.php') !== false ? 'active' : ''; ?>">Storage Management</a>
                 <a href="<?php echo $base_url; ?>/views/statistics/stats.php" class="<?php echo strpos($current_page, 'stats.php') !== false ? 'active' : ''; ?>">Statistics</a>
                 <a href="<?php echo $base_url; ?>/views/addAccount/addAccount.php" class="<?php echo strpos($current_page, 'addAccount.php') !== false ? 'active' : ''; ?>">Add Account</a>
-            <?php endif; ?>
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'rescuer') : ?>
+            <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'rescuer') : ?>
                 <a href="<?php echo $base_url; ?>/404.php" class="<?php echo strpos($current_page, 'rescuer_link1.php') !== false ? 'active' : ''; ?>">resc1</a>
                 <a href="<?php echo $base_url; ?>/404.php" class="<?php echo strpos($current_page, 'rescuer_link2.php') !== false ? 'active' : ''; ?>">resc2</a>
-            <?php endif; ?>
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'civilian') : ?>
+            <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'civilian') : ?>
                 <a href="<?php echo $base_url; ?>/404.php" class="<?php echo strpos($current_page, 'civ_link1.php') !== false ? 'active' : ''; ?>">Add things here only for civ</a>
             <?php endif; ?>
 
