@@ -14,6 +14,7 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
+            padding-top: 60px;
         }
         .in-container {
             background-color: #f8f9fa;
@@ -29,6 +30,12 @@
             max-width: 200px;
             height: auto;
             margin-top: 2px;
+        }
+        .topnav{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
     </style>
     <body>
