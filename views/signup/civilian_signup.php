@@ -111,8 +111,8 @@ include '../../ini.php';
     const confPassInput = document.getElementById('conf_password');
     const countryInput = document.getElementById('country');
     const cityInput = document.getElementById('city');
-    const  streetInput= document.getElementById('street');
-    const  zcodeInput= document.getElementById('zcode');
+    const streetInput= document.getElementById('street');
+    const zcodeInput= document.getElementById('zcode');
     const phonenrInput = document.getElementById('phonenr');
     const submitButton = document.getElementById('submit');
     function checkInputs() {
@@ -125,7 +125,8 @@ include '../../ini.php';
             cityInput.value !== '' &&
             streetInput.value !== '' && 
             zcodeInput.value !== '' && 
-            phonenrInput.value !== '' && 
+            phonenrInput.value !== '' &&
+            phonenrInput.value !== ''
             submitButton.value !== '') {
                 submitButton.classList.add('gradient-border');
             } else {
@@ -156,6 +157,58 @@ include '../../ini.php';
           y.alt="Show Password"
       }
     }
+    function get_latlong() {
+        const country = countryInput.value;
+        const city= cityInput.value;
+        const street = streetInput.value;
+        const zcode = zcodeInput.value;
+
+    }
+    function submitCredentials() {
+        const conf_pass = confPassInput.value;
+        const password = passwordInput.value;
+        const name = fnameInput.value;
+        const surname = lnameInput.value;
+        const username = usernameInput.value;
+        const email = emailInput.value;
+        const phone = phonenrInput.value;
+        const params = new URLSearchParams();
+        if(password !== conf_pass){
+            alert('Passwords must match');
+            return;
+        }
+        if(phone.length !== 10){
+            alert('Phone is not correct');
+            return;
+        }
+        params.append('name', name);
+        params.append('surname', surname);
+        params.append('username', username);
+        params.append('pass', password);
+        params.append('email', email);
+        params.append('phone', phone);
+
+        fetch('../../controller/all_users/signup.php', {
+            method: 'POST',
+            body: params
+        }).then(response => response.json()
+        ).then(data => {
+            if(data.created){
+                alert('Account created successfully!');
+            }else{
+                alert('Failed to create account:' + data.error);
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred, please try again later.');
+        });
+    }
+    submitButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        submitCredentials();
+    });
+    }
+
     </script>
 
 </body>

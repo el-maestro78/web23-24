@@ -157,16 +157,6 @@
         params.append('pass', password);
         params.append('email', email);
         params.append('phone', phone);
-        /*
-        `name=${encodeURIComponent(name)}&
-              surname=${encodeURIComponent(surname)}&
-              username=${encodeURIComponent(username)}&
-              password=${encodeURIComponent(password)}&
-              email=${encodeURIComponent(email)}&
-              phone=${encodeURIComponent(phone)}&
-              long=${encodeURIComponent(long)}&
-              lat=${encodeURIComponent(lat)}`
-        * */
         fetch('../../controller/admin/create_rescuer_account.php', {
             method: 'POST',
             body: params
@@ -174,6 +164,10 @@
         ).then(data => {
             if(data.created){
                 alert('Account created successfully!');
+            }else if(data.username_exists){
+                alert('Username' + username + ' already exists');
+            }else if(data.email_exists){
+                alert('Email' + email + ' already exists');
             }else{
                 alert('Failed to create account:' + data.error);
             }
