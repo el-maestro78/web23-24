@@ -1,11 +1,11 @@
 <?php
-/*
+/* TODO
 Aux. (Last)
-    Needs mechanism that whenever a task get created the 
-    pending status on offer or request changes and when it gets 
-    completed the request gets completed. Stored function is the best way
-
     Fix how the news are looking, maybe popup?
+    need to connect rescuer with vehicle
+    need to make the country, zip to lat long work
+    Need to adjust offers & requests to get lat and long from db_user
+    AJAX everything
 1.
     DONE
 
@@ -14,6 +14,9 @@ Aux. (Last)
     Στη συνέχεια, η ποσότητα ενημερώνεται
     αυτόματα κατά τη διεκπεραίωση tasks από τους διασώστες (προσθήκη ή αφαίρεση ποσοτήτων) και
     χειροκίνητα από το διαχειριστή.
+        SFs     Needs mechanism that whenever a task get created the
+    pending status on offer or request changes and when it gets
+    completed the request gets completed. Stored function is the best way
 3.  
     DONE
 

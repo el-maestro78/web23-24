@@ -40,12 +40,13 @@ INSERT INTO requests(pending, completed, quantity, reg_date, assign_date, user_i
 (TRUE, FALSE, 10, current_date, NULL, 1, 1, 21.732724118553, 38.244914513495),
 (FALSE, TRUE, 25, current_date, current_date, 1, 3, 21.78, 38.45);
 
-INSERT INTO offers(pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES
-(FALSE, FALSE, 5, current_date, current_date, 1, 1, 21.738, 38.268809889),
-(FALSE, FALSE, 10, current_date, current_date, 1, 2, 23.745, 38.0),
-(TRUE, FALSE, 5, current_date, NULL, 1, 1, 21.800, 38.2356855),
-(TRUE, FALSE, 10, current_date, NULL, 1, 2, 21.850, 38.230),
-(FALSE, TRUE, 1, current_date, NULL, 1, 1, 21.100, 38.230);
+INSERT INTO offers(pending, completed, quantity, reg_date, assign_date, completed_date, user_id, item_id, long, lat) VALUES
+(FALSE, FALSE, 5, current_date,  current_date,NULL, 3, 1, 21.738, 38.268809889),
+(FALSE, FALSE, 10, current_date, current_date, NULL, 3, 2, 23.745, 38.0),
+(TRUE, FALSE, 5, current_date, current_date,NULL, 3, 1, 21.800, 38.2356855),
+(TRUE, FALSE, 10, current_date, current_date,NULL, 3, 2, 21.850, 38.230),
+(FALSE, TRUE, 1, current_date, current_date,current_date, 3, 1, 21.100, 38.230),
+(FALSE, TRUE, 1, current_date, current_date,current_date, 3, 1, 21.100, 38.230);
 
 INSERT INTO tasks(user_id, veh_id, off_id, req_id, completed) VALUES
 (1, 1, 2, NULL, FALSE),
