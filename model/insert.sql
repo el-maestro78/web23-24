@@ -10,16 +10,18 @@ INSERT INTO vehicles (username, lat, long) VALUES
 ('giraffe', 38.244872, 21.731950);
 
 INSERT INTO dbUser(first_name,surname,username,pass,is_resc,is_admin,email,phone,long,lat) VALUES
-( 'Admin', 'Adminopoulos', 'tester', 'pass', FALSE, TRUE, 'admin@admin.org', 6987654321, 38.246444, 21.734203),
-('Dr','Gumpy','tester2','pass',TRUE,FALSE,'a@a',6987654321, 21.734203, 38.246444),
-('Michael','Palin','tester3','s',FALSE,FALSE,'s@s',6987654321, 39.8, 22.5),
-('Eric','Idle','tester4','a',FALSE,TRUE,'tete@te.te',6987654321, 39.8, 22.5),
-('TestUser1fn', 'TestUser1ln', 'testuser1', 'pass1', FALSE, FALSE, 'testuser1@gmail.com', 6901111111, 41.8, 21.5),
-('TestUser2fn', 'TestUser2ln', 'testuser2', 'pass2', FALSE, FALSE, 'testuser2@gmail.com', 6902222222, 42.8, 22.5),
-('TestUser3fn', 'TestUser3ln', 'testuser3', 'pass3', FALSE, FALSE, 'testuser3@gmail.com', 6903333333, 43.8, 23.5),
-( 'Rescuer1fn', 'Rescuer1ln', 'rescuer1', 'pass11', TRUE, FALSE, 'rescuer1@gmail.com', 6911111111, 44.8, 24.5),
-( 'Rescuer2fn', 'Rescuer2ln', 'rescuer2', 'pass12', TRUE, FALSE, 'rescuer2@gmail.com', 6912121212, 45.8, 25.5),
-( 'Rescuer3fn', 'Rescuer3ln', 'rescuer3', 'pass13', TRUE, FALSE, 'rescuer3@gmail.com', 6913131313, 44.8, 24.5);
+( 'Admin', 'Adminopoulos', 'tester', crypt('pass', gen_salt('bf')), FALSE, TRUE, 'admin@admin.org', 6987654321, 38.246444, 21.734203),
+('Dr','Gumpy','tester2',crypt('pass', gen_salt('bf')),TRUE,FALSE,'a@a',6987654321, 21.734203, 38.246444),
+('Michael','Palin','tester3', crypt('s', gen_salt('bf')),FALSE,FALSE,'s@s',6987654321, 39.8, 22.5),
+('Eric','Idle','tester4',crypt('a', gen_salt('bf')),FALSE,TRUE,'tete@te.te',6987654321, 39.8, 22.5),
+('TestUser1fn', 'TestUser1ln', 'testuser1', crypt('pass1', gen_salt('bf')), FALSE, FALSE, 'testuser1@gmail.com', 6901111111, 41.8, 21.5),
+('TestUser2fn', 'TestUser2ln', 'testuser2', crypt('pass2', gen_salt('bf')), FALSE, FALSE, 'testuser2@gmail.com', 6902222222, 42.8, 22.5),
+('TestUser3fn', 'TestUser3ln', 'testuser3', crypt('pass3', gen_salt('bf')), FALSE, FALSE, 'testuser3@gmail.com', 6903333333, 43.8, 23.5),
+( 'Rescuer1fn', 'Rescuer1ln', 'rescuer1', crypt('pass11', gen_salt('bf')), TRUE, FALSE, 'rescuer1@gmail.com', 6911111111, 44.8, 24.5),
+('Rescuer2fn', 'Rescuer2ln', 'rescuer2', crypt('pass12', gen_salt('bf')), TRUE, FALSE, 'rescuer2@gmail.com', 6912121212, 45.8, 25.5),
+('Rescuer3fn', 'Rescuer3ln', 'rescuer3', crypt('pass13', gen_salt('bf')), TRUE, FALSE, 'rescuer3@gmail.com', 6913131313, 44.8, 24.5);
+
+
 
 INSERT INTO item_category(category_name, details) VALUES
 ('spam', 'Another Viking victory'),

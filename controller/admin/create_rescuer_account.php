@@ -13,7 +13,7 @@ $phone = validate_input($_POST['phone']);
 //$long = validate_input($_POST['long']);
 //$lat = validate_input($_POST['lat']);
 $query = "INSERT INTO dbUser(first_name, surname, username, pass, is_resc, email, phone) 
-    VALUES ($1, $2, $3, $4, TRUE, $5, $6)";
+    VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), TRUE, $5, $6)";
 $result = pg_prepare($dbconn, "insert_query", $query);
 
 if ($result) {

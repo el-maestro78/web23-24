@@ -21,7 +21,7 @@ $query = "
         email,
         phone,
         long,
-        lat FROM dbUser WHERE email = $1 AND pass = $2";
+        lat FROM dbUser WHERE email = $1 AND pass = crypt($2, gen_salt('bf'))";
 $result = pg_query_params($dbconn, $query, array($email, $password));
 if (!$result) {
     echo json_encode(['exists' => false, 'error' => pg_last_error($dbconn)]);
