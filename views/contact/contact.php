@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="icon" href="../../views/favico/favicon.ico" type="image/x-icon">
@@ -42,6 +41,10 @@
         height: auto;
     }
     .new-issue-btn{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        margin: 0 auto;
         background-color: #2d4931;
         color: white;
         border: none;
@@ -49,8 +52,6 @@
         border-radius: 5px;
         font-size: 18px;
         cursor: pointer;
-        margin-top: 10px;
-        margin-left: 5px;
         transition: background-color 0.3s ease;
     }
     .new-issue-btn:hover {
@@ -98,10 +99,7 @@
     </div>
     <p></p>
     <button class="new-issue-btn" onclick="window.location.href='https://github.com/el-maestro78/web23-24/issues/new';">
-        Click here if you have issue with the page
+        Click here if you found an issue in the site
     </button>
-    <script>
-
-    </script>
 </body>
 </html>

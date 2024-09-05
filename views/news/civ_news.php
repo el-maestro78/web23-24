@@ -35,7 +35,7 @@
         <script>
             const params = new URLSearchParams();
             params.append('details', '');
-            fetch('../../controller/admin/fetch_news.php', {
+            fetch('../../controller/civilian/fetch_news.php', {
                 method: 'POST',
                 body: params
             })

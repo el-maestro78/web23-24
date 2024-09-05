@@ -61,13 +61,12 @@
             <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'rescuer') : ?>
                 <a href="<?php echo $base_url; ?>/views/maps/resc_maps.php" class="<?php echo str_contains($current_page, 'resc_maps.php') ? 'active' : ''; ?>">Maps</a>
             <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'civilian') : ?>
+                <!-- I think civilian doesn't get a map
                 <a href="<?php echo $base_url; ?>/views/maps/civ_maps.php" class="<?php echo str_contains($current_page, 'civ_maps.php') ? 'active' : ''; ?>">Maps</a>
+                -->
             <?php endif; ?>
-
             <a href="<?php echo $base_url; ?>/views/news/civ_news.php" class="<?php echo str_contains($current_page, 'civ_news.php') ? 'active' : ''; ?>">News</a>
-            <a href="<?php echo $base_url; ?>/views/contact/contact.php" class="<?php echo str_contains($current_page, 'contact.php') ? 'active' : ''; ?>">Contact</a>
-            <a href="<?php echo $base_url; ?>/views/about/about.php" class="<?php echo str_contains($current_page, 'about.php') ? 'active' : ''; ?>">About</a>
-
+            <!--Specific to role-->
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
                 <a href="<?php echo $base_url; ?>/views/news/news.php" class="<?php echo (str_contains($current_page, 'news.php') && !str_contains($current_page, 'civ')) ? 'active' : ''; ?>"> Add News</a>
                 <a href="<?php echo $base_url; ?>/views/storage/storage.php" class="<?php echo str_contains($current_page, 'storage.php') ? 'active' : ''; ?>">View Stock</a>
@@ -81,7 +80,8 @@
                 <a href="<?php echo $base_url; ?>/views/offers/offers.php" class="<?php echo str_contains($current_page, 'offers.php') ? 'active' : ''; ?>">Offers</a>
                 <a href="<?php echo $base_url; ?>/views/requests/requests.php" class="<?php echo str_contains($current_page, 'civ_link1.php') ? 'active' : ''; ?>">Requests</a>
             <?php endif; ?>
-
+            <a href="<?php echo $base_url; ?>/views/contact/contact.php" class="<?php echo str_contains($current_page, 'contact.php') ? 'active' : ''; ?>">Contact</a>
+            <a href="<?php echo $base_url; ?>/views/about/about.php" class="<?php echo str_contains($current_page, 'about.php') ? 'active' : ''; ?>">About</a>
             <div class="Log-btns">
                 <?php if (isset($_SESSION['user_id'])) : ?>
                     <button id="logoutbtn" class="logoutbtn">Logout</button>

@@ -5,6 +5,7 @@ Aux. (Last)
     pending status on offer or request changes and when it gets 
     completed the request gets completed. Stored function is the best way
 
+    Fix how the news are looking, maybe popup?
 1.
     DONE
 
