@@ -103,6 +103,8 @@ textarea {
     list-style: none;
     padding: 0;
     margin: 0;
+    z-index: 1000;
+    display: none;
 }
 .options {
     list-style-type: none;

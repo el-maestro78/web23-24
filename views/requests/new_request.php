@@ -26,15 +26,15 @@
                         <label for="categ" class="req_label">Select Category</label>
                         <select id="categ" class="item_input form-select" required></select>
                     </div>
-                    <button type="button" id="add-item-button" class="item_btn">Select Item</button>
+                    <button type="button" id="add-item-button" class="item_btn">Add New Item</button>
                     <div class="wrapper">
                         <div class="content">
                             <div class="search">
-                                <label class="req_label" for="item-1">Add New Item</label>
+                                <label class="req_label" for="item-1">Select Item</label>
                                 <i class="uil uil-search"></i>
                                 <input id="item-1" spellcheck="false" type="text" placeholder="Search for an item...">
                             </div>
-                            <ul class="options"></ul>
+                            <ul class="options" data-item-count="1"></ul>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,6 @@
             </div>
 
         </div>
-        <script src="autocomplete.js"></script>
         <script>
             let itemCount = 1;
             let itemsData = [];
@@ -59,58 +58,88 @@
                 });
             }
             document.getElementById('add-item-button').addEventListener('click', newItemSearch);
-            function newItemSearch() {
+           function newItemSearch() {
                 itemCount++;
                 const newWrapper = document.createElement('div');
                 newWrapper.className = 'wrapper';
-                    const newContent = document.createElement('div');
-                    newContent.className = 'content';
-                        const newSearchElement = document.createElement('div');
-                        newSearchElement.className = 'search';
-                            const newItemLabel = document.createElement('label');
-                            newItemLabel.className = "req_label";
-                            newItemLabel.setAttribute('for', `item-${itemCount}`);
-                            newItemLabel.textContent = 'Select Item';
-                            const newSearchClass = document.createElement('i');
-                            newSearchClass.className = 'uil uil-search';
-                            const newSearchInput = document.createElement('input');
-                            newSearchInput.id = `item-${itemCount}`;
-                            newSearchInput.spellcheck = false;
-                            newSearchInput.type = 'text';
-                            newSearchInput.placeholder = 'Search for an item...';
-                    const newSearchOptions = document.createElement('ul');
-                    newSearchOptions.className = 'options';
-
-                newSearchElement.appendChild(newItemLabel);
-                newSearchElement.appendChild(newSearchClass);
-                newSearchElement.appendChild(newSearchInput);
-                newContent.appendChild(newSearchElement);
-                newContent.appendChild(newSearchOptions);
-
-                newWrapper.appendChild(newContent);
+                newWrapper.innerHTML = `
+                    <div class="content">
+                        <div class="search">
+                            <label class="req_label" for="item-${itemCount}">Select Item</label>
+                            <i class="uil uil-search"></i>
+                            <input id="item-${itemCount}" spellcheck="false" type="text" placeholder="Search for an item...">
+                        </div>
+                        <ul class="options" data-item-count="${itemCount}"></ul>
+                    </div>
+                `;
 
                 const formContainer = document.querySelector('.form');
                 formContainer.appendChild(newWrapper);
+
+                const newSearchInput = newWrapper.querySelector(`#item-${itemCount}`);
+                const newSearchOptions = newWrapper.querySelector('.options');
+
                 newSearchInput.addEventListener('input', function() {
                     newSearchOptions.style.display = 'block';
                 });
                 newSearchInput.addEventListener('keyup', function() {
-                    let searchWord = newSearchInput.value.toLowerCase();
-                    if (searchWord === '') {
-                        newSearchOptions.innerHTML = '';
-                        return;
-                    }
-                    let filteredItems = itemsData.filter(item => {
-                        return item.iname.toLowerCase().startsWith(searchWord);
-                    }).map(item => {
-                        return `<li onclick="updateName(this, ${itemCount})" data-id="${item.item_id}">${item.iname}</li>`;
-                    }).join("");
-                newSearchOptions.innerHTML = filteredItems || `<p style="margin-top: 10px;">Not found</p>`;
+                    updateOptions(this, newSearchOptions);
                 });
-             newSearchOptions.addEventListener('click', function(){
-                  newSearchOptions.style.display = 'none';
-             });
+
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.content')) {
+                        newSearchOptions.style.display = 'none';
+                    }
+                });
             }
+            function updateOptions(input, optionsList) {
+                let searchWord = input.value.toLowerCase();
+                if (searchWord === '') {
+                    optionsList.innerHTML = '';
+                    return;
+                }
+
+                let filteredItems = itemsData.filter(item => {
+                    return item.iname.toLowerCase().startsWith(searchWord);
+                }).map(item => {
+                    return `<li onclick="updateName(this, ${optionsList.getAttribute('data-item-count')})" data-id="${item.item_id}">${item.iname}</li>`;
+                }).join("");
+
+                optionsList.innerHTML = filteredItems || `<p style="margin-top: 10px;">Not found</p>`;
+            }
+            function updateName(selectedLi, itemCount) {
+                const inputId = `item-${itemCount}`;
+                const searchInput = document.getElementById(inputId);
+                if (searchInput) {
+                    searchInput.value = selectedLi.innerText;
+                    searchInput.setAttribute('data-id', selectedLi.getAttribute('data-id'));
+                    selectedLi.closest('.options').style.display = 'none';
+                } else {
+                    console.error(`Input with id ${inputId} not found.`);
+                }
+            }
+
+            document.getElementById('add-item-button').addEventListener('click', newItemSearch);
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                const initialInput = document.querySelector('#item-1');
+                const initialOptions = document.querySelector('.options');
+
+                initialInput.addEventListener('input', function() {
+                    initialOptions.style.display = 'block';
+                });
+
+                initialInput.addEventListener('keyup', function() {
+                    updateOptions(this, initialOptions);
+                });
+
+                // Close options when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.content')) {
+                        initialOptions.style.display = 'none';
+                    }
+                });
+            });
             function populateCategorySelects(categoryData) {
                 const categorySelect = document.getElementById('categ');
                 categorySelect.innerHTML = '';
@@ -167,7 +196,7 @@
                         }else{
                             items.push(item_id);
                         }
-                    }console.log(items)
+                    }//console.log(items)
                 });
                 const params = new URLSearchParams();
                 params.append('people', peopleCount);
@@ -178,12 +207,7 @@
                     method: "POST",
                     body: params
                 })
-                //.then(response=> response.json())
-                .then(response => response.text())
-                .then(text => {
-                    console.log("Raw response text:", text);
-                    return JSON.parse(text);
-                })
+                .then(response=> response.json())
                 .then(data =>{
                     if(data.created){
                         let goBack = confirm('Created Successfully! If you want do go back press OK');
