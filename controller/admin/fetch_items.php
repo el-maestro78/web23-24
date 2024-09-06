@@ -8,6 +8,7 @@ $item_query='SELECT
                 items.iname,
                 items.quantity,
                 item_category.category_name as category,
+                item_category.category_id,
                 items.details
             FROM items JOIN item_category 
             ON items.category=item_category.category_id
@@ -36,5 +37,10 @@ foreach ($veh_load_array as $veh_load) {
     }
 }
 $categories = array_unique(array_column($combined_items, 'category'));
+$categories_n_items = [
+    'items' => $combined_items,
+    'categories' => $categories
+];
+echo json_encode($categories_n_items);
 
 include("../../model/dbclose.php");
