@@ -20,32 +20,27 @@
             <div class="news_box">
                 <div class="details">Make a new Request</div>
                 <div class="form">
-                    <!--
-                    <label for="title" class=news_label>First Name</label>
-                    <input type="text" id="title" class="text_input" required>
-                    -->
+                    <label for="people" class="req_label">People in Need</label>
+                    <input type="number" id="people" class="insert_people" required step="1" min="1" max="20">
                     <div id="category-container">
                         <label for="categ" class="req_label">Select Category</label>
                         <select id="categ" class="item_input form-select" required></select>
                     </div>
-                    <label for="item" class="req_label">Select Item</label>
                     <div class="wrapper">
-                      <div class="select-btn">
-                        <span>Select Item</span>
-                        <i class="uil uil-angle-down"></i>
-                      </div>
-                      <div class="content">
-                        <div class="search">
-                          <i class="uil uil-search"></i>
-                          <input id="item" spellcheck="false" type="text" placeholder="Search">
+                        <div class="content">
+                            <div class="search">
+                                <label class="req_label" for="item-1">Add New Item</label>
+                                <i class="uil uil-search"></i>
+                                <input id="item-1" spellcheck="false" type="text" placeholder="Search for an item...">
+                            </div>
+                            <ul class="options"></ul>
                         </div>
-                        <ul class="options"></ul>
-                      </div>
                     </div>
                     <button type="button" id="add-item-button" class="item_btn">Add Another Item</button>
-                    <input type="submit" class="button_input" id="submit" value="Submit">
                 </div>
+                <input type="submit" class="button_input" id="submit" value="Submit">
             </div>
+
         </div>
         <script src="autocomplete.js"></script>
         <script>
@@ -63,24 +58,59 @@
                     });
                 });
             }
-            addItem(itemsData);
-            document.getElementById('add-item-button').addEventListener('click', function() {
+            document.getElementById('add-item-button').addEventListener('click', newItemSearch);
+            function newItemSearch() {
                 itemCount++;
-                const newItemLabel = document.createElement('label');
-                newItemLabel.className = 'req_label';
-                newItemLabel.setAttribute('for', `item-${itemCount}`);
-                newItemLabel.textContent = 'Select Item';
+                const newWrapper = document.createElement('div');
+                newWrapper.className = 'wrapper';
+                    const newContent = document.createElement('div');
+                    newContent.className = 'content';
+                        const newSearchElement = document.createElement('div');
+                        newSearchElement.className = 'search';
+                            const newItemLabel = document.createElement('label');
+                            newItemLabel.className = "req_label";
+                            newItemLabel.setAttribute('for', `item-${itemCount}`);
+                            newItemLabel.textContent = 'Select Item';
+                            const newSearchClass = document.createElement('i');
+                            newSearchClass.className = 'uil uil-search';
+                            const newSearchInput = document.createElement('input');
+                            newSearchInput.id = `item-${itemCount}`;
+                            newSearchInput.spellcheck = false;
+                            newSearchInput.type = 'text';
+                            newSearchInput.placeholder = 'Search for an item...';
+                    const newSearchOptions = document.createElement('ul');
+                    newSearchOptions.className = 'options';
 
-                const newItemSelect = document.createElement('select');
-                newItemSelect.id = `item-${itemCount}`;
-                newItemSelect.className = 'item_input form-select';
-                newItemSelect.required = true;
+                newSearchElement.appendChild(newItemLabel);
+                newSearchElement.appendChild(newSearchClass);
+                newSearchElement.appendChild(newSearchInput);
+                newContent.appendChild(newSearchElement);
+                newContent.appendChild(newSearchOptions);
 
-                const container = document.getElementById('item-container');
-                container.appendChild(newItemLabel);
-                container.appendChild(newItemSelect);
-                populateItemSelects(itemsData);
-            });
+                newWrapper.appendChild(newContent);
+
+                const formContainer = document.querySelector('.form');
+                formContainer.appendChild(newWrapper);
+                newSearchInput.addEventListener('input', function() {
+                    newSearchOptions.style.display = 'block';
+                });
+                newSearchInput.addEventListener('keyup', function() {
+                    let searchWord = newSearchInput.value.toLowerCase();
+                    if (searchWord === '') {
+                        newSearchOptions.innerHTML = '';
+                        return;
+                    }
+                    let filteredItems = itemsData.filter(item => {
+                        return item.iname.toLowerCase().startsWith(searchWord);
+                    }).map(item => {
+                        return `<li onclick="updateName(this, ${itemCount})" data-id="${item.item_id}">${item.iname}</li>`;
+                    }).join("");
+                newSearchOptions.innerHTML = filteredItems || `<p style="margin-top: 10px;">Not found</p>`;
+                });
+             newSearchOptions.addEventListener('click', function(){
+                  newSearchOptions.style.display = 'none';
+             });
+            }
             function populateCategorySelects(categoryData) {
                 const categorySelect = document.getElementById('categ');
                 categorySelect.innerHTML = '';  // Clear previous options
@@ -103,14 +133,25 @@
                     console.error("Error while fetching data for request: ", error);
                 });
 
-            autocomplete(document.getElementById("item"), itemsData);
-
+            const peopleInput = document.getElementById('people');
             function submit_request() {
+                fetch('../../controller/civilian/create_request.php',{
+                    method: "POST"
+                })
+                .then(response=> response.json())
+                .then(data =>{
 
+                }).catch(error =>{
+                    console.log("Error while creating request: ",error)
+                });
             }
             document.getElementById('submit').addEventListener('click', function(event){
                 event.preventDefault();
-                submit_request();
+                if(peopleInput.value !== '' && peopleInput.value >=1){
+                    submit_request();
+                }else{
+                    alert('You have to give a correct number')
+                }
             });
         </script>
     </body>
