@@ -17,7 +17,7 @@
             include '../toolbar.php';
         ?>
         <div>
-            <div class="news_box">
+            <div class="requests_box">
                 <div class="details">Make a new Request</div>
                 <div class="form">
                     <label for="people" class="req_label">People in Need</label>
@@ -26,6 +26,7 @@
                         <label for="categ" class="req_label">Select Category</label>
                         <select id="categ" class="item_input form-select" required></select>
                     </div>
+                    <button type="button" id="add-item-button" class="item_btn">Select Item</button>
                     <div class="wrapper">
                         <div class="content">
                             <div class="search">
@@ -36,7 +37,6 @@
                             <ul class="options"></ul>
                         </div>
                     </div>
-                    <button type="button" id="add-item-button" class="item_btn">Add Another Item</button>
                 </div>
                 <input type="submit" class="button_input" id="submit" value="Submit">
             </div>
@@ -113,7 +113,7 @@
             }
             function populateCategorySelects(categoryData) {
                 const categorySelect = document.getElementById('categ');
-                categorySelect.innerHTML = '';  // Clear previous options
+                categorySelect.innerHTML = '';
                 Object.entries(categoryData).forEach(([category_id, category]) => {
                     const option = document.createElement('option');
                     option.value = category_id;
@@ -134,23 +134,84 @@
                 });
 
             const peopleInput = document.getElementById('people');
+            const categoryInput = document.getElementById('categ');
+            categoryInput.addEventListener('change', function (event){
+                const searchInputs = document.querySelectorAll('input[type="text"]');
+                    searchInputs.forEach(input => {
+                    input.value = '';
+                });
+                const original_items = itemsData;
+                event.preventDefault();
+                const selectedCategory = event.target.value;
+                let filteredItems;
+                if (selectedCategory === '') {
+                    filteredItems = original_items;
+                } else {
+                    filteredItems = itemsData.filter(item => item.category_id === selectedCategory);
+                }
+                itemsData = filteredItems;
+                addItem(itemsData);
+                //addItem(filteredItems);
+            });
             function submit_request() {
-                fetch('../../controller/civilian/create_request.php',{
-                    method: "POST"
-                })
-                .then(response=> response.json())
-                .then(data =>{
+                const peopleCount = document.getElementById('people').value;
+                const selectedCategory = document.getElementById('categ').value;
 
+                const items = [];
+                document.querySelectorAll('.content').forEach((content, index) => {
+                    const searchInput = content.querySelector('input[type="text"]');
+                    if (searchInput && searchInput.value.trim() !== '') {
+                        const item_id = searchInput.getAttribute('data-id');
+                        if(item_id === null){
+                            alert('You must choose an item. Check items inputs');
+                        }else{
+                            items.push(item_id);
+                        }
+                    }console.log(items)
+                });
+                const params = new URLSearchParams();
+                params.append('people', peopleCount);
+                params.append('category', selectedCategory);
+                params.append('items', JSON.stringify(items));
+                console.log(params)
+                fetch('../../controller/civilian/create_request.php',{
+                    method: "POST",
+                    body: params
+                })
+                //.then(response=> response.json())
+                .then(response => response.text())
+                .then(text => {
+                    console.log("Raw response text:", text);
+                    return JSON.parse(text);
+                })
+                .then(data =>{
+                    if(data.created){
+                        let goBack = confirm('Created Successfully! If you want do go back press OK');
+                        if(goBack){
+                            window.location.href = 'requests.php';
+                        }else{
+                            location.reload();
+                        }
+                    }else {
+                        alert('Error: ' + data.error);
+                    }
                 }).catch(error =>{
                     console.log("Error while creating request: ",error)
                 });
             }
+            peopleInput.addEventListener('input', function (event) {
+                event.preventDefault()
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+            const itemsSelected = document.querySelector('input[type="text"]');
             document.getElementById('submit').addEventListener('click', function(event){
                 event.preventDefault();
-                if(peopleInput.value !== '' && peopleInput.value >=1){
+                if( peopleInput.value !== '' &&
+                    peopleInput.value >=1 &&
+                    newSearchInput.value !== ''){
                     submit_request();
                 }else{
-                    alert('You have to give a correct number')
+                    alert('You have to give a correct number and item')
                 }
             });
         </script>

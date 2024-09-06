@@ -17,6 +17,7 @@ function addItem(selectedItem) {
 function updateName(selectedLi, itemCount) {
     const searchInp = document.getElementById(`item-${itemCount}`);
     searchInp.value = selectedLi.innerText;
+    searchInp.setAttribute('data-id', selectedLi.getAttribute('data-id'));
 }
 newSearchInput.addEventListener('input', function() {
     options.style.display = 'block';
