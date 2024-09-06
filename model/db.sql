@@ -69,6 +69,7 @@ CREATE TABLE requests(
     quantity INTEGER DEFAULT 1,
     reg_date DATE NOT NULL,
     assign_date DATE DEFAULT NULL,
+    completed_date DATE DEFAULT NULL,
     user_id INTEGER REFERENCES dbUser(user_id) ON DELETE CASCADE NOT NULL,
     item_id INTEGER REFERENCES items(item_id) ON DELETE CASCADE NOT NULL,
     long DOUBLE PRECISION NOT NULL,

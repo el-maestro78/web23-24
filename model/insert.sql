@@ -33,12 +33,13 @@ INSERT INTO  items(iname, quantity, category, details) VALUES
 ('spam, eggs, spam, spam & spam', 100, 1, 'Better than spam eggs spam'),
 ('Basketball Ball', 50, 2, 'Just a basketball ball');
 
-INSERT INTO requests(pending, completed, quantity, reg_date, assign_date, user_id, item_id, long, lat) VALUES
-(FALSE, FALSE, 5, current_date, current_date, 1, 1, 21.731021839078, 38.244808224971),
-(FALSE, FALSE, 10, current_date, current_date, 1, 2, 21.734499691362, 38.246439932828),
-(TRUE, FALSE, 5, current_date, NULL, 1, 3, 21.734503111278, 38.245888739736),
-(TRUE, FALSE, 10, current_date, NULL, 1, 1, 21.732724118553, 38.244914513495),
-(FALSE, TRUE, 25, current_date, current_date, 1, 3, 21.78, 38.45);
+INSERT INTO requests(pending, completed, quantity, reg_date, assign_date, completed_date, user_id, item_id, long, lat) VALUES
+(FALSE, FALSE, 5, current_date, current_date, NULL,3, 1, 21.731021839078, 38.244808224971),
+(FALSE, FALSE, 10, current_date, current_date, NULL,3, 2, 21.734499691362, 38.246439932828),
+(TRUE, FALSE, 5, current_date, NULL, NULL,3, 3, 21.734503111278, 38.245888739736),
+(TRUE, FALSE, 10, current_date, NULL, NULL,3, 1, 21.732724118553, 38.244914513495),
+(FALSE, TRUE, 25, current_date, current_date, current_date,3, 3, 21.78, 38.45),
+(FALSE, TRUE, 25, current_date, current_date, current_date,3, 3, 21.78, 38.45);
 
 INSERT INTO offers(pending, completed, quantity, reg_date, assign_date, completed_date, user_id, item_id, long, lat) VALUES
 (FALSE, FALSE, 5, current_date,  current_date,NULL, 3, 1, 21.738, 38.268809889),

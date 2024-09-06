@@ -16,7 +16,7 @@
         include '../../check_login.php';
         include '../toolbar.php';
     ?>
-    <button id="new-offer" value="Make new offer">This is for the news actually TODO</button> <!--TODO-->
+   <!-- <button id="new-offer" value="Make new offer">This is for the news actually </button> TODO-->
     <h2>Pending Offers</h2>
     <div class="pending-container">
         <table>
@@ -54,14 +54,14 @@
         })
         .then(response => response.json())
         .then(data =>{
-            data.forEach(announc =>{
-                let item_name = announc.item_name;
-                let pending = announc.pending;
-                let completed = announc.completed;
-                let quantity = announc.quantity;
-                let reg_date = announc.reg_date;
-                let assign_date = announc.assign_date;
-                let completed_date = announc.completed_date;
+            data.forEach(offer =>{
+                let item_name = offer.item_name;
+                let pending = offer.pending;
+                let completed = offer.completed;
+                let quantity = offer.quantity;
+                let reg_date = offer.reg_date;
+                let assign_date = offer.assign_date;
+                let completed_date =offer.completed_date;
                 if(completed !== 't'){
                     let row = document.createElement('tr');
                     row.innerHTML = `
