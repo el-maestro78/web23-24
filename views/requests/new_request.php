@@ -26,25 +26,29 @@
                     -->
                     <div id="category-container">
                         <label for="categ" class="req_label">Select Category</label>
-                        <select id="categ" class="item_input" required></select>
+                        <select id="categ" class="item_input form-select" required></select>
                     </div>
-                    <div id="item-search-container">
-                        <label for="item-search" class="req_label">Search for Item</label>
-                        <input type="text" id="item-search" class="item_input form-control" placeholder="Search for items...">
-                    </div>
-                    <div id="item-container">
-                        <label for="item-1" class="req_label">Select Item</label>
-                        <select id="item-1" class="item_input" required></select>
+                    <label for="item" class="req_label">Select Item</label>
+                    <div class="wrapper">
+                      <div class="select-btn">
+                        <span>Select Item</span>
+                        <i class="uil uil-angle-down"></i>
+                      </div>
+                      <div class="content">
+                        <div class="search">
+                          <i class="uil uil-search"></i>
+                          <input id="item" spellcheck="false" type="text" placeholder="Search">
+                        </div>
+                        <ul class="options"></ul>
+                      </div>
                     </div>
                     <button type="button" id="add-item-button" class="item_btn">Add Another Item</button>
                     <input type="submit" class="button_input" id="submit" value="Submit">
                 </div>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
+        <script src="autocomplete.js"></script>
         <script>
-
             let itemCount = 1;
             let itemsData = [];
             function populateItemSelects(itemData) {
@@ -59,6 +63,7 @@
                     });
                 });
             }
+            addItem(itemsData);
             document.getElementById('add-item-button').addEventListener('click', function() {
                 itemCount++;
                 const newItemLabel = document.createElement('label');
@@ -68,7 +73,7 @@
 
                 const newItemSelect = document.createElement('select');
                 newItemSelect.id = `item-${itemCount}`;
-                newItemSelect.className = 'item_input';
+                newItemSelect.className = 'item_input form-select';
                 newItemSelect.required = true;
 
                 const container = document.getElementById('item-container');
@@ -78,6 +83,7 @@
             });
             function populateCategorySelects(categoryData) {
                 const categorySelect = document.getElementById('categ');
+                categorySelect.innerHTML = '';  // Clear previous options
                 Object.entries(categoryData).forEach(([category_id, category]) => {
                     const option = document.createElement('option');
                     option.value = category_id;
@@ -91,15 +97,21 @@
                     itemsData = Object.values(data.items);
                     populateItemSelects(itemsData);
                     populateCategorySelects(data.categories);
+
                 })
                 .catch(error => {
                     console.error("Error while fetching data for request: ", error);
                 });
 
+            autocomplete(document.getElementById("item"), itemsData);
+
             function submit_request() {
 
             }
-
+            document.getElementById('submit').addEventListener('click', function(event){
+                event.preventDefault();
+                submit_request();
+            });
         </script>
     </body>
 </html>
