@@ -21,10 +21,6 @@ function getDataType(data) {
 function getVehColor(data) {
     vehicleTasks(data).then(result => {
         const { vehStatus} = result;
-        /*
-        if(vehStatus === 1) return "blue";
-        else return "gray"; */
-
         return vehStatus === 1 ? "blue" : "gray";
     }).catch(error => {
         console.error("Error occurred while fetching vehicle data: ", error);});
@@ -145,7 +141,7 @@ async function offerPopup(data) {
         <b>Ημερομηνία Ανάληψης:</b> ${
           data.pending !== "t" ? data.assign_date : "N/A"
         }<br>
-        <b>Username Οχήματος:</b> ${data.pending !== "t" ? vehUsername : "N/A"}
+        <b>Username Rescuer:</b> ${data.pending !== "t" ? vehUsername : "N/A"}
     </div>
         `;  
 }
@@ -203,7 +199,7 @@ async function requestPopup(data) {
         <b>Ημερομηνία Ανάληψης:</b> ${
           data.pending !== "t" ? data.assign_date : "N/A"
         }<br>
-        <b>Username Οχήματος:</b> ${data.pending !== "t" ? vehUsername : "N/A"}
+        <b>Username Rescuer:</b> ${data.pending !== "t" ? vehUsername : "N/A"}
     </div>
         `;  
 }

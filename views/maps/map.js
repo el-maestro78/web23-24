@@ -166,7 +166,7 @@ async function offerPopup(data) {
         <b>Ημερομηνία Ανάληψης:</b> ${
           data.pending !== "t" ? data.assign_date : "N/A"
         }<br>
-        <b>Username Οχήματος:</b> ${data.pending !== "t" ? vehUsername : "N/A"}
+        <b>Rescuer's Username:</b> ${data.pending !== "t" ? vehUsername : "N/A"}
     </div>
         `;  
 }
@@ -224,7 +224,7 @@ async function requestPopup(data) {
         <b>Ημερομηνία Ανάληψης:</b> ${
           data.pending !== "t" ? data.assign_date : "N/A"
         }<br>
-        <b>Username Οχήματος:</b> ${data.pending !== "t" ? vehUsername : "N/A"}
+        <b>Rescuer's Username:</b> ${data.pending !== "t" ? vehUsername : "N/A"}
     </div>
         `;  
 }

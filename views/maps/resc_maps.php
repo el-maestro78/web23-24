@@ -92,20 +92,33 @@
                         }),
                         draggable: false,
                     }).addTo(map);
-                    marker.bindPopup(`<b>Store ID: ${store.base_id}</b>`).openPopup();
+                    marker.bindPopup(`<b>Store ID: ${store.base_id}</b>`);
                     marker.addTo(markerLayer);
                     marker.addTo(baseLayer);
                 });
             })
             .catch(error => console.error('Error fetching store data:', error));
 
+        let my_vehicle = null;
+        fetch('../../controller/rescuer/get_my_vehicle.php')
+            .then(response=>response.json())
+            .then(data=>{
+                my_vehicle = data.veh_id;
+            }).catch(error => console.error('Error fetching vehicle data:', error));
+        let my_marker = null;
         fetch('../../controller/admin/fetch_vehicles.php')
             .then(response => response.json())
             .then(data => {
                 data.merged.forEach(vehicle => {
+                    const VehId = vehicle.veh_id;
                     vehicleTasks(vehicle).then(result => {
                         const { vehStatus } = result;
-                        const vehColor = (vehStatus === 1) ? "blue" : "gray";
+                        let vehColor;
+                        if(VehId === my_vehicle && my_vehicle !== null){
+                            vehColor = "pink";
+                        }else{
+                            vehColor = (vehStatus === 1) ? "blue" : "gray";
+                        }
                         const vehType = (vehStatus === 1) ? "assigned" : "pending";
 
                         let marker = L.marker([vehicle.lat, vehicle.long], {
@@ -115,7 +128,9 @@
                                 markerColor: vehColor,
                             })
                         }).addTo(map);
-
+                        if (VehId === my_vehicle && my_vehicle !== null) {
+                            my_marker = marker;
+                        }
                         marker.on('click', async () => {
                             const content = await vehiclePopup(vehicle);
                             marker.bindPopup(content).openPopup();
@@ -123,7 +138,6 @@
                             drawVehicleLine(marker, tasks);
                             polylineLayerGroup.clearLayers();
                         });
-
                         marker.addTo(markerLayer);
                         marker.addTo(vehicleLayer);
 
@@ -152,7 +166,7 @@
                     marker.on('click', async () => {
                         const content = await offerPopup(offer);
                         //console.log(content)
-                        marker.bindPopup(content).openPopup();
+                        marker.bindPopup(content);
                     });
                     let type = getDataType(offer);
                     marker.addTo(markerLayer);
@@ -180,7 +194,7 @@
                     marker.on('click', async () => {
                         const content = await requestPopup(request);
                         //console.log(content)
-                        marker.bindPopup(content).openPopup();
+                        marker.bindPopup(content);
                     });
                     let type = getDataType(request);
                     marker.addTo(markerLayer);
@@ -210,7 +224,11 @@
             markerLayer.addTo(map);
         }
         initializeMap();
-
+        map.on('load',()=>{
+            setTimeout(() => {
+                my_marker.openPopup();
+            }, 2000);
+        })
         const checkboxes = document.querySelectorAll('.leaflet-control-layers-selector');
         let allCheckbox = null;
         checkboxes.forEach(checkbox => {

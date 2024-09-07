@@ -22,7 +22,9 @@ while ($row = pg_fetch_assoc($result)) {
     $tasked_vehicles[] = $row;
 }
 $avail_query = <<< EOF
-        SELECT vehicles.veh_id
+        SELECT vehicles.veh_id,
+        vehicles.long, 
+        vehicles.lat 
         FROM vehicles
         WHERE vehicles.veh_id NOT IN (SELECT vehicle_rescuers.veh_id FROM vehicle_rescuers)
 EOF;
