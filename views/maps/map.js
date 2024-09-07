@@ -69,7 +69,7 @@ async function vehiclePopup(data){
     return `
         <div>
             <b>Vehicle</b><br>
-            <b>Username Οχήματος:</b> ${data.username}<br><hr>
+            <b>Rescuer's Username:</b> ${data.username}<br><hr>
             ${itemsHtml}
             <b>Status:</b> ${vehStatus ? "On road" : "Idle"}<br>
             <b>Tasks:</b> ${vehTasks || "N/A"}<br>

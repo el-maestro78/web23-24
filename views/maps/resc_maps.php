@@ -102,7 +102,7 @@
         fetch('../../controller/admin/fetch_vehicles.php')
             .then(response => response.json())
             .then(data => {
-                data.forEach(vehicle => {
+                data.merged.forEach(vehicle => {
                     vehicleTasks(vehicle).then(result => {
                         const { vehStatus } = result;
                         const vehColor = (vehStatus === 1) ? "blue" : "gray";
