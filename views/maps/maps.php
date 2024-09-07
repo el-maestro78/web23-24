@@ -118,7 +118,6 @@
             })
             .catch(error => console.error('Error fetching store data:', error));
 
-        //fetch_vehicles(map);
         fetch('../../controller/admin/fetch_vehicles.php')
             .then(response => response.json())
             .then(data => {
@@ -217,7 +216,7 @@
             //"Vehicles": vehicleLayer,
             "Vehicles on road": vehicleBusyLayer,
             "Vehicles Idle": vehicleIdleLayer,
-            "Requests": requestLayer,
+            //"Requests": requestLayer,
             "Requests pending": requestPendingLayer ,
             "Requests assigned": requestAssignedLayer ,
             //"Offers": offerLayer,
@@ -230,6 +229,35 @@
             markerLayer.addTo(map);
         }
         initializeMap();
+
+        const checkboxes = document.querySelectorAll('.leaflet-control-layers-selector');
+        let allCheckbox = null;
+        checkboxes.forEach(checkbox => {
+          const label = checkbox.nextElementSibling.textContent.trim();
+          if (label === 'All') {
+            allCheckbox = checkbox;
+          }
+        });
+        allCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+            checkboxes.forEach(checkbox => {
+              const label = checkbox.nextElementSibling.textContent.trim();
+              if (label !== 'All') {
+                checkbox.checked = false;
+              }
+            });
+          }
+        });
+        checkboxes.forEach(checkbox => {
+          const label = checkbox.nextElementSibling.textContent.trim();
+          if (label !== 'All') {
+            checkbox.addEventListener('change', function() {
+              if (this.checked) {
+                allCheckbox.checked = false;
+              }
+            });
+          }
+        });
     </script>
 </body>
 

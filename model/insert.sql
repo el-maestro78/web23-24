@@ -3,11 +3,11 @@ INSERT INTO base (lat, long) VALUES
 (38.258236, 21.743137),
 (38.244872, 21.731950);
 
-INSERT INTO vehicles (username, lat, long) VALUES
-('bear', 38.246444, 21.734203),
-('lion', 38.258236, 21.743137),
-('RAT', 38.244872, 21.731950),
-('giraffe', 38.244872, 21.731950);
+INSERT INTO vehicles (lat, long) VALUES
+(38.246444, 21.734203),
+(38.258236, 21.743137),
+(38.244872, 21.731950),
+(38.244872, 21.731950);
 
 INSERT INTO dbUser(first_name,surname,username,pass,is_resc,is_admin,email,phone,long,lat) VALUES
 ( 'Admin', 'Adminopoulos', 'tester', crypt('pass', gen_salt('bf')), FALSE, TRUE, 'admin@admin.org', 6987654321, 38.246444, 21.734203),
@@ -61,6 +61,11 @@ INSERT INTO vehicle_load(veh_id, item_id, load) VALUES
 (1, 1, 5),
 (1, 2, 10),
 (2, 2, 10);
+
+INSERT INTO  vehicle_rescuers(veh_id, user_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
 
 INSERT INTO news(title, descr, date, base_id, item_id) VALUES
 ('Test', 'Bored already?', current_date, 1, 1),

@@ -20,6 +20,7 @@
 </head>
 
 <body>
+
     <?php include '../../ini.php'; ?>
     <?php include '../../check_login.php'; ?>
     <?php
@@ -40,7 +41,7 @@
     <!-- Leaflet Control (filter-search) -->
     <script src="../../node_modules/leaflet-search/dist/leaflet-search.src.js"></script>
     <!-- Aux functions for a cleaner maps.php file-->
-    <script src="./resc_map.js"></script>
+    <script src="./map.js"></script>
     <script src="./icons.js"></script>
 
     <script>
@@ -53,6 +54,24 @@
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         }).addTo(map);
+
+        // Filters
+        /*
+        const markerLayer = L.layerGroup().addTo(map);
+        const vehicleLayer = L.layerGroup().addTo(map);
+        const offerLayer = L.layerGroup().addTo(map);
+        const requestLayer = L.layerGroup().addTo(map);*/
+        const markerLayer = L.layerGroup();
+        const baseLayer = L.layerGroup();
+        const vehicleLayer = L.layerGroup();
+        const vehicleIdleLayer= L.layerGroup();
+        const vehicleBusyLayer= L.layerGroup();
+        const offerLayer = L.layerGroup();
+        const offerPendingLayer = L.layerGroup();
+        const offerAssignedLayer = L.layerGroup();
+        const requestLayer = L.layerGroup();
+        const requestPendingLayer = L.layerGroup();
+        const requestAssignedLayer = L.layerGroup();
 
         // Vehicle Lines
         const polylineLayerGroup = L.layerGroup().addTo(map);
@@ -73,11 +92,13 @@
                         }),
                         draggable: false,
                     }).addTo(map);
+                    marker.bindPopup(`<b>Store ID: ${store.base_id}</b>`).openPopup();
+                    marker.addTo(markerLayer);
+                    marker.addTo(baseLayer);
                 });
             })
             .catch(error => console.error('Error fetching store data:', error));
 
-        //fetch_vehicles(map);
         fetch('../../controller/admin/fetch_vehicles.php')
             .then(response => response.json())
             .then(data => {
@@ -102,6 +123,12 @@
                             drawVehicleLine(marker, tasks);
                             polylineLayerGroup.clearLayers();
                         });
+
+                        marker.addTo(markerLayer);
+                        marker.addTo(vehicleLayer);
+
+                        if (vehType === 'assigned') marker.addTo(vehicleBusyLayer);
+                        else marker.addTo(vehicleIdleLayer);
                     }).catch(error => {
                         console.error("Error occurred while fetching vehicle data: ", error);
                     });
@@ -163,6 +190,57 @@
                 })
             })
             .catch(error => console.error('Error fetching request data:', error));
+
+        const overlayMaps = {
+            "All": markerLayer,
+            "Bases": baseLayer,
+            //"Vehicles": vehicleLayer,
+            "Vehicles on road": vehicleBusyLayer,
+            "Vehicles Idle": vehicleIdleLayer,
+            //"Requests": requestLayer,
+            "Requests pending": requestPendingLayer ,
+            "Requests assigned": requestAssignedLayer ,
+            //"Offers": offerLayer,
+            "Offers pending": offerPendingLayer,
+            "Offers assigned": offerAssignedLayer
+        };
+        let control = L.control.layers(null, overlayMaps).addTo(map);
+            //control.addOverlay(vehicleLayer, "Vehicles")
+        function initializeMap() {
+            markerLayer.addTo(map);
+        }
+        initializeMap();
+
+        const checkboxes = document.querySelectorAll('.leaflet-control-layers-selector');
+        let allCheckbox = null;
+        checkboxes.forEach(checkbox => {
+          const label = checkbox.nextElementSibling.textContent.trim();
+          if (label === 'All') {
+            allCheckbox = checkbox;
+          }
+        });
+        allCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+            checkboxes.forEach(checkbox => {
+              const label = checkbox.nextElementSibling.textContent.trim();
+              if (label !== 'All') {
+                checkbox.checked = false;
+              }
+            });
+          }
+        });
+        checkboxes.forEach(checkbox => {
+          const label = checkbox.nextElementSibling.textContent.trim();
+          if (label !== 'All') {
+            checkbox.addEventListener('change', function() {
+              if (this.checked) {
+                allCheckbox.checked = false;
+              }
+            });
+          }
+        });
+
+
     </script>
 </body>
 
