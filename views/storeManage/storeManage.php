@@ -76,8 +76,6 @@
         <button type="button" id="add-categ-button" class="button_add">Add Another Category</button>
         <button type="button" id="modify-categ-button" class="button_modify">Modify Category</button>
         <button type="button" id="remove-categ-button" class="button_remove">Remove Category</button>
-        <!--Not Sure if Need this TODO-->
-            <?php //include './filter_categories.php'; ?>
         <?php if (!empty($categories_array)) : ?>
             <div class="table-container">
                 <table>

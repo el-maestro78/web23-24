@@ -92,8 +92,12 @@
             .then(data =>{
      //['exists' => true, 'created' => false,'lacking' => false, 'error' => pg_last_error($dbconn)]);
                 if (data.updated) {
-                        alert('Updated successfully');
-                        window.location.href ='storeManage.php';
+                        let goBack = confirm('Updated successfully! Do you want to go back?');
+                        if(goBack){
+                            window.location.href ='storeManage.php';
+                        }else{
+                            location.reload();
+                        }
                     } else if(data.lacking && data.exists){
                         alert('There is not enough quantity on the stores');
                     } else if(data.exists){

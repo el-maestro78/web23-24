@@ -112,8 +112,12 @@
             .then(response => response.json())
             .then(data =>{
                 if (data.updated) {
-                        alert('Updated successfully');
-                        window.location.href ='storeManage.php';
+                        let goBack = confirm('Updated successfully! Do you want to go back?');
+                        if(goBack){
+                            window.location.href ='storeManage.php';
+                        }else{
+                            location.reload();
+                        }
                     } else if(!data.updated && !data.exists){
                         alert('Category doesn\'t exist');
                     }else{

@@ -63,8 +63,12 @@
             .then(response => response.json())
             .then(data =>{
                 if (data.removed) {
-                        alert('Removed successfully');
-                        window.location.href ='storeManage.php';
+                        let goBack = confirm('Removed successfully! Do you want to go back?');
+                        if(goBack){
+                            window.location.href ='storeManage.php';
+                        }else{
+                            location.reload();
+                        }
                     } else if(!data.removed && !data.exists){
                         alert('Item doesn\'t exist');
                     }else{

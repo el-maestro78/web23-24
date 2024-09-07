@@ -99,8 +99,12 @@
             .then(response => response.json())
             .then(data =>{
                 if (data.removed) {
-                    alert('Removed successfully from vehicle ' + vehicle);
-                    window.location.href ='storeManage.php';
+                    let goBack = confirm('Removed successfully from vehicle ' + vehicle);
+                        if(goBack){
+                            window.location.href ='storeManage.php';
+                        }else{
+                            location.reload();
+                        }
                 } else if(!data.removed && !data.exists){
                     alert('Item doesn\'t exist in the vehicle ' + vehicle);
                 }else{
