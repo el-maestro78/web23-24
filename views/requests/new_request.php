@@ -120,7 +120,7 @@
             }
 
             document.getElementById('add-item-button').addEventListener('click', newItemSearch);
-            
+
             document.addEventListener('DOMContentLoaded', function() {
                 const initialInput = document.querySelector('#item-1');
                 const initialOptions = document.querySelector('.options');

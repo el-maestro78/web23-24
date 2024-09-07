@@ -27,7 +27,7 @@ CREATE TABLE item_category(
 
 CREATE TABLE items(
     item_id SERIAL PRIMARY KEY,
-    iname VARCHAR(255),
+    iname VARCHAR(255) UNIQUE,
     quantity INTEGER DEFAULT 0,
     category INTEGER REFERENCES item_category(category_id) ON DELETE CASCADE NOT NULL,
     details VARCHAR(255)

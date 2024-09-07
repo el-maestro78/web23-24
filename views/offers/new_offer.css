@@ -1,0 +1,54 @@
+.container {
+    font-family: Arial, sans-serif;
+    background-color: rgba(54, 109, 35, 0.63);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+.offer_container{
+    background-color: #ffffff;
+    padding: 60px 80px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+.details {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+}
+.offer_label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #000000;
+}
+.insert_quantity{
+    padding: 20px 40px;
+    font-weight: bold;
+    color: #000000;
+}
+.button_input {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.button_input:hover {
+    background-color: #36593b;
+}

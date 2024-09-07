@@ -20,7 +20,7 @@
             <div class="news_box">
                 <div class="details">Add a new Announcement</div>
                 <div class="form">
-                    <label for="title" class=news_label>First Name</label>
+                    <label for="title" class=news_label>Title</label>
                     <input type="text" id="title" class="text_input" required>
                     <label for="base" class=news_label>Select Base in Need</label>
                     <select id="base" class="news_input" required></select>
