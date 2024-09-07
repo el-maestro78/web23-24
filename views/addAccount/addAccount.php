@@ -62,7 +62,9 @@
                     <label for="phonenr">Phone Number</label> <br>
                     <input type="text" id="phonenr">
                     <div class="gradient-line"></div>
-
+                    <label for="Vehicle" class="left_label">Select Category</label>
+                    <select id="Vehicle" class="veh_input" required>
+                    </select>
                     <input type="submit" class="button_input" id="submit" value="Submit">
                 </div>
             </div>
@@ -70,6 +72,33 @@
     </div>
 
     <script>
+    const vehicleSelect = document.getElementById('Vehicle');
+    function populate_vehicles(){
+        fetch('../../controller/admin/fetch_available_vehicles.php')
+        .then(response=>response.json())
+        .then(data=>{
+            if (data.exists) {
+                vehicleSelect.innerHTML = '';
+                data.vehicles.forEach(veh => {
+                    const option = document.createElement('option');
+                    option.value = veh.veh_id;
+                    option.textContent = `Vehicle ID: ${veh.veh_id}`;
+                    vehicleSelect.appendChild(option);
+                });
+
+            }else {
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'No vehicles available';
+                option.disabled = true;
+                vehicleSelect.appendChild(option);
+                vehicleSelect.style.display = 'none';
+            }
+        })
+        .catch(error=>console.log('Error fetching available vehicles', error))
+    }
+    populate_vehicles();
+
     var PREVENT_SUBMIT = true;
     document.addEventListener('DOMContentLoaded', function() {
       const inputs = document.querySelectorAll('.form input');
@@ -138,6 +167,7 @@
         const username = usernameInput.value;
         const email = emailInput.value;
         const phone = phonenrInput.value;
+        const vehicle = vehicleSelect.value;
         const params = new URLSearchParams();
         if (!PREVENT_SUBMIT){
             alert('Something wrong with the input.');
@@ -157,6 +187,7 @@
         params.append('pass', password);
         params.append('email', email);
         params.append('phone', phone);
+        params.append('vehicle', vehicle);
         fetch('../../controller/admin/create_rescuer_account.php', {
             method: 'POST',
             body: params
@@ -178,7 +209,11 @@
     }
     submitButton.addEventListener('click', function(event) {
         event.preventDefault();
-        submitCredentials();
+        if(vehicleSelect.value === ''){
+            alert('Not available vehicle for new rescuers');
+        }else{
+            submitCredentials();
+        }
     });
 
     </script>
