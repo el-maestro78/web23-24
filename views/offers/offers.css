@@ -2,6 +2,13 @@ h2{
     display: flex;
     justify-content: center;
 }
+p{
+    display: flex;
+    padding: 8px;
+    margin: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -17,8 +24,8 @@ th {
     color: #333;
 }
 tr:nth-child(even) {
-    background-color: rgba(249, 249, 249, 0.73);
+    background-color: rgba(162, 162, 162, 0.94);
 }
-tr:hover {
-    background-color: #f1f1f1;
+#pending-table-body tr:hover {
+    background-color: #ed3f16;
 }

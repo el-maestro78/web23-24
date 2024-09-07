@@ -16,9 +16,9 @@
         include '../../check_login.php';
         include '../toolbar.php';
     ?>
-   <!-- <button id="new-offer" value="Make new offer">This is for the news actually </button> TODO-->
     <h2>Pending Offers</h2>
     <div class="pending-container">
+        <p>Click on an offer if you want to cancel</p>
         <table>
             <thead>
                 <tr>
@@ -47,6 +47,26 @@
         </table>
     </div>
     <script>
+        function remove_offer(offer_id){
+            const params = new URLSearchParams();
+            params.append('offer_id', offer_id);
+            fetch('../../controller/civilian/remove_offer.php', {
+                method: 'POST',
+                body: params,
+                header:'Content-Type: application/json'
+            })
+            .then(response => response.json())
+            .then(data =>{
+                console.log(data)
+                if(data.removed){
+                    alert("Removed Successfully!");
+                    location.reload();
+                }else{
+                    alert("Error" + data.error);
+                }
+            }).catch(error => console.error('Error removing offer:', error))
+        }
+
         const pendingTable = document.getElementById('pending-table-body');
         const pastTable = document.getElementById('past-table-body');
         fetch('../../controller/civilian/fetch_past_offers.php', {
@@ -55,6 +75,7 @@
         .then(response => response.json())
         .then(data =>{
             data.forEach(offer =>{
+                let offer_id = offer.off_id;
                 let item_name = offer.item_name;
                 let pending = offer.pending;
                 let completed = offer.completed;
@@ -64,12 +85,22 @@
                 let completed_date =offer.completed_date;
                 if(completed !== 't'){
                     let row = document.createElement('tr');
+                    row.setAttribute('data-item', item_name);
+                    row.setAttribute('data-offer-id', offer_id);
                     row.innerHTML = `
                            <td>${item_name}</td>
                            <td>${quantity}</td>
                            <td>${reg_date}</td>
                            <td>${assign_date ? assign_date : 'N/A'}</td>
                        `;
+                    row.addEventListener("click", function (event){
+                        event.preventDefault();
+                        let want_remove_offer = confirm('Do you want to remove this offer?');
+                        if(want_remove_offer){
+                            console.log("Attribute" + this.getAttribute('data-offer-id'))
+                            remove_offer(this.getAttribute('data-offer-id'));
+                        }
+                    });
                     pendingTable.appendChild(row);
                 }else{
                     let row = document.createElement('tr');

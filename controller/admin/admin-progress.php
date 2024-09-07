@@ -6,6 +6,7 @@ Aux. (Last)
     need to make the country, zip to lat long work
     Need to adjust offers & requests to get lat and long from db_user
     AJAX everything
+    news/civ_news css needs fixing
 1.
     DONE
 

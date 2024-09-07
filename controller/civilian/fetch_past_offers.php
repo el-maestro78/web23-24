@@ -6,6 +6,7 @@ $user_id = $_SESSION['user_id'] ?? die('You are not logged in');
 
 $query = <<< EOF
     SELECT
+        offers.off_id,
         items.iname as item_name,
         offers.pending,
         offers.completed,
