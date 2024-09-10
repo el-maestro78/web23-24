@@ -45,6 +45,8 @@
         <script>
             let itemCount = 1;
             let itemsData = [];
+            let filteredItemsData = [];
+
             function populateItemSelects(itemData) {
                 const itemSelects = document.querySelectorAll('#item-container select');
                 itemSelects.forEach(select => {
@@ -57,8 +59,57 @@
                     });
                 });
             }
-           document.getElementById('add-item-button').addEventListener('click', newItemSearch);
-           function newItemSearch() {
+
+            function filterItemsByCategory(categoryId) {
+                if (categoryId === '') {
+                    filteredItemsData = itemsData;
+                } else {
+                    filteredItemsData = itemsData.filter(item => item.category_id === categoryId);
+                }
+                updateAllSearchInputs();
+            }
+
+            function updateAllSearchInputs() {
+                document.querySelectorAll('.wrapper').forEach((wrapper, index) => {
+                    const input = wrapper.querySelector('input[type="text"]');
+                    const options = wrapper.querySelector('.options');
+                    input.value = '';
+                    updateOptions(input, options);
+                });
+            }
+
+            function addItem(selectedItem) {
+                const options = document.querySelectorAll('.options');
+                options.forEach(optionList => {
+                    optionList.innerHTML = "";
+                    filteredItemsData.forEach(item => {
+                        let isSelected = item.iname === selectedItem ? "selected" : "";
+                        let li = `<li onclick="updateName(this)" class="${isSelected}" data-categ="${item.category_id}" data-id="${item.item_id}">${item.iname}</li>`;
+                        optionList.insertAdjacentHTML("beforeend", li);
+                    });
+                });
+            }
+
+            function updateOptions(input, optionsList) {
+                let searchWord = input.value.toLowerCase();
+                optionsList.innerHTML = '';
+                if (searchWord === '') {
+                    filteredItemsData.forEach(item => {
+                        let li = `<li onclick="updateName(this, ${optionsList.getAttribute('data-item-count')})" data-id="${item.item_id}">${item.iname}</li>`;
+                        optionList.insertAdjacentHTML("beforeend", li);
+                    });
+                } else {
+                    let filteredItems = filteredItemsData.filter(item =>
+                        item.iname.toLowerCase().startsWith(searchWord)
+                    ).map(item =>
+                        `<li onclick="updateName(this, ${optionsList.getAttribute('data-item-count')})" data-id="${item.item_id}">${item.iname}</li>`
+                    ).join("");
+
+                    optionsList.innerHTML = filteredItems || `<p style="margin-top: 10px;">Not found</p>`;
+                }
+            }
+
+            function newItemSearch() {
                 itemCount++;
                 const newWrapper = document.createElement('div');
                 newWrapper.className = 'wrapper';
@@ -92,34 +143,7 @@
                     }
                 });
             }
-            const newSearchInput = document.querySelector(".wrapper").querySelector("input");
-            function addItem(selectedItem) {
-                const options = document.querySelectorAll('.options');
-                options.forEach(optionList => {
-                    optionList.innerHTML = "";
-                    itemsData.forEach(item => {
-                        let isSelected = item.iname === selectedItem ? "selected" : "";
-                        let li = `<li onclick="updateName(this)" class="${isSelected}" data-id="${item.item_id}">${item.iname}</li>`;
-                        optionList.insertAdjacentHTML("beforeend", li);
-                    });
-                });
-            }
 
-            function updateOptions(input, optionsList) {
-                let searchWord = input.value.toLowerCase();
-                if (searchWord === '') {
-                    optionsList.innerHTML = '';
-                    return;
-                }
-
-                let filteredItems = itemsData.filter(item => {
-                    return item.iname.toLowerCase().startsWith(searchWord);
-                }).map(item => {
-                    return `<li onclick="updateName(this, ${optionsList.getAttribute('data-item-count')})" data-id="${item.item_id}">${item.iname}</li>`;
-                }).join("");
-
-                optionsList.innerHTML = filteredItems || `<p style="margin-top: 10px;">Not found</p>`;
-            }
             function updateName(selectedLi, itemCount) {
                 const inputId = `item-${itemCount}`;
                 const searchInput = document.getElementById(inputId);
@@ -132,27 +156,6 @@
                 }
             }
 
-            document.getElementById('add-item-button').addEventListener('click', newItemSearch);
-
-            document.addEventListener('DOMContentLoaded', function() {
-                const initialInput = document.querySelector('#item-1');
-                const initialOptions = document.querySelector('.options');
-
-                initialInput.addEventListener('input', function() {
-                    initialOptions.style.display = 'block';
-                });
-
-                initialInput.addEventListener('keyup', function() {
-                    updateOptions(this, initialOptions);
-                });
-
-                // Close options when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!event.target.closest('.content')) {
-                        initialOptions.style.display = 'none';
-                    }
-                });
-            });
             function populateCategorySelects(categoryData) {
                 const categorySelect = document.getElementById('categ');
                 categorySelect.innerHTML = '';
@@ -163,37 +166,54 @@
                     categorySelect.appendChild(option);
                 });
             }
-            fetch('../../controller/admin/fetch_items.php')
-                .then(response => response.json())
-                .then(data => {
-                    itemsData = Object.values(data.combined_items);
-                    populateItemSelects(itemsData);
-                    populateCategorySelects(data.categories);
-                })
-                .catch(error => {
-                    console.error("Error while fetching data for request: ", error);
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const categoryInput = document.getElementById('categ');
+                const initialInput = document.querySelector('#item-1');
+                const initialOptions = document.querySelector('.options');
+
+                fetch('../../controller/admin/fetch_items.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        itemsData = Object.values(data.combined_items);
+                        populateItemSelects(itemsData);
+                        populateCategorySelects(data.categories);
+                        filterItemsByCategory(categoryInput.value);
+                    })
+                    .catch(error => {
+                        console.error("Error while fetching data for request: ", error);
+                    });
+
+                categoryInput.addEventListener('change', function (event) {
+                    event.preventDefault();
+                    filterItemsByCategory(event.target.value);
                 });
 
-            const peopleInput = document.getElementById('people');
-            const categoryInput = document.getElementById('categ');
-            categoryInput.addEventListener('change', function (event){
-                const searchInputs = document.querySelectorAll('input[type="text"]');
-                    searchInputs.forEach(input => {
-                    input.value = '';
+                initialInput.addEventListener('input', function() {
+                    initialOptions.style.display = 'block';
                 });
-                const original_items = itemsData;
-                event.preventDefault();
-                const selectedCategory = event.target.value;
-                let filteredItems;
-                if (selectedCategory === '') {
-                    filteredItems = original_items;
-                } else {
-                    filteredItems = itemsData.filter(item => item.category_id === selectedCategory);
-                }
-                itemsData = filteredItems;
-                addItem(itemsData);
-                //addItem(filteredItems);
+
+                initialInput.addEventListener('keyup', function() {
+                    updateOptions(this, initialOptions);
+                });
+
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.content')) {
+                        document.querySelectorAll('.options').forEach(optionList => {
+                            optionList.style.display = 'none';
+                        });
+                    }
+                });
             });
+
+            document.getElementById('add-item-button').addEventListener('click', newItemSearch);
+
+            const peopleInput = document.getElementById('people');
+            peopleInput.addEventListener('input', function (event) {
+                event.preventDefault();
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
             function submit_request() {
                 const peopleCount = document.getElementById('people').value;
                 const selectedCategory = document.getElementById('categ').value;
@@ -214,15 +234,15 @@
                 params.append('people', peopleCount);
                 params.append('category', selectedCategory);
                 params.append('items', JSON.stringify(items));
-                console.log(params)
-                fetch('../../controller/civilian/create_request.php',{
+                //console.log(params);
+                fetch('../../controller/civilian/create_request.php', {
                     method: "POST",
                     body: params
                 })
-                .then(response=> response.json())
-                .then(data =>{
+                .then(response => response.json())
+                .then(data => {
                     if(data.created){
-                        let goBack = confirm('Created Successfully! If you want do go back press OK');
+                        let goBack = confirm('Created Successfully! If you want to go back press OK');
                         if(goBack){
                             window.location.href = 'requests.php';
                         }else{
@@ -231,23 +251,20 @@
                     }else {
                         alert('Error: ' + data.error);
                     }
-                }).catch(error =>{
-                    console.log("Error while creating request: ",error)
+                }).catch(error => {
+                    console.log("Error while creating request: ", error);
                 });
             }
-            peopleInput.addEventListener('input', function (event) {
-                event.preventDefault()
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-            const itemsSelected = document.querySelector('input[type="text"]');
-            document.getElementById('submit').addEventListener('click', function(event){
+
+            document.getElementById('submit').addEventListener('click', function(event) {
                 event.preventDefault();
-                if( peopleInput.value !== '' &&
-                    peopleInput.value >=1 &&
-                    newSearchInput.value !== ''){
+                const newSearchInput = document.querySelector(".wrapper").querySelector("input");
+                if (peopleInput.value !== '' &&
+                    peopleInput.value >= 1 &&
+                    newSearchInput.value !== '') {
                     submit_request();
-                }else{
-                    alert('You have to give a correct number and item')
+                } else {
+                    alert('You have to give a correct number and item');
                 }
             });
         </script>
