@@ -62,7 +62,7 @@
                     <label for="phonenr">Phone Number</label> <br>
                     <input type="text" id="phonenr">
                     <div class="gradient-line"></div>
-                    <label for="Vehicle" class="left_label">Select Category</label>
+                    <label for="Vehicle" class="left_label">Select Vehicle</label>
                     <select id="Vehicle" class="veh_input" required>
                     </select>
                     <input type="submit" class="button_input" id="submit" value="Submit">
