@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel='stylesheet' type='text/css' media='screen' href='../storage/storage.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='storeManage.css'>
         <link rel="icon" href="../favico/favicon.ico" type="image/x-icon">
         <title>Manage Storage</title>
@@ -15,15 +14,6 @@
         include '../../ini.php';
         include '../../check_login.php';
         include '../toolbar.php';
-        ?>
-        <?php
-        //items on storage and loaded
-        include '../../controller/admin/fetch_storage.php';
-        //categories
-        include '../../controller/admin/fetch_item_categ.php';
-        //Vehicle load
-        include '../../controller/admin/fetch_veh_loaded_items.php';
-
         ?>
         <div id='load-json' class="load-json-div">
             <!-- LOAD from json and update through their database button TODO-->
@@ -39,100 +29,229 @@
             <button type="button" id="modify-item-button" class="button_modify">Modify Item</button>
             <button type="button" id="modify-items_categ-button" class="button_modify">Modify Item's Category</button>
             <button type="button" id="remove-item-button" class="button_remove">Remove Item</button>
-            <?php include '../storage/filter_storage_by_quantity.php';?>
+            <label for="categoryFilter">Filter by Category: </label>
+            <select id="categoryFilter">
+                <option value="all">All</option>
+            </select>
         </div>
-        <?php if (!empty($combined_items)) : ?>
-            <div class="table-container">
-                <table id="items-table">
-                    <thead>
-                        <tr>
-                            <th>Item ID</th>
-                            <th>Item Name</th>
-                            <th>Quantity</th>
-                            <th>On Storage</th>
-                            <th>On Vehicle</th>
-                            <th>Item Category</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($combined_items as $item): ?>
-                            <tr data-category="<?= $item['category'] ?>">
-                                <td><?= $item['item_id'] ?></td>
-                                <td><?= $item['iname'] ?></td>
-                                <td><?= $item['quantity'] ?></td>
-                                <td><?= $item['storage'] ?></td>
-                                <td><?= $item['vehload'] ?></td>
-                                <td><?= $item['category'] ?></td>
-                                <td><?= $item['details'] ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php else : ?>
-            <br/><div class='no-items-message'><b>No items to display.</b></div>
-        <?php endif; ?>
+        <div class="table-container">
+            <table id="items-table">
+                <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>On Storage</th>
+                        <th>On Vehicle</th>
+                        <th>Item Category</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody id="items-table-body">
+                </tbody>
+            </table>
+        </div>
         <button type="button" id="add-categ-button" class="button_add">Add Another Category</button>
         <button type="button" id="modify-categ-button" class="button_modify">Modify Category</button>
         <button type="button" id="remove-categ-button" class="button_remove">Remove Category</button>
-        <?php if (!empty($categories_array)) : ?>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Category ID</th>
-                            <th>Category Name</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($categories_array as $categ): ?>
-                            <tr >  <?php //data-category="<?= $categ['category']" ?>
-                                <td><?= $categ['category_id'] ?></td>
-                                <td><?= $categ['category_name'] ?></td>
-                                <td><?= $categ['details'] ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php else : ?>
-            <br/><div class='no-items-message'><b>No categories to display.</b></div>
-        <?php endif; ?>
+        <div class="table-container">
+            <table id ="category-table">
+                <thead>
+                    <tr>
+                        <th>Category ID</th>
+                        <th>Category Name</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody id='category-table-body'>
+                </tbody>
+            </table>
+        </div>
         <button type="button" id="add-vehicle-button" class="button_add">Load Item</button>
         <button type="button" id="modify-vehicle-button" class="button_modify">Modify Quantity</button>
         <button type="button" id="remove-vehicle-button" class="button_remove">Remove Item</button>
-        <?php include './filter_vehicles.php'; ?>
-        <?php if (!empty($vehicle_load_array)) : ?>
-            <div class="table-container">
-                <table id="vehicle-table">
-                    <thead>
-                        <tr>
-                            <th>Vehicle ID</th>
-                            <th>Vehicle Name</th>
-                            <th>Item ID</th>
-                            <th>Item Name</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($vehicle_load_array as $veh): ?>
-                            <tr data-category="<?= $veh['veh_id']?>">
-                                <td><?= $veh['veh_id'] ?></td>
-                                <td><?= $veh['username'] ?></td>
-                                <td><?= $veh['item_id'] ?? '-' ?></td>
-                                <td><?= $veh['iname'] ?? '-' ?></td>
-                                <td><?= $veh['load'] ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php else : ?>
-            <br/><div class='no-items-message'><b>No vehicles to display.</b></div>
-        <?php endif; ?>
-        <script>
+        <label for="vehicleFilter">Filter by Vehicle: </label>
+        <select id="vehicleFilter">
+            <option value="all">All</option>
+        </select>
+        <div class="table-container">
+            <table id="vehicle-table">
+                <thead>
+                    <tr>
+                        <th>Vehicle ID</th>
+                        <th>Rescuers Name</th>
+                        <th>Item ID</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody id="vehicle-table-body">
+                </tbody>
+            </table>
+        </div>
+    <script>
+            /*
+          //items on storage and loaded
+        //include '../../controller/admin/fetch_storage.php';
+        //categories
+        //include '../../controller/admin/fetch_item_categ.php';
+        //Vehicle load
+        //include '../../controller/admin/fetch_veh_loaded_items.php';*/
+
+            const categoryFilter = document.getElementById('categoryFilter');
+            const itemsTable = document.getElementById("items-table");
+            const itemsTableBody = document.getElementById('items-table-body');
+
+            const categoryTable = document.getElementById("category-table");
+            const categoryTableBody = document.getElementById('category-table-body');
+
+            const vehicleFilter = document.getElementById('vehicleFilter');
+            const vehicleTable = document.getElementById("vehicle-table");
+            const vehicleTableBody = document.getElementById('vehicle-table-body');
+
+            fetch('../../controller/admin/fetch_item_categ.php',{method:'POST'})
+            .then(response=>response.json())
+            .then(data=>{
+                if(data){
+                    Object.values(data).forEach(category=>{
+                        let name = category.category_name;
+                        let id = category.category_id;
+                        let details = category.details;
+                        //Category filter
+                        let option = document.createElement('option');
+                        option.value = name;
+                        option.innerHTML = name;
+                        option.setAttribute('data-category', name);
+                        categoryFilter.appendChild(option);
+                        //Category Table
+                        let tr = document.createElement('tr')
+                        tr.setAttribute('data-category', name)
+                        tr.innerHTML = `
+                                <td>${id}</td>
+                                <td>${name}</td>
+                                <td>${details}</td>`
+                        categoryTableBody.appendChild(tr)
+                    })
+                }else{
+                        let div = document.createElement('div');
+                        div.className = 'no-items-message';
+                        div.innerHTML = '<b>No categories to display.</b>';
+                        categoryTable.appendChild(div)
+                }
+            })
+            .catch(error=>console.log(error))
+
+            fetch('../../controller/admin/fetch_storage.php',{method:'POST'})
+            .then(response=>response.json())
+            .then(data=>{
+                if(data){
+                    Object.values(data.items).forEach(item=> {
+                        let item_id = item.item_id;
+                        let name = item.iname;
+                        let quantity = item.quantity;
+                        let storage = item.storage;
+                        let vehload = item.vehload;
+                        let category = item.category;
+                        let details = item.details;
+                        let tr = document.createElement('tr');
+                        tr.setAttribute('data-category', category);
+                        tr.innerHTML =
+                            `
+                                <td>${item_id}</td>
+                                <td>${name}</td>
+                                <td>${quantity}</td>
+                                <td>${storage}</td>
+                                <td>${vehload}</td>
+                                <td>${category}</td>
+                                <td>${details}</td>`
+                        itemsTableBody.appendChild(tr)
+                    });
+                    //Category Filter
+                    const rows = document.querySelectorAll('#items-table-body tr');
+                    categoryFilter.addEventListener('change', function() {
+                        const selectedCategory = this.value;
+                        rows.forEach(row => {
+                            const itemCategory = row.getAttribute('data-category');
+                            if (selectedCategory === 'all' || itemCategory === selectedCategory) {
+                                row.style.display = '';
+                            } else {
+                                row.style.display = 'none';
+                            }
+                        });
+                    });
+
+                }else{
+                        let div = document.createElement('div');
+                        div.className = 'no-items-message';
+                        div.innerHTML = '<b>No items to display.</b>';
+                        itemsTable.appendChild(div)
+                    }
+            })
+            .catch(error=>console.log(error))
+
+            fetch('../../controller/admin/fetch_veh_loaded_items.php',{method:'POST'})
+                .then(response=>response.json())
+                .then(data=>{
+                    let addedVehicles = new Set();
+                    if(data){
+                        Object.values(data).forEach(vehicle=>{
+                            let veh_id = vehicle.veh_id;
+                            let username = vehicle.username;
+                            let item_id;
+                            let iname;
+                            let load;
+                            if(username !== null){
+                                item_id = vehicle.item_id;
+                                iname = vehicle.iname;
+                                load = vehicle.load;
+                            }else{
+                                username = '-';
+                                item_id = '-';
+                                iname = '-';
+                                load = '-';
+                            }
+                            //Vehicle FIlter
+                            if(!addedVehicles.has(veh_id)){
+                                let option = document.createElement('option');
+                                option.value = veh_id;
+                                option.innerHTML = veh_id;
+                                option.setAttribute('data-vehicle', veh_id);
+                                vehicleFilter.appendChild(option);
+                                addedVehicles.add(veh_id);
+                            }
+                            //Vehicle Table
+                            let tr = document.createElement('tr');
+                            tr.setAttribute('data-vehicle', veh_id);
+                            tr.innerHTML =
+                                `<td>${veh_id}</td>
+                                <td>${username}</td>
+                                <td>${item_id}</td>
+                                <td>${iname}</td>
+                                <td>${load}</td>
+                                `;
+                            vehicleTableBody.appendChild(tr)
+                        });
+                        const vehicleRows = document.querySelectorAll('#vehicle-table-body tr');
+                         vehicleFilter.addEventListener('change', function() {
+                             const selectedVehicle = this.value;
+                             vehicleRows.forEach(row => {
+                                 const vehicle = row.getAttribute('data-vehicle');
+                                 if (selectedVehicle === 'all' || vehicle === selectedVehicle) {
+                                     row.style.display = '';
+                                 } else {
+                                     row.style.display = 'none';
+                                 }
+                             });
+                         });
+                    }else{
+                        let div = document.createElement('div');
+                        div.className = 'no-items-message';
+                        div.innerHTML = '<b>No vehicle is loaded.</b>';
+                        vehicleTable.appendChild(div)
+                    }
+                })
+                .catch(error=>console.log(error));
+
             const loadJson = document.getElementById('add-json-button');
             const updateDb = document.getElementById('update-button');
 
@@ -202,6 +321,5 @@
                window.location.href = 'remove_vehicle_form.php';
             });
         </script>
-        <script src="../storage/storage.js" defer></script>
     </body>
 </html>

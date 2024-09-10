@@ -17,20 +17,7 @@
         include '../../check_login.php';
         include '../toolbar.php';
         //Vehicle load
-        include '../../controller/admin/fetch_veh_loaded_items.php';
-    ?>
-    <?php
-    $vehicle_items = [];
-        foreach ($vehicle_load_array as $veh) {
-            $vehicle = $veh['veh_id'];
-            $id = $veh['item_id'];
-            $name = $veh['iname'];
-            $quant = $veh['load'];
-            if (!isset($vehicle_items[$vehicle])) {
-                $vehicle_items[$vehicle] = [];
-            }
-            $vehicle_items[$vehicle][] = ['id' => $id, 'name' => $name, 'quantity' => $quant];
-        }
+        //include '../../controller/admin/fetch_veh_loaded_items.php';
     ?>
     <div class="container">
         <div class="form_box">
@@ -39,9 +26,6 @@
                 <label for="vehicle" class="insert_label">Select Vehicle</label>
                 <select id="vehicle" class="select_input" required>
                     <option value="" disabled selected>Select a vehicle</option>
-                    <?php foreach ($vehicle_items as $vehicle => $items): ?>
-                        <option value="<?php echo $vehicle; ?>">Vehicle: <?php echo $vehicle; ?></option>
-                    <?php endforeach; ?>
                 </select>
                 <label for="item" class="insert_label">Select Item</label>
                 <select id="item" class="select_input" required>
@@ -55,9 +39,41 @@
     </div>
 
     <script>
-        const vehicleItems = <?php echo json_encode($vehicle_items); ?>;
         const vehicleSelect = document.getElementById('vehicle');
         const itemSelect = document.getElementById('item');
+
+        let vehicle_items = {}
+
+        fetch('../../controller/admin/fetch_veh_loaded_items.php',{
+            method:'POST'
+        })
+        .then(response=>response.json())
+        .then(data=>{
+            let addedVehicles = new Set();
+            data.forEach(vehicle =>{
+                let veh_id = vehicle.veh_id;
+                if(!addedVehicles.has(veh_id)){
+                    let option = document.createElement('option');
+                    option.value = veh_id;
+                    option.setAttribute('id', veh_id);
+                    option.innerHTML = `Vehicle: ${veh_id}`;
+                    vehicleSelect.appendChild(option)
+                    addedVehicles.add(veh_id);
+                }
+                let quant = vehicle.load;
+                let item_id = vehicle.item_id;
+                let item_name = vehicle.iname;
+                if (!vehicle_items[veh_id]) {
+                    vehicle_items[veh_id] = [];
+                }
+                vehicle_items[veh_id].push({
+                        id: item_id,
+                        name: item_name,
+                        quantity: quant
+                    });
+            })
+        })
+        const vehicleItems = vehicle_items;
 
         vehicleSelect.addEventListener('change', function() {
             const selectedVehicle = this.value;
@@ -67,7 +83,11 @@
                 vehicleItems[selectedVehicle].forEach(function(item) {
                     const option = document.createElement('option');
                     option.value = item.id;
-                    option.textContent = `${item.name} - ${item.quantity}`;
+                    if(item.name !== null){
+                        option.textContent = `${item.name} - ${item.quantity}`;
+                    }else{
+                        option.textContent = 'Nothing is loaded';
+                    }
                     itemSelect.appendChild(option);
                 });
             }

@@ -18,9 +18,9 @@
         include '../../check_login.php';
         include '../toolbar.php';
         //Get the $items_array
-        include '../../controller/admin/fetch_items.php';
+        //include '../../controller/admin/fetch_items.php';
         // get $categories array
-        include '../../controller/admin/fetch_item_categ.php';
+        //include '../../controller/admin/fetch_item_categ.php';
     ?>
     <div class="container">
             <div class="form_box">
@@ -28,24 +28,9 @@
                 <div class="form">
                     <label for="item" class="insert_label">Select Item</label>
                     <select id="item" class="categ_input" required>
-                        <?php
-                            foreach ($items_array as $item) {
-                                $id = $item['item_id'];
-                                $name = $item['iname'];
-                                $categ = $item['category'];
-                                echo "<option value=\"$id\">$name - Current: $categ</option>";
-                            }
-                        ?>
                     </select>
                     <label for="category" class="insert_label">Select Category</label>
                     <select id="category" class="categ_input" required>
-                        <?php
-                            foreach ($categories_array as $category) {
-                                $id = $category['category_id'];
-                                $name = $category['category_name'];
-                                echo "<option value=\"$id\">$name</option>";
-                            }
-                        ?>
                     </select>
                     <input type="submit" class="button_input" id="submit" value="Submit">
                 </div>
@@ -55,6 +40,41 @@
         const itemInput = document.getElementById('item');
         const categoryInput = document.getElementById('category');
         const submit = document.getElementById('submit');
+
+        fetch('../../controller/admin/fetch_item_categ.php',{
+            method:'POST'
+        })
+        .then(response => response.json())
+        .then(data =>{
+           data.forEach(categ=>{
+               let id = categ.category_id;
+               let name = categ.category_name;
+               let row = document.createElement('option');
+               row.value = id;
+               row.setAttribute('category', id);
+               row.innerHTML = `Id: ${id}, Current Name: ${name}`
+               categoryInput.append(row)
+           })
+       })
+       .catch(error=>console.log(error))
+
+        fetch(`../../controller/admin/fetch_items.php?timestamp=${new Date().getTime()}`,{
+            method:'POST'
+        })
+        .then(response=>response.json())
+        .then(data=>{
+           Object.values(data.items).forEach(item =>{
+                let id = item.item_id;
+                let name = item.iname;
+                let quant = item.quantity;
+                let option = document.createElement('option');
+                option.value = id;
+                option.innerHTML = `Name: ${name} - Quantity: ${quant}`;
+                itemInput.appendChild(option);
+            })
+         })
+         .catch(error=> console.log(error));
+
 
         submit.addEventListener('click', function (event){
             event.preventDefault()

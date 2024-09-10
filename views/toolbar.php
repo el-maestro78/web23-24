@@ -59,7 +59,9 @@
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
                 <a href="<?php echo $base_url; ?>/views/maps/maps.php" class="<?php echo str_contains($current_page, 'maps.php') ? 'active' : ''; ?>">Maps</a>
                 <a href="<?php echo $base_url; ?>/views/news/news.php" class="<?php echo (str_contains($current_page, 'news.php') && !str_contains($current_page, 'civ')) ? 'active' : ''; ?>"> Add News</a>
-                <a href="<?php echo $base_url; ?>/views/storage/storage.php" class="<?php echo str_contains($current_page, 'storage.php') ? 'active' : ''; ?>">View Stock</a>
+                <!--
+                <a href="<?php echo $base_url; ?>/storage/storage.php" class="<?php echo str_contains($current_page, 'storage.php') ? 'active' : ''; ?>">View Stock</a>
+                -->
                 <a href="<?php echo $base_url; ?>/views/storeManage/storeManage.php" class="<?php echo str_contains($current_page, 'storeManage.php') ? 'active' : ''; ?>">Storage Management</a>
                 <a href="<?php echo $base_url; ?>/views/statistics/stats.php" class="<?php echo str_contains($current_page, 'stats.php') ? 'active' : ''; ?>">Statistics</a>
                 <a href="<?php echo $base_url; ?>/views/addAccount/addAccount.php" class="<?php echo str_contains($current_page, 'addAccount.php') ? 'active' : ''; ?>">Add Account</a>

@@ -153,7 +153,7 @@
             fetch('../../controller/admin/fetch_items.php')
                 .then(response => response.json())
                 .then(data => {
-                    itemsData = Object.values(data.items);
+                    itemsData = Object.values(data.combined_items);
                     populateItemSelects(itemsData);
                     populateCategorySelects(data.categories);
 

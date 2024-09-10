@@ -18,7 +18,7 @@
         include '../../check_login.php';
         include '../toolbar.php';
         //Get the $items_array
-        include '../../controller/admin/fetch_items.php';
+        //include '../../controller/admin/fetch_items.php';
     ?>
     <div class="container">
             <div class="form_box">
@@ -26,20 +26,12 @@
                 <div class="form">
                     <label for="item" class="insert_label">Select Item</label>
                     <select id="item" class="categ_input" required>
-                        <?php
-                            foreach ($items_array as $item) {
-                                $id = $item['item_id'];
-                                $name = $item['iname'];
-                                $quant = $item['quantity'];
-                                echo "<option value=\"$id\">$name - $quant</option>";
-                            }
-                        ?>
                     </select>
                     <label for="quantity" class="insert_label">Update Quantity</label>
                     <input type="number" id="quantity" class="quantity_input" required step="1" min="0">
                     <input type="submit" class="button_quantity" id="quantity_submit" value="Submit">
-                    <label for="details" class="descr">Update details</label> <br>
-                    <textarea id="details" class="insert_label" rows="5" cols="40" required></textarea>
+                    <label for="details" class="insert_label">Update details</label> <br>
+                    <textarea id="details" class="descr" rows="5" cols="40" required></textarea>
                     <input type="submit" class="button_input" id="details_submit" value="Submit">
                 </div>
             </div>
@@ -52,6 +44,24 @@
 
         const detailsInput = document.getElementById('details');
         const detailsSubmit = document.getElementById('details_submit');
+
+        fetch(`../../controller/admin/fetch_items.php?timestamp=${new Date().getTime()}`,{
+            method:'POST'
+        })
+        .then(response=>response.json())
+        .then(data=>{
+           Object.values(data.items).forEach(item =>{
+                let id = item.item_id;
+                let name = item.iname;
+                let quant = item.quantity;
+                let option = document.createElement('option');
+                option.value = id;
+                option.innerHTML = `Name: ${name} - Quantity: ${quant}`;
+                itemInput.appendChild(option);
+            })
+         })
+         .catch(error=> console.log(error));
+
 
         detailsSubmit.addEventListener('click', function (event){
             event.preventDefault()
@@ -91,15 +101,15 @@
             .then(response => response.json())
             .then(data =>{
                 if (data.updated) {
-                        let goBack = confirm('Updated successfully! Do you want to go back?');
-                        if(goBack){
-                            window.location.href ='storeManage.php';
-                        }else{
-                            location.reload();
-                        }
-                    } else if(!data.updated && !data.exists){
-                        alert('Item doesn\'t exist');
+                    let goBack = confirm('Updated successfully! Do you want to go back?');
+                    if(goBack){
+                        window.location.href ='storeManage.php';
                     }else{
+                        location.reload();
+                    }
+                } else if(!data.updated && !data.exists){
+                    alert('Item doesn\'t exist');
+                }else{
                     alert('Error: ' + data.error);
                 }
             })
@@ -121,8 +131,12 @@
             .then(response => response.json())
             .then(data =>{
                 if (data.updated) {
-                        alert('Updated successfully');
-                        window.location.href ='storeManage.php';
+                        let goBack = confirm('Updated successfully! Do you want to go back?');
+                        if(goBack){
+                            window.location.href ='storeManage.php';
+                        }else{
+                            location.reload();
+                        }
                     } else if(!data.updated && !data.exists){
                         alert('Item doesn\'t exist');
                     }else{
