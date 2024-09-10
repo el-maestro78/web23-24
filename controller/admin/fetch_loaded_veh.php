@@ -4,7 +4,7 @@ $req_id = isset($_GET['req_id']) ? $_GET['req_id'] : '';
 //$req_id = 0;
 if($req_id !== null && $req_id != ""){
     $query = "
-    SELECT vehicles.username 
+    SELECT vehicles.veh_id
     FROM tasks 
     JOIN vehicles ON tasks.veh_id = vehicles.veh_id 
     WHERE tasks.req_id = $1;

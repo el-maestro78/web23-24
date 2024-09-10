@@ -1,6 +1,9 @@
 <?php
 include '../../model/config.php';
 
+
+
+
 $item_query='SELECT
                 items.item_id,
                 items.iname,
@@ -37,17 +40,11 @@ foreach ($veh_load_array as $veh_load) {
     }
 }
 $categories = array_unique(array_column($combined_items, 'category'));
-/*
-echo json_encode($items_array, JSON_PRETTY_PRINT);
-echo '<br/>';
-echo '<br/>';
-echo json_encode($veh_load_array, JSON_PRETTY_PRINT);
-echo '<br/>';
-echo '<br/>';
-echo '<br/>';
-echo '<br/>';
-echo json_encode($combined_items, JSON_PRETTY_PRINT);
-*/
-//echo json_encode($combined_items);
+
+$items_n_categories = [
+    'items'=> $combined_items,
+    'categories'=> $categories
+];
+echo json_encode($items_n_categories);
 
 include("../../model/dbclose.php");
