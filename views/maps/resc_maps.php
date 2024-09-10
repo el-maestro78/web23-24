@@ -66,10 +66,12 @@
         const vehicleLayer = L.layerGroup();
         const vehicleIdleLayer= L.layerGroup();
         const vehicleBusyLayer= L.layerGroup();
+        const myOffersLayer = L.layerGroup();
         const offerLayer = L.layerGroup();
         const offerPendingLayer = L.layerGroup();
         const offerAssignedLayer = L.layerGroup();
         const requestLayer = L.layerGroup();
+        const myRequestsLayer = L.layerGroup();
         const requestPendingLayer = L.layerGroup();
         const requestAssignedLayer = L.layerGroup();
 
@@ -257,8 +259,6 @@
             });
           }
         });
-
-
     </script>
 </body>
 
