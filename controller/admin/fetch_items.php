@@ -48,6 +48,6 @@ $categories_n_items = [
     'combined_items' => $combined_items,
     'categories' => $categories
 ];
-echo json_encode($categories_n_items);
+echo json_encode($categories_n_items,JSON_PRETTY_PRINT);
 
 include("../../model/dbclose.php");

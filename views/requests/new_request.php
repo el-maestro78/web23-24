@@ -57,7 +57,7 @@
                     });
                 });
             }
-            document.getElementById('add-item-button').addEventListener('click', newItemSearch);
+           document.getElementById('add-item-button').addEventListener('click', newItemSearch);
            function newItemSearch() {
                 itemCount++;
                 const newWrapper = document.createElement('div');
@@ -92,6 +92,19 @@
                     }
                 });
             }
+            const newSearchInput = document.querySelector(".wrapper").querySelector("input");
+            function addItem(selectedItem) {
+                const options = document.querySelectorAll('.options');
+                options.forEach(optionList => {
+                    optionList.innerHTML = "";
+                    itemsData.forEach(item => {
+                        let isSelected = item.iname === selectedItem ? "selected" : "";
+                        let li = `<li onclick="updateName(this)" class="${isSelected}" data-id="${item.item_id}">${item.iname}</li>`;
+                        optionList.insertAdjacentHTML("beforeend", li);
+                    });
+                });
+            }
+
             function updateOptions(input, optionsList) {
                 let searchWord = input.value.toLowerCase();
                 if (searchWord === '') {
@@ -156,7 +169,6 @@
                     itemsData = Object.values(data.combined_items);
                     populateItemSelects(itemsData);
                     populateCategorySelects(data.categories);
-
                 })
                 .catch(error => {
                     console.error("Error while fetching data for request: ", error);
@@ -196,7 +208,7 @@
                         }else{
                             items.push(item_id);
                         }
-                    }//console.log(items)
+                    }
                 });
                 const params = new URLSearchParams();
                 params.append('people', peopleCount);
