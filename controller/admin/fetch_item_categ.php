@@ -10,5 +10,5 @@ $item_categ_query='SELECT
 $item_categ_result = pg_query($dbconn, $item_categ_query);
 if (!$item_categ_result) die( http_response_code(500));
 $categories_array = pg_fetch_all($item_categ_result);
-
+echo json_encode($categories_array);
 include("../../model/dbclose.php");

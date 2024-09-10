@@ -17,9 +17,9 @@
         include '../../check_login.php';
         include '../toolbar.php';
         //Vehicle load
-        include '../../controller/admin/fetch_veh_loaded_items.php';
+        //include '../../controller/admin/fetch_veh_loaded_items.php';
         // $items_array
-        include '../../controller/admin/fetch_items.php';
+        //include '../../controller/admin/fetch_items.php';
 
     ?>
     <div class="container">
@@ -28,26 +28,9 @@
                 <div class="form">
                     <label for="vehicle" class="insert_label">Select Vehicle</label>
                     <select id="vehicle" class="select_input" required>
-                        <?php
-                            foreach ($vehicle_load_array as $veh) {
-                                $vehicle = $veh['veh_id'];
-                                $id = $veh['item_id'];
-                                $name = $veh['iname'];
-                                $quant = $veh['load'];
-                                echo "<option value=\"$vehicle\">Vehicle: $vehicle</option>";
-                            }
-                        ?>
                     </select>
                     <label for="item" class="insert_label">Select Item</label>
                     <select id="item" class="categ_input" required>
-                        <?php
-                            foreach ($items_array as $item) {
-                                $id = $item['item_id'];
-                                $name = $item['iname'];
-                                $quant = $item['quantity'];
-                                echo "<option value=\"$id\">Name: $name - Quantity: $quant</option>";
-                            }
-                        ?>
                     </select>
                     <label for="quantity" class="insert_quantity">Quantity</label>
                     <input type="number" id="quantity" class="insert_input" required step="1" min="0">
@@ -60,6 +43,45 @@
         const vehicleInput = document.getElementById('vehicle');
         const quantityInput = document.getElementById('quantity');
         const submit = document.getElementById('submit');
+
+        fetch('../../controller/admin/fetch_veh_loaded_items.php',{
+            method:'POST'
+        })
+        .then(response=>response.json())
+        .then(data=>{
+            let addedVehicles = new Set();
+            data.forEach(vehicle =>{
+                let veh_id = vehicle.veh_id;
+                if(!addedVehicles.has(veh_id)){
+                    let option = document.createElement('option');
+                    option.value = veh_id;
+                    option.setAttribute('id', veh_id);
+                    option.innerHTML = `Vehicle: ${veh_id}`;
+                    vehicleInput.appendChild(option)
+                    addedVehicles.add(veh_id);
+                }
+            })
+         })
+         .catch(error=> console.log(error));
+
+        fetch(`../../controller/admin/fetch_items.php?timestamp=${new Date().getTime()}`,{
+            method:'POST'
+        })
+        .then(response=>response.json())
+        .then(data=>{
+           Object.values(data.items).forEach(item =>{
+                let id = item.item_id;
+                let name = item.iname;
+                let quant = item.quantity;
+                let option = document.createElement('option');
+                option.value = id;
+                option.innerHTML = `Name: ${name} - Quantity: ${quant}`;
+                itemInput.appendChild(option);
+            })
+         })
+         .catch(error=> console.log(error));
+
+
 
         submit.addEventListener('click', function (event){
             event.preventDefault()

@@ -18,7 +18,7 @@
         include '../../check_login.php';
         include '../toolbar.php';
         // get $categories array
-        include '../../controller/admin/fetch_item_categ.php';
+        //include '../../controller/admin/fetch_item_categ.php';
     ?>
     <div class="container">
             <div class="form_box">
@@ -26,18 +26,11 @@
                 <div class="form">
                     <label for="category" class="insert_label">Select Category</label>
                     <select id="category" class="categ_input" required>
-                        <?php
-                            foreach ($categories_array as $category) {
-                                $id = $category['category_id'];
-                                $name = $category['category_name'];
-                                echo "<option value=\"$id\">$name</option>";
-                            }
-                        ?>
                     </select>
                     <label for="name" class="insert_label">Give new Name</label>
                     <input type="text" id="name" class="insert_input" required>
                     <input type="submit" class="button_name" id="name_submit" value="Submit new name">
-                    <label for="details" class="descr">Update details</label> <br>
+                    <label for="details" class="insert_label">Update details</label> <br>
                     <textarea id="details" class="insert_label" rows="5" cols="40" required></textarea>
                     <input type="submit" class="button_input" id="details_submit" value="Submit new details">
                 </div>
@@ -52,6 +45,23 @@
 
         const detailsInput = document.getElementById('details');
         const detailsSubmit = document.getElementById('details_submit');
+
+        fetch('../../controller/admin/fetch_item_categ.php',{
+            method:'POST'
+        })
+        .then(response => response.json())
+        .then(data =>{
+           data.forEach(categ=>{
+               let id = categ.category_id;
+               let name = categ.category_name;
+               let row = document.createElement('option');
+               row.value = id;
+               row.setAttribute('category', id);
+               row.innerHTML = `Id: ${id}, Current Name: ${name}`
+               categoryIdInput.append(row)
+           })
+       })
+       .catch(error=>console.log(error))
 
         detailsSubmit.addEventListener('click', function (event){
             event.preventDefault()
@@ -86,11 +96,15 @@
             .then(response => response.json())
             .then(data =>{
                 if (data.updated) {
-                        alert('Updated successfully');
+                    let goBack = confirm('Updated successfully! Do you want to go back?');
+                    if(goBack){
                         window.location.href ='storeManage.php';
-                    } else if(!data.updated && !data.exists){
-                        alert('Category doesn\'t exist');
                     }else{
+                        location.reload();
+                    }
+                } else if(!data.updated && !data.exists){
+                    alert('Category doesn\'t exist');
+                }else{
                     alert('Error: ' + data.error);
                 }
             })

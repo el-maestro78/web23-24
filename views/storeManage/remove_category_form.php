@@ -17,21 +17,14 @@
         include '../../check_login.php';
         include '../toolbar.php';
         // get $categories array
-        include '../../controller/admin/fetch_item_categ.php';
+        //include '../../controller/admin/fetch_item_categ.php';
     ?>
     <div class="container">
             <div class="form_box">
-                <div class="details">Remove Item</div>
+                <div class="details">Remove Category</div>
                 <div class="form">
                     <label for="category" class="insert_label">Select Category</label>
                     <select id="category" class="select_input" required>
-                        <?php
-                            foreach ($categories_array as $category) {
-                                $id = $category['category_id'];
-                                $name = $category['category_name'];
-                                echo "<option value=\"$id\">$name</option>";
-                            }
-                        ?>
                     </select>
                     <input type="submit" class="button_input" id="submit" value="Submit">
                 </div>
@@ -40,6 +33,23 @@
     <script>
         const categoryInput = document.getElementById('category');
         const submit = document.getElementById('submit');
+
+        fetch('../../controller/admin/fetch_item_categ.php',{
+            method:'POST'
+        })
+        .then(response => response.json())
+        .then(data =>{
+           data.forEach(categ=>{
+               let id = categ.category_id;
+               let name = categ.category_name;
+               let row = document.createElement('option');
+               row.value = id;
+               row.setAttribute('category', id);
+               row.innerHTML = `Id: ${id}, Current Name: ${name}`
+               categoryInput.append(row)
+           })
+       })
+       .catch(error=>console.log(error));
 
         submit.addEventListener('click', function (event){
             event.preventDefault()

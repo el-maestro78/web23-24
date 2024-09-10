@@ -17,7 +17,7 @@
         include '../../check_login.php';
         include '../toolbar.php';
         // get $categories array
-        include '../../controller/admin/fetch_item_categ.php';
+        //include '../../controller/admin/fetch_item_categ.php';
     ?>
     <div class="container">
             <div class="form_box">
