@@ -96,15 +96,14 @@
                 if (searchWord === '') {
                     filteredItemsData.forEach(item => {
                         let li = `<li onclick="updateName(this, ${optionsList.getAttribute('data-item-count')})" data-id="${item.item_id}">${item.iname}</li>`;
-                        optionList.insertAdjacentHTML("beforeend", li);
+                        optionsList.insertAdjacentHTML("beforeend", li);
                     });
-                } else {
+                }else{
                     let filteredItems = filteredItemsData.filter(item =>
                         item.iname.toLowerCase().startsWith(searchWord)
                     ).map(item =>
                         `<li onclick="updateName(this, ${optionsList.getAttribute('data-item-count')})" data-id="${item.item_id}">${item.iname}</li>`
                     ).join("");
-
                     optionsList.innerHTML = filteredItems || `<p style="margin-top: 10px;">Not found</p>`;
                 }
             }
