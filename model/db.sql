@@ -122,7 +122,6 @@ CREATE VIEW baseadmin AS
     WHERE is_admin IS TRUE
     ;
 
-
 CREATE INDEX dbuser_index ON dbUser(username);
 CREATE INDEX items_index ON items(item_id);
 CREATE INDEX bases_index ON base(base_id);

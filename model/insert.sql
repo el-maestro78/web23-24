@@ -26,14 +26,14 @@ INSERT INTO dbUser(first_name, surname, username, pass, is_resc, is_admin, email
 ('Michael','Palin','tester1', crypt('s', gen_salt('bf')),FALSE,FALSE,'s@s',6987654321, 39.8, 22.5),
 ('Eric', 'Idle', 'tester2', crypt('pass1', gen_salt('bf')), FALSE, FALSE, 'testuser1@gmail.com', 6901111111, 41.8, 21.5),
 ('Graham', 'Chapman', 'tester3', crypt('pass2', gen_salt('bf')), FALSE, FALSE, 'testuser2@gmail.com', 6902222222, 42.8, 22.5),
-('Terry', 'Jones', 'tester4', crypt('pass3', gen_salt('bf')), FALSE, FALSE, 'testuser2@gmail.com', 6902222222, 42.8, 22.5),
+('Terry', 'Jones', 'tester4', crypt('pass3', gen_salt('bf')), FALSE, FALSE, 'testuser3@gmail.com', 6902222222, 42.8, 22.5),
 ('John', 'Cleese', 'tester5', crypt('pass4', gen_salt('bf')), FALSE, FALSE, 'testuser4@gmail.com', 6903333333, 43.8, 23.5);
 
 INSERT INTO item_category(category_name, details) VALUES
 ('spam', 'Another Viking victory'),
 ('athletic', 'Good old exercise');
 
-INSERT INTO  items(iname, quantity, category, details) VALUES
+INSERT INTO items(iname, quantity, category, details) VALUES
 ('spam', 1, 1, 'Just spam'),
 ('spam, eggs & spam', 10, 1,'Less spam in it'),
 ('spam, eggs, spam, spam & spam', 100, 1, 'Better than spam eggs spam'),
@@ -46,36 +46,48 @@ INSERT INTO  items(iname, quantity, category, details) VALUES
 INSERT INTO requests(pending, completed, quantity, reg_date, assign_date, completed_date, user_id, item_id, long, lat) VALUES
 --(TRUE, FALSE, 5, current_date, NULL, NULL,12, 3, 21.734503111278, 38.246),
 --(TRUE, FALSE, 5, current_date, NULL, NULL,13, 4, 21.753, 38.17),
-(TRUE, FALSE, 5, current_date, NULL, NULL,10, 1, 21.734503111278, 38.245888739736),
-(TRUE, FALSE, 5, current_date, NULL, NULL,10, 2, 21.732724118553, 38.244914513495),
-(FALSE, FALSE, 25, current_date, current_date, NULL,10, 3, 21.78, 38.45),
-(FALSE, TRUE, 30, current_date, current_date, current_date,10, 3, 21.78, 38.45),
+(FALSE, FALSE, 5, current_date, NULL, NULL,10, 1, 21.744503111278, 38.255888739736),
+(FALSE, FALSE, 5, current_date, NULL, NULL,10, 2, 21.732724118553, 38.244914513495),
+(FALSE, FALSE, 25, current_date, current_date, NULL,10, 3, 21.78, 38.48),
+(FALSE, TRUE, 30, current_date, current_date, current_date,10, 3, 21.75, 38.45),
 
-(TRUE, FALSE,15, current_date, NULL, NULL,11, 1, 21.731021839078, 38.244808224971),
+(FALSE, FALSE,15, current_date, NULL, NULL,11, 1, 21.631021839078, 38.244808224971),
 (FALSE, FALSE,20, current_date, current_date, NULL,11, 2, 21.734499691362, 38.246439932828),
 (FALSE, FALSE,25, current_date, current_date, NULL,11, 3, 21.68, 38.55),
 (FALSE, FALSE,30, current_date, current_date, NULL,11, 3, 21.58, 38.68),
 
-(FALSE, FALSE,15, current_date, current_date, NULL,12, 1, 21.631021839078, 38.244808224971),
-(FALSE, FALSE,20, current_date, current_date, NULL,12, 2, 21.734499691362, 38.247439932828),
+(FALSE, FALSE,15, current_date, current_date, NULL,12, 1, 21.631021839078, 38.344808224971),
+(FALSE, FALSE,20, current_date, current_date, NULL,12, 2, 21.734499691362, 38.447439932828),
 (FALSE, TRUE,25, current_date, current_date, current_date,12, 1, 21.831021839078, 38.234808224971),
-(FALSE, FALSE,30, current_date, current_date, NULL,12, 2, 21.7346, 38.248);
+(FALSE, FALSE,30, current_date, current_date, NULL,12, 2, 21.7346, 38.248),
+
+(TRUE, FALSE,100, current_date, NULL, NULL, 10, 3, 21.02486, 38.0564),
+(TRUE, FALSE,100, current_date, NULL, NULL, 11, 4, 21.07346, 38.02438),
+(TRUE, FALSE,100, current_date, NULL, NULL, 12, 5, 21.0464, 38.023238);
+
+
 
 INSERT INTO offers(pending, completed, quantity, reg_date, assign_date, completed_date, user_id, item_id, long, lat) VALUES
-(TRUE, FALSE, 5, current_date, NULL, NULL,10, 1, 21.7348, 38.249736),
-(TRUE, FALSE, 5, current_date, NULL, NULL,10, 2, 21.732723, 38.24495),
+(FALSE, FALSE, 5, current_date, current_date, NULL,10, 1, 21.7348, 38.249736),
+(FALSE, FALSE, 5, current_date, current_date, NULL,10, 2, 21.732723, 38.24495),
 (FALSE, FALSE, 25, current_date, current_date, NULL,10, 3, 21.768, 38.845),
 (FALSE, TRUE, 30, current_date, current_date, current_date,10, 3, 21.078, 38.945),
 
-(TRUE, FALSE,15, current_date, NULL, NULL,13, 1, 21.7078, 38.2971),
+(FALSE, FALSE,15, current_date, current_date, NULL,13, 1, 21.7078, 38.2971),
 (FALSE, FALSE,20, current_date, current_date, NULL,13, 2, 21.7691362, 38.32828),
 (FALSE, FALSE,25, current_date, current_date, NULL,13, 3, 21.998, 38.895),
 (FALSE, FALSE,30, current_date, current_date, NULL,13, 3, 21.998, 38.998),
 
-(FALSE, FALSE,15, current_date, current_date, NULL,14, 1, 21.078, 38.21),
-(FALSE, FALSE,20, current_date, current_date, NULL,14, 2, 21.9691362, 38.5228),
-(FALSE, TRUE,25, current_date, current_date, current_date,14, 1, 21.839078, 38.24971),
-(FALSE, FALSE,30, current_date, current_date, NULL,14, 2, 21.4673, 38.568);
+(FALSE, FALSE,15, current_date, current_date, NULL,14, 1, 21.08780, 38.201),
+(FALSE, FALSE,20, current_date, current_date, NULL,14, 2, 21.09691362, 38.52028),
+(FALSE, TRUE,25, current_date, current_date, current_date,14, 1, 21.8039078, 38.204971),
+(FALSE, FALSE,30, current_date, current_date, NULL,14, 2, 21.4073, 38.5608),
+
+(TRUE, FALSE,30, current_date, NULL, NULL,11, 3, 21.50646, 38.7024),
+(TRUE, FALSE,30, current_date, NULL, NULL,13, 4, 21.24036, 38.203528),
+(TRUE, FALSE,30, current_date, NULL, NULL,14, 5, 21.23405, 38.4064);
+
+
 
 INSERT INTO vehicle_load(veh_id, item_id, load) VALUES
 (1, 1, 5),
@@ -99,26 +111,26 @@ INSERT INTO tasks(user_id, veh_id, off_id, req_id, completed) VALUES
 (5, 1, NULL, 1, FALSE),
 (5, 1, NULL, 2, FALSE),
 (5, 1, NULL, 3, FALSE),
-(5, 1, NULL, 4, FALSE),
+(5, 1, NULL, 4, TRUE),
 (6, 2, NULL, 5, FALSE),
 (6, 2, NULL, 6, FALSE),
 (8,4, NULL, 7, FALSE),
 (8,4, NULL, 8, FALSE),
 (7, 3, NULL, 9, FALSE),
 (7, 3, NULL, 10, FALSE),
-(9,5, NULL, 11, FALSE),
+(9,5, NULL, 11, TRUE),
 (9,5, NULL, 12, FALSE),
 (5, 1, 1, NULL, FALSE),
 (5, 1, 2, NULL, FALSE),
 (5, 1, 3, NULL, FALSE),
-(5, 1, 4, NULL, FALSE),
+(5, 1, 4, NULL, TRUE),
 (8, 4, 5, NULL, FALSE),
 (8, 4, 6, NULL, FALSE),
 (6, 2, 7, NULL, FALSE),
 (6, 2, 8, NULL, FALSE),
 (9, 5, 9, NULL, FALSE),
 (9, 5, 10, NULL, FALSE),
-(7, 3, 11, NULL, FALSE),
+(7, 3, 11, NULL, TRUE),
 (7, 3, 12, NULL, FALSE);
 --(5, 1, 1, NULL, TRUE),
 --(6, 2, 1, NULL, TRUE),

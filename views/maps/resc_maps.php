@@ -111,46 +111,40 @@
                 my_vehicle = data.veh_id;
                 veh_lat = data.lat;
                 veh_long = data.long;
-                vehicleTasks(data)
-                .then(result => { //TODO do i need this then?
-                    const { vehStatus } = result;
-                    let vehColor = "pink";
-                    const vehType = (vehStatus === 1) ? "assigned" : "pending";
-                    let marker = L.marker([veh_lat, veh_long], {
-                        icon: L.AwesomeMarkers.icon({
-                            icon: 'car',
-                            prefix: 'fa',
-                            markerColor: vehColor,
-                        }),
-                        draggable: true
-                    }).addTo(map);
-                    let start_pos = marker.getLatLng();
-                    marker.on('dragend', (event) => {
-                        const userConfirm = confirm('Are you sure you want to move the vehicle here?')
-                        if (userConfirm){
-                            vehicleDrag(event, my_vehicle);
-                            start_pos = event.target.getLatLng();
-                        }else{
-                            marker.setLatLng(start_pos, {
-                                draggable: true
-                            }).update();
-                        }
-                    });
-                    marker.on('click', async () => {
-                        const content = await vehiclePopup(data);
-                        marker.bindPopup(content).openPopup();
-                        let tasks = await getVehicleTasks(my_vehicle);
-                        drawVehicleLine(marker, tasks);
-                        polylineLayerGroup.clearLayers();
-                    });
-                    marker.addTo(markerLayer);
-                    if(my_vehicle === null){
-                        setTimeout(loadRescuerTasks, 1500)
+                let vehColor = "pink";
+                let marker = L.marker([veh_lat, veh_long], {
+                    icon: L.AwesomeMarkers.icon({
+                        icon: 'car',
+                        prefix: 'fa',
+                        markerColor: vehColor,
+                    }),
+                    draggable: true
+                }).addTo(map);
+                let start_pos = marker.getLatLng();
+                marker.on('dragend', (event) => {
+                    const userConfirm = confirm('Are you sure you want to move the vehicle here?')
+                    if (userConfirm){
+                        vehicleDrag(event, my_vehicle);
+                        start_pos = event.target.getLatLng();
                     }else{
-                        loadRescuerTasks(my_vehicle);
+                        marker.setLatLng(start_pos, {
+                            draggable: true
+                        }).update();
                     }
-                })
-                .catch(error => {console.error("Error occurred while fetching vehicle data: ", error);});
+                });
+                marker.on('click', async () => {
+                    const content = await vehiclePopup(data);
+                    marker.bindPopup(content).openPopup();
+                    let tasks = await getVehicleTasks(my_vehicle);
+                    drawVehicleLine(marker, tasks);
+                    polylineLayerGroup.clearLayers();
+                });
+                marker.addTo(markerLayer);
+                if(my_vehicle === null){
+                    setTimeout(loadRescuerTasks, 1500)
+                }else{
+                    loadRescuerTasks(my_vehicle);
+                }
             }).catch(error => console.error('Error fetching vehicle data:', error));
 
         async function loadRescuerTasks(id) {
@@ -193,7 +187,7 @@
             .then(data => {
                 data.forEach(offer => {
                     let type = getDataType(offer);
-                    if(type !== 'assigned'){
+                    if(type === 'pending'){
                         let color = getDataColor(offer);
                         let marker = L.marker([offer.lat, offer.long], {
                             icon: L.AwesomeMarkers.icon({
@@ -208,7 +202,6 @@
                             //console.log(content)
                             marker.bindPopup(content);
                         });
-
                         marker.addTo(markerLayer);
                         marker.addTo(offerPendingLayer);
                     }

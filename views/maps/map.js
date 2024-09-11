@@ -226,8 +226,7 @@ async function requestPopup(data) {
             const vehData = await vehResponse.json();
             //console.log(vehData)
             if (vehData.length > 0) {
-                vehUsername = vehData[1].username;
-                
+                vehUsername = vehData[0]['username'];
             } else {
                 vehUsername = vehData.username;
             } //console.log(vehUsername);
@@ -298,7 +297,7 @@ async function drawVehicleLine(marker, tasksProm) {
           //console.log("Nothing");
           return;
         }
-        //console.log(tasks);
+        console.log(tasks);
         tasks.forEach((task) => {
           const taskLatLng = [task.lat, task.long];
           const polyline = L.polyline([marker.getLatLng(), taskLatLng], { color: "blue" }).addTo(

@@ -1,14 +1,14 @@
 <?php
 include("../../model/config.php");
 
-$veh_id = isset($_GET['veh_id']) ? $_GET['veh_id'] : '';
+$veh_id = $_GET['veh_id'] ?? '';
 //$veh_id = 0;
 
 if($veh_id !== null && $veh_id != "") {
     $task_query = "
-    SELECT count(veh_id) AS task_count
+    SELECT count(tasks.veh_id) AS task_count
     FROM tasks
-    WHERE veh_id=$1 AND completed = FALSE
+    WHERE tasks.veh_id=$1 AND tasks.completed = FALSE
     ";
     $load_query = "
     SELECT vehicle_load.load, items.iname

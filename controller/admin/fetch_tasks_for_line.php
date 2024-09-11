@@ -8,12 +8,12 @@ if ($veh_id !== null && $veh_id != "") {
     $req_query = "
     SELECT requests.lat, requests.long
     FROM tasks JOIN requests ON requests.req_id = tasks.req_id
-    WHERE veh_id=$1
+    WHERE veh_id=$1 AND tasks.completed = FALSE AND requests.completed = FALSE
     ";
     $off_query = "
     SELECT offers.lat, offers.long
     FROM tasks JOIN offers ON offers.off_id = tasks.off_id
-    WHERE veh_id=$1
+    WHERE veh_id=$1 AND tasks.completed = FALSE AND offers.completed = FALSE
     ";
     $req_result = pg_query_params($dbconn, $req_query, array($veh_id));
     $off_result = pg_query_params($dbconn, $off_query, array($veh_id));
