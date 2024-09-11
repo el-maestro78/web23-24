@@ -102,55 +102,59 @@
             .catch(error => console.error('Error fetching store data:', error));
 
         let my_vehicle = null;
+        let my_marker = null;
+        let veh_lat = null;
+        let veh_long = null;
         fetch('../../controller/rescuer/get_my_vehicle.php')
             .then(response=>response.json())
             .then(data=>{
+                console.log(data)
                 my_vehicle = data.veh_id;
-            }).catch(error => console.error('Error fetching vehicle data:', error));
-        let my_marker = null;
-        fetch('../../controller/admin/fetch_vehicles.php')
-            .then(response => response.json())
-            .then(data => {
-                data.merged.forEach(vehicle => {
-                    const VehId = vehicle.veh_id;
-                    vehicleTasks(vehicle).then(result => {
-                        const { vehStatus } = result;
-                        let vehColor;
-                        if(VehId === my_vehicle && my_vehicle !== null){
-                            vehColor = "pink";
+                veh_lat = data.lat;
+                veh_long = data.long;
+                vehicleTasks(data)
+                .then(result => {
+                    const { vehStatus } = result;
+                    let vehColor = "pink";
+                    const vehType = (vehStatus === 1) ? "assigned" : "pending";
+                    let marker = L.marker([veh_lat, veh_long], {
+                        icon: L.AwesomeMarkers.icon({
+                            icon: 'car',
+                            prefix: 'fa',
+                            markerColor: vehColor,
+                        }),
+                        draggable: true
+                    }).addTo(map);
+
+                    let start_pos = marker.getLatLng();
+                    marker.on('dragend', (event) => {
+                        const userConfirm = confirm('Are you sure you want to move the vehicle here?')
+                        if (userConfirm){
+                            vehicleDrag(event, my_vehicle);
+                            start_pos = event.target.getLatLng();
                         }else{
-                            vehColor = (vehStatus === 1) ? "blue" : "gray";
+                            marker.setLatLng(start_pos, {
+                                draggable: true
+                            }).update();
                         }
-                        const vehType = (vehStatus === 1) ? "assigned" : "pending";
-
-                        let marker = L.marker([vehicle.lat, vehicle.long], {
-                            icon: L.AwesomeMarkers.icon({
-                                icon: 'car',
-                                prefix: 'fa',
-                                markerColor: vehColor,
-                            })
-                        }).addTo(map);
-                        if (VehId === my_vehicle && my_vehicle !== null) {
-                            my_marker = marker;
-                        }
-                        marker.on('click', async () => {
-                            const content = await vehiclePopup(vehicle);
-                            marker.bindPopup(content).openPopup();
-                            let tasks = await getVehicleTasks(vehicle.veh_id);
-                            drawVehicleLine(marker, tasks);
-                            polylineLayerGroup.clearLayers();
-                        });
-                        marker.addTo(markerLayer);
-                        marker.addTo(vehicleLayer);
-
-                        if (vehType === 'assigned') marker.addTo(vehicleBusyLayer);
-                        else marker.addTo(vehicleIdleLayer);
-                    }).catch(error => {
-                        console.error("Error occurred while fetching vehicle data: ", error);
                     });
-                });
-            })
-            .catch(error => console.error('Error fetching vehicle data:', error));
+                    marker.on('click', async () => {
+                        const content = await vehiclePopup(data);
+                        marker.bindPopup(content).openPopup();
+                        let tasks = await getVehicleTasks(my_vehicle);
+                        drawVehicleLine(marker, tasks);
+                        polylineLayerGroup.clearLayers();
+                    });
+                    marker.addTo(markerLayer);
+                    marker.addTo(vehicleLayer);
+                    if (vehType === 'assigned') marker.addTo(vehicleBusyLayer);
+                    else marker.addTo(vehicleIdleLayer);
+                })
+                .catch(error => {console.error("Error occurred while fetching vehicle data: ", error);});
+            }).catch(error => console.error('Error fetching vehicle data:', error));
+
+
+
 
         fetch('../../controller/admin/fetch_offers.php')
             .then(response => response.json())

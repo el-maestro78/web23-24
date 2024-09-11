@@ -63,6 +63,29 @@ async function storedrag(event, base_id){
 
 }
 
+async function vehicleDrag(event, veh_id){
+    let marker = event.target;
+    let position = marker.getLatLng();
+    let lat = position.lat;
+    let long = position.lng;
+    marker.setLatLng(position, {
+        draggable: true
+    }).update();
+    try {
+        const params = new URLSearchParams();
+        params.append("vehicle_id", veh_id);
+        params.append("lat", lat);
+        params.append("long", long);
+        fetch('../../controller/rescuer/update_vehicle_pos.php', {
+            method:'POST',
+            body:params
+        }).catch(error=>console.log(error))
+    } catch (error) {
+      console.error("Error storing store data:", error);
+    }
+
+}
+
 async function vehiclePopup(data){
     const {vehLoad, vehTasks, vehStatus, vehItems, itemsHtml } = await vehicleTasks(data);
 
