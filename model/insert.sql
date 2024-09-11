@@ -55,6 +55,11 @@ INSERT INTO tasks(user_id, veh_id, off_id, req_id, completed) VALUES
 (1, 2, 1, NULL, FALSE),
 (1, 2, NULL, 1, FALSE),
 (1, 3, NULL, 2, FALSE),
+(2, 2, 3, NULL, FALSE),
+(2, 2, NULL, 3, FALSE),
+(2, 2, 4, NULL, FALSE),
+(2, 2, NULL, 4, FALSE),
+(2, 2, NULL, 2, FALSE),
 (1, 3, NULL, 1, TRUE);
 
 INSERT INTO vehicle_load(veh_id, item_id, load) VALUES

@@ -270,6 +270,30 @@ async function getVehicleTasks(id){
     return tasks;
 }
 
+async function rescuersTasks(id) {
+    return await (await fetch(`../../controller/rescuer/get_my_tasks?veh_id=${encodeURIComponent(id)}`)).json();
+}
+    /*
+        console.log(taskData)
+    let tasks = [];
+    let offers = [];
+    let requests = [];
+    if (taskData.offers.length > 0){
+        taskData.offers.forEach((offer) => {
+        tasks.push({ ...offer});
+        offers.push({ ...offer});
+        });
+    }
+    if (taskData.requests.length > 0) {
+      taskData.requests.forEach((request) => {
+        tasks.push({ ...request});
+        requests.push({ ...request});
+      });
+    }
+    //return {tasks, offers, requests};
+     */
+
+
 async function drawVehicleLine(marker, tasksProm) {
     try{
         const tasks = await tasksProm;

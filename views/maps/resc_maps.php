@@ -63,8 +63,8 @@
         const requestLayer = L.layerGroup().addTo(map);*/
         const markerLayer = L.layerGroup();
         const baseLayer = L.layerGroup();
-        const vehicleLayer = L.layerGroup();
-        const vehicleIdleLayer= L.layerGroup();
+        //const vehicleLayer = L.layerGroup();
+        //const vehicleIdleLayer= L.layerGroup();
         const vehicleBusyLayer= L.layerGroup();
         const myOffersLayer = L.layerGroup();
         const offerLayer = L.layerGroup();
@@ -108,12 +108,11 @@
         fetch('../../controller/rescuer/get_my_vehicle.php')
             .then(response=>response.json())
             .then(data=>{
-                console.log(data)
                 my_vehicle = data.veh_id;
                 veh_lat = data.lat;
                 veh_long = data.long;
                 vehicleTasks(data)
-                .then(result => {
+                .then(result => { //TODO do i need this then?
                     const { vehStatus } = result;
                     let vehColor = "pink";
                     const vehType = (vehStatus === 1) ? "assigned" : "pending";
@@ -125,7 +124,6 @@
                         }),
                         draggable: true
                     }).addTo(map);
-
                     let start_pos = marker.getLatLng();
                     marker.on('dragend', (event) => {
                         const userConfirm = confirm('Are you sure you want to move the vehicle here?')
@@ -146,67 +144,94 @@
                         polylineLayerGroup.clearLayers();
                     });
                     marker.addTo(markerLayer);
-                    marker.addTo(vehicleLayer);
-                    if (vehType === 'assigned') marker.addTo(vehicleBusyLayer);
-                    else marker.addTo(vehicleIdleLayer);
+                    if(my_vehicle === null){
+                        setTimeout(loadRescuerTasks, 1500)
+                    }else{
+                        loadRescuerTasks(my_vehicle);
+                    }
+
                 })
                 .catch(error => {console.error("Error occurred while fetching vehicle data: ", error);});
             }).catch(error => console.error('Error fetching vehicle data:', error));
 
-
-
-
+        async function loadRescuerTasks(id) {
+            const my_tasks = await rescuersTasks(id);
+            my_tasks.offers.forEach(offer=>{
+                let marker = L.marker([offer.lat, offer.long], {
+                        icon: L.AwesomeMarkers.icon({
+                            icon: 'gift',
+                            prefix: 'fa',
+                            markerColor: 'green',
+                        })
+                    }).addTo(map);
+                marker.addTo(markerLayer);
+                marker.addTo(offerAssignedLayer);
+            });
+            my_tasks.requests.forEach(req=>{
+                let marker = L.marker([req.lat, req.long], {
+                        icon: L.AwesomeMarkers.icon({
+                            icon: 'exclamation',
+                            prefix: 'fa',
+                            markerColor: 'green',
+                        })
+                    }).addTo(map);
+                marker.addTo(markerLayer);
+                marker.addTo(requestAssignedLayer);
+            })
+        }
+        //Fetching pending offers
         fetch('../../controller/admin/fetch_offers.php')
             .then(response => response.json())
             .then(data => {
                 data.forEach(offer => {
-                    let color = getDataColor(offer);
-                    let marker = L.marker([offer.lat, offer.long], {
-                        icon: L.AwesomeMarkers.icon({
-                            icon: 'gift',
-                            prefix: 'fa',
-                            markerColor: color,
-                            iconColor: 'white',
-                        })
-                    }).addTo(map);
-                    marker.on('click', async () => {
-                        const content = await offerPopup(offer);
-                        //console.log(content)
-                        marker.bindPopup(content);
-                    });
                     let type = getDataType(offer);
-                    marker.addTo(markerLayer);
-                    marker.addTo(offerLayer);
-                    if(type === 'assigned') marker.addTo(offerAssignedLayer);
-                    else marker.addTo(offerPendingLayer);
+                    if(type !== 'assigned'){
+                        let color = getDataColor(offer);
+                        let marker = L.marker([offer.lat, offer.long], {
+                            icon: L.AwesomeMarkers.icon({
+                                icon: 'gift',
+                                prefix: 'fa',
+                                markerColor: color,
+                                iconColor: 'white',
+                            })
+                        }).addTo(map);
+                        marker.on('click', async () => {
+                            const content = await offerPopup(offer);
+                            //console.log(content)
+                            marker.bindPopup(content);
+                        });
+
+                        marker.addTo(markerLayer);
+                        marker.addTo(offerPendingLayer);
+                    }
                 });
             })
             .catch(error => console.error('Error fetching offer data:', error));
-
+        //Fetching pending requests
         fetch('../../controller/admin/fetch_requests.php')
             .then(response => response.json())
             .then(data => {
                 data.forEach(request => {
-                    let color = getDataColor(request);
-                    let marker = L.marker([request.lat, request.long], {
-                        icon: L.AwesomeMarkers.icon({
-                            icon: 'exclamation',
-                            prefix: 'fa',
-                            markerColor: color,
-                            iconColor: 'white',
-                        })
-                    }).addTo(map);
-                    //marker.bindPopup(requestPopup(request)).openPopup();
-                    marker.on('click', async () => {
-                        const content = await requestPopup(request);
-                        //console.log(content)
-                        marker.bindPopup(content);
-                    });
                     let type = getDataType(request);
-                    marker.addTo(markerLayer);
-                    marker.addTo(requestLayer);
-                    if(type === 'assigned') marker.addTo(requestAssignedLayer);
-                    else marker.addTo(requestPendingLayer);
+                    if (type !== 'assigned'){
+                        let color = getDataColor(request);
+                        let marker = L.marker([request.lat, request.long], {
+                            icon: L.AwesomeMarkers.icon({
+                                icon: 'exclamation',
+                                prefix: 'fa',
+                                markerColor: color,
+                                iconColor: 'white',
+                            })
+                        }).addTo(map);
+                        //marker.bindPopup(requestPopup(request)).openPopup();
+                        marker.on('click', async () => {
+                            const content = await requestPopup(request);
+                            //console.log(content)
+                            marker.bindPopup(content);
+                        });
+                        marker.addTo(markerLayer);
+                        marker.addTo(requestPendingLayer);
+                    }
                 })
             })
             .catch(error => console.error('Error fetching request data:', error));
@@ -214,15 +239,10 @@
         const overlayMaps = {
             "All": markerLayer,
             "Bases": baseLayer,
-            //"Vehicles": vehicleLayer,
-            "Vehicles on road": vehicleBusyLayer,
-            "Vehicles Idle": vehicleIdleLayer,
-            //"Requests": requestLayer,
+            "My Requests": requestAssignedLayer,
             "Requests pending": requestPendingLayer ,
-            "Requests assigned": requestAssignedLayer ,
-            //"Offers": offerLayer,
+            "My Offers": offerAssignedLayer,
             "Offers pending": offerPendingLayer,
-            "Offers assigned": offerAssignedLayer
         };
         let control = L.control.layers(null, overlayMaps).addTo(map);
             //control.addOverlay(vehicleLayer, "Vehicles")
@@ -230,11 +250,6 @@
             markerLayer.addTo(map);
         }
         initializeMap();
-        map.on('load',()=>{
-            setTimeout(() => {
-                my_marker.openPopup();
-            }, 2000);
-        })
         const checkboxes = document.querySelectorAll('.leaflet-control-layers-selector');
         let allCheckbox = null;
         checkboxes.forEach(checkbox => {

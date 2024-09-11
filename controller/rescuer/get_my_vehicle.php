@@ -23,7 +23,8 @@ if($veh_data_result){
     $data = [
         'lat' => $lat,
         'long' => $long,
-        'veh_id' => $veh_id
+        'veh_id' => $veh_id,
+        'username' => $_SESSION['username']
     ];
     echo json_encode($data);
 }else{
