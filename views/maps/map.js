@@ -154,8 +154,6 @@ async function offerPopup(data) {
             full_name = `${userData.first_name} ${userData.surname}`;
             phone = userData.phone;
         }
-        
-
         if (!itemResponse.ok) throw new Error("Failed to fetch item data");
         const itemData = await itemResponse.json();
         if (itemData.length > 0) {
@@ -228,7 +226,7 @@ async function requestPopup(data) {
             const vehData = await vehResponse.json();
             //console.log(vehData)
             if (vehData.length > 0) {
-                vehUsername = vehData[0].username;
+                vehUsername = vehData[1].username;
                 
             } else {
                 vehUsername = vehData.username;

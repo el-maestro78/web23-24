@@ -1,14 +1,18 @@
-USERNAME         |      PASSWORD    |   TYPE
-admin@admin.org         pass            admin
-tete@te.te              a               admin
+EMAIL               |      PASSWORD    |    TYPE        |   ID
+admin@admin.org             pass            admin           1
+tete@te.te                  a               admin           2
+mike@hotmail.com            pass            admin           3
+teo@att.com                 pass            admin           4
 
-a@a                     pass            rescuer
-rescuer1@gmail.com      pass11          rescuer
-rescuer2@gmail.com      pass12          rescuer
-rescuer3@gmail.com      pass13          rescuer
+a@a                         pass            rescuer         5
+rescuer1@gmail.com          pass11          rescuer         6
+rescuer2@gmail.com          pass12          rescuer         7
+rescuer3@gmail.com          pass13          rescuer         8
+rescuer4@gmail.com          pass14          rescuer         9
 
-s@s                     s               civilian
-testuser1@gmail.com     pass1           civilian
-testuser2@gmail.com     pass2           civilian
-testuser3@gmail.com     pass3           civilian
+s@s                         s               civilian        10
+testuser1@gmail.com         pass1           civilian        11
+testuser2@gmail.com         pass2           civilian        12
+testuser3@gmail.com         pass3           civilian        13
+testuser4@gmail.com         pass4           civilian        14
 

@@ -157,12 +157,12 @@
             const my_tasks = await rescuersTasks(id);
             my_tasks.offers.forEach(offer=>{
                 let marker = L.marker([offer.lat, offer.long], {
-                        icon: L.AwesomeMarkers.icon({
-                            icon: 'gift',
-                            prefix: 'fa',
-                            markerColor: 'green',
-                        })
-                    }).addTo(map);
+                    icon: L.AwesomeMarkers.icon({
+                        icon: 'gift',
+                        prefix: 'fa',
+                        markerColor: 'green',
+                    })
+                }).addTo(map);
                 marker.on('click', async () => {
                     const content = await offerPopup(offer);
                     //console.log(content)
@@ -173,12 +173,12 @@
             });
             my_tasks.requests.forEach(req=>{
                 let marker = L.marker([req.lat, req.long], {
-                        icon: L.AwesomeMarkers.icon({
-                            icon: 'exclamation',
-                            prefix: 'fa',
-                            markerColor: 'green',
-                        })
-                    }).addTo(map);
+                    icon: L.AwesomeMarkers.icon({
+                        icon: 'exclamation',
+                        prefix: 'fa',
+                        markerColor: 'green',
+                    })
+                }).addTo(map);
                 marker.on('click', async () => {
                     const content = await requestPopup(req);
                     marker.bindPopup(content);

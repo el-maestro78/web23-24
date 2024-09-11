@@ -1,6 +1,6 @@
 <?php
 include("../../model/config.php");
-$off_id = isset($_GET['off_id']) ? $_GET['off_id'] : '';
+$off_id = $_GET['off_id'] ?? '';
 //$off_id = 0;
 if($off_id !== null && $off_id != ""){
     $query = "
