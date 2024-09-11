@@ -69,6 +69,16 @@ body {
     display: block;
     position: relative;
 }
+.new_off_req{
+    background-color: #277b38;
+    color: white;
+    border: black solid 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1px;
+}
+
+
 /**/
 /*
     

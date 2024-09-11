@@ -181,6 +181,7 @@
                 marker.addTo(requestAssignedLayer);
             })
         }
+
         //Fetching pending offers
         fetch('../../controller/admin/fetch_offers.php')
             .then(response => response.json())
@@ -198,7 +199,7 @@
                             })
                         }).addTo(map);
                         marker.on('click', async () => {
-                            const content = await offerPopup(offer);
+                            const content = await offerPopupRescuer(offer);
                             //console.log(content)
                             marker.bindPopup(content);
                         });
@@ -226,7 +227,7 @@
                         }).addTo(map);
                         //marker.bindPopup(requestPopup(request)).openPopup();
                         marker.on('click', async () => {
-                            const content = await requestPopup(request);
+                            const content = await requestPopupRescuer(request);
                             //console.log(content)
                             marker.bindPopup(content);
                         });
