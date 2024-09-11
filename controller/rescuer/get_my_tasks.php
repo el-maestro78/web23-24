@@ -6,12 +6,32 @@ $veh_id = $_GET['veh_id'] ?? '';
 
 if ($veh_id !== null && $veh_id != "") {
     $req_query = "
-    SELECT requests.lat, requests.long
+    SELECT 
+        requests.req_id, 
+        requests.lat, 
+        requests.long,
+        requests.pending, 
+        requests.completed, 
+        requests.quantity, 
+        requests.reg_date, 
+        requests.assign_date,
+        requests.user_id, 
+        requests.item_id
     FROM tasks JOIN requests ON requests.req_id = tasks.req_id
     WHERE tasks.req_id IS NOT NULL AND tasks.veh_id=$1 AND requests.pending = FALSE AND requests.completed = FALSE
     ";
     $off_query = "
-    SELECT offers.lat, offers.long
+    SELECT 
+        offers.off_id,
+        offers.lat, 
+        offers.long,
+        offers.pending,
+        offers.completed,
+        offers.quantity,
+        offers.reg_date, 
+        offers.assign_date,
+        offers.user_id,
+        offers.item_id
     FROM tasks JOIN offers ON offers.off_id = tasks.off_id
     WHERE tasks.off_id IS NOT NULL AND tasks.veh_id=$1 AND offers.pending = FALSE AND offers.completed = FALSE
     ";

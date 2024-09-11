@@ -272,7 +272,6 @@ async function getVehicleTasks(id){
 
 async function rescuersTasks(id) {
     return await (await fetch(`../../controller/rescuer/get_my_tasks.php?veh_id=${encodeURIComponent(id)}`)).json();
-}
     /*
         console.log(taskData)
     let tasks = [];
@@ -292,7 +291,7 @@ async function rescuersTasks(id) {
     }
     //return {tasks, offers, requests};
      */
-
+}
 
 async function drawVehicleLine(marker, tasksProm) {
     try{

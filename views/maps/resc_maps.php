@@ -149,7 +149,6 @@
                     }else{
                         loadRescuerTasks(my_vehicle);
                     }
-
                 })
                 .catch(error => {console.error("Error occurred while fetching vehicle data: ", error);});
             }).catch(error => console.error('Error fetching vehicle data:', error));
@@ -164,6 +163,11 @@
                             markerColor: 'green',
                         })
                     }).addTo(map);
+                marker.on('click', async () => {
+                    const content = await offerPopup(offer);
+                    //console.log(content)
+                    marker.bindPopup(content);
+                });
                 marker.addTo(markerLayer);
                 marker.addTo(offerAssignedLayer);
             });
@@ -175,6 +179,10 @@
                             markerColor: 'green',
                         })
                     }).addTo(map);
+                marker.on('click', async () => {
+                    const content = await requestPopup(req);
+                    marker.bindPopup(content);
+                });
                 marker.addTo(markerLayer);
                 marker.addTo(requestAssignedLayer);
             })
