@@ -1,3 +1,6 @@
+-- First run this file
+-- Then run the stored_funcs_and_triggers.sql
+-- Last the insert.sql file
 \c postgres;
 DROP DATABASE webproject24;
 CREATE DATABASE webproject24;
@@ -13,7 +16,7 @@ CREATE TABLE dbUser(
     pass VARCHAR(255) NOT NULL,
     is_resc BOOLEAN DEFAULT FALSE,
     is_admin BOOLEAN DEFAULT FALSE,
-    email VARCHAR(255) DEFAULT '' UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
     phone BIGINT NOT NULL,
     long DOUBLE PRECISION, --NOT NULL
     lat DOUBLE PRECISION -- NOT NULL
