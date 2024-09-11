@@ -130,5 +130,3 @@ CREATE INDEX vehicle_index ON vehicles(veh_id);
 CREATE INDEX tasks_index ON tasks(tasks_id);
 CREATE INDEX offer_index ON offers(off_id);
 CREATE INDEX requests_index ON requests(req_id);
-
---Need to add stored functions....
