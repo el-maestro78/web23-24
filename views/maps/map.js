@@ -108,7 +108,7 @@ async function vehicleTasks(data){
         const vehResponse = await fetch(
           `../../controller/admin/fetch_vehicle_popup.php?veh_id=${encodeURIComponent(
             data.veh_id
-          )}`
+          )}&timestamp=${new Date().getTime()}`
         );
         if (!vehResponse.ok) throw new Error("Failed to fetch vehicle data");
         const vehData = await vehResponse.json();
@@ -250,7 +250,7 @@ async function requestPopup(data) {
 }
 
 async function getVehicleTasks(id){
-    const taskResp = await fetch(`../../controller/admin/fetch_tasks_for_line.php?veh_id=${encodeURIComponent(id)}`);
+    const taskResp = await fetch(`../../controller/admin/fetch_tasks_for_line.php?veh_id=${encodeURIComponent(id)}&timestamp=${new Date().getTime()}`);
     const taskData = await taskResp.json();
     //console.log(taskData)
     let tasks = [];
@@ -268,7 +268,7 @@ async function getVehicleTasks(id){
 }
 
 async function rescuersTasks(id) {
-    return await (await fetch(`../../controller/rescuer/get_my_tasks.php?veh_id=${encodeURIComponent(id)}`)).json();
+    return await (await fetch(`../../controller/rescuer/get_my_tasks.php?veh_id=${encodeURIComponent(id)}&timestamp=${new Date().getTime()}`)).json();
     /*
         console.log(taskData)
     let tasks = [];
@@ -379,11 +379,12 @@ async function offerPopupRescuer(data) {
 }
 
 function takeNewOffer(id) {
-    fetch(`../../controller/rescuer/take_new_offer.php?off_id=${encodeURIComponent(id)}`)
+    fetch(`../../controller/rescuer/take_new_offer.php?off_id=${encodeURIComponent(id)}&timestamp=${new Date().getTime()}`)
     .then(response => response.json())
     .then(data=>{
         if(data.created){
             alert('Successfully added! You are now in charge');
+            location.reload();
         }else{
             alert(data.error);
         }
@@ -450,11 +451,12 @@ async function requestPopupRescuer(data) {
 }
 
 function takeNewRequest(id) {
-    fetch(`../../controller/rescuer/take_new_request.php?req_id=${encodeURIComponent(id)}`)
+    fetch(`../../controller/rescuer/take_new_request.php?req_id=${encodeURIComponent(id)}&timestamp=${new Date().getTime()}`)
     .then(response => response.json())
     .then(data=>{
         if(data.created){
             alert('Successfully added! You are now in charge');
+            location.reload();
         }else{
             alert(data.error);
         }

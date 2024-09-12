@@ -3,7 +3,7 @@ include("../../model/config.php");
 include("../../ini.php");
 
 $off_id = $_GET['off_id'] ?? '';
-//$off_id = 1;
+//$off_id = 15;
 $user_id = $_SESSION['user_id'];
 //$user_id= 5;
 if(!$user_id){
@@ -24,7 +24,7 @@ if(!$result){
 }
 $task_data = pg_fetch_all($result);
 $current_tasks = (int)$task_data[0]['task_count'];
-if($current_tasks >= 10){
+if($current_tasks >= 5){
     echo json_encode(['error' => 'You have more than 4 active tasks']);
     exit;
 }
@@ -46,15 +46,21 @@ $veh_id = $vehicle_data[0]['veh_id'];
 if($off_id !== null && $off_id != ""){
     $update_offers_query = <<< EOF
         UPDATE offers 
-        SET pending = 'FALSE', assign_date = $1, user_id = $2
+        SET pending = FALSE, assign_date = $1, user_id = $2
         WHERE offers.off_id = $3;
     EOF;
     $update_offers_result = pg_query_params($dbconn, $update_offers_query, array(date('Y-m-d'), $user_id, $off_id));
     if ($update_offers_result) {//$veh_id
+        /*
         $update_tasks_query = <<< EOF
             UPDATE tasks
             SET user_id = $1, veh_id = $2
             WHERE tasks.off_id = $3;
+        EOF;
+        */
+        $update_tasks_query = <<< EOF
+            INSERT INTO tasks(user_id, veh_id, off_id) VALUES
+                            ($1, $2, $3);
         EOF;
         $update_tasks_result = pg_query_params($dbconn, $update_tasks_query, array($user_id, $veh_id, $off_id));
         if ($update_tasks_result) {

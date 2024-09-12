@@ -1,8 +1,8 @@
 <?php
 include("../../model/config.php");
 
-$veh_id = isset($_GET['veh_id']) ? $_GET['veh_id'] : '';
-//$veh_id = 0;
+$veh_id = $_GET['veh_id'] ?? '';
+//$veh_id = 1;
 
 if ($veh_id !== null && $veh_id != "") {
     $req_query = "

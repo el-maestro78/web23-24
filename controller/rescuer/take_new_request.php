@@ -24,7 +24,7 @@ if(!$result){
 }
 $task_data = pg_fetch_all($result);
 $current_tasks = (int)$task_data[0]['task_count'];
-if($current_tasks >= 10){
+if($current_tasks >= 5){
     echo json_encode(['error' => 'You have more than 4 active tasks']);
     exit;
 }
@@ -46,15 +46,21 @@ $veh_id = $vehicle_data[0]['veh_id'];
 if($req_id !== null && $req_id != ""){
     $update_requests_query = <<< EOF
         UPDATE requests
-        SET pending = 'FALSE', assign_date = $1, user_id = $2
+        SET pending = FALSE, assign_date = $1, user_id = $2
         WHERE requests.req_id = $3;
     EOF;
     $update_requests_result = pg_query_params($dbconn, $update_requests_query, array(date('Y-m-d'), $user_id, $req_id));
-    if ($update_requests_result) {//$veh_id
+    if ($update_requests_result) {
+        /*
         $update_tasks_query = <<< EOF
             UPDATE tasks
             SET user_id = $1, veh_id = $2
             WHERE tasks.req_id = $3;
+        EOF;
+        */
+        $update_tasks_query = <<< EOF
+            INSERT INTO tasks(user_id, veh_id, req_id) VALUES
+                            ($1, $2, $3);
         EOF;
         $update_tasks_result = pg_query_params($dbconn, $update_tasks_query, array($user_id, $veh_id, $req_id));
         if ($update_tasks_result) {
