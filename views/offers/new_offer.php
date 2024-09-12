@@ -25,7 +25,7 @@
             <div class="offer_container">
                 <div class="details">New Offer</div>
                 <div class="form">
-                    <label class=offer_label id="item">Item: <?= $item ?></label>
+                    <label class=offer_label id="item" data-base="<?=$base?>" data-item="<?=$item?>">Item: <?=$item?></label>
                      <label for="quantity" class="offer_label">Quantity</label>
                     <input type="number" id="quantity" class="insert_quantity" required step="1" min="0">
                     <input type="submit" class="button_input" id="submit" value="Submit">
@@ -34,8 +34,10 @@
         </div>
     </body>
     <script>
-        const item = "<?= $item ?>";
-        const base = "<?= $base ?>";
+        //const item = "<//$item ?>"; Isn't allowed
+        //const base = "<//$base ?>";
+        const item = document.getElementById('item').getAttribute('data-item');
+        const base = document.getElementById('item').getAttribute('data-base');
         const quantityInput = document.getElementById('quantity');
         const submit = document.getElementById('submit');
 
