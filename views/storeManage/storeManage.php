@@ -20,7 +20,7 @@
             Load via Json &nbsp;
             <button type="button" id="add-json-button" class="button_add">Load Json</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            Update via Database &nbsp;
+            Update via Remote Database &nbsp;
             <button type="button" id="update-button" class="button_modify">Update</button>
         </div>
         <hr/>
@@ -274,7 +274,16 @@
             });
             updateDb.addEventListener('click', function(event){
                event.preventDefault();
-               alert('Nothing yet');
+               fetch('../../controller/admin/load_remote_db.php')
+               .then(response=>response.json())
+               .then(data=>{
+                    if(data.added){
+                        alert('Updated successfully');
+                        location.reload();
+                    }else{
+                        alert('Error' + data.error);
+                    }
+               }).catch(error => alert(`${error}`))
             });
 
 

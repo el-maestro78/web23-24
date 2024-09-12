@@ -31,7 +31,8 @@ INSERT INTO dbUser(first_name, surname, username, pass, is_resc, is_admin, email
 
 INSERT INTO item_category(category_name, details) VALUES
 ('spam', 'Another Viking victory'),
-('athletic', 'Good old exercise');
+('athletic', 'Good old exercise'),
+('Drinks', 'Needed in order to avoid dehydration');
 
 INSERT INTO items(iname, quantity, category, details) VALUES
 ('spam', 1, 1, 'Just spam'),
@@ -41,7 +42,11 @@ INSERT INTO items(iname, quantity, category, details) VALUES
 ('Football Ball', 100, 2, 'Just a football ball'),
 ('Football shirt', 100, 2, 'Just a football shirt'),
 ('Basketball Ball', 50, 2, 'Just a basketball ball'),
-('Basketball shirt', 100, 2, 'Just a basketball shirt');
+('Basketball shirt', 100, 2, 'Just a basketball shirt'),
+('Water', 1, 3, 'Falls regularly from sky'),
+('Coke', 10, 3, 'We mean the drink'),
+('Soda', 50, 3, 'Avoid combining with food'),
+('Beer', 100, 3, 'Low alcohol');
 
 INSERT INTO requests(pending, completed, quantity, reg_date, assign_date, completed_date, user_id, item_id, long, lat) VALUES
 --(TRUE, FALSE, 5, current_date, NULL, NULL,12, 3, 21.734503111278, 38.246),
@@ -104,7 +109,7 @@ INSERT INTO  vehicle_rescuers(veh_id, user_id) VALUES
 INSERT INTO news(title, descr, date, base_id, item_id) VALUES
 ('I need Virgils shirt', 'I am just a fan, is that bad?', current_date, 1, 6),
 ('I need spam', 'Hungry for some good old spam', current_date, 2, 1),
-('Fournie ur shirt man', 'U did the wrong choice though', current_date, 2, 8),
+('I need a shirt', 'Protects from cold', current_date, 2, 8),
 ('Please more spam', 'I am addicted', current_date, 1, 3);
 
 INSERT INTO tasks(user_id, veh_id, off_id, req_id, completed) VALUES

@@ -23,17 +23,17 @@ CREATE TABLE dbUser(
 );
 
 CREATE TABLE item_category(
-    category_id SERIAL PRIMARY KEY,
-    category_name VARCHAR(255),
-    details VARCHAR(255)
+    category_id SERIAL PRIMARY KEY UNIQUE,
+    category_name VARCHAR(255) UNIQUE,
+    details VARCHAR(255) DEFAULT ''
 );
 
 CREATE TABLE items(
-    item_id SERIAL PRIMARY KEY,
+    item_id SERIAL PRIMARY KEY UNIQUE,
     iname VARCHAR(255) UNIQUE,
     quantity INTEGER DEFAULT 0,
     category INTEGER REFERENCES item_category(category_id) ON DELETE CASCADE NOT NULL,
-    details VARCHAR(255)
+    details VARCHAR(255) DEFAULT ''
 );
 
 CREATE TABLE vehicles(

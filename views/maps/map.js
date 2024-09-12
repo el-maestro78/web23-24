@@ -297,7 +297,7 @@ async function drawVehicleLine(marker, tasksProm) {
           //console.log("Nothing");
           return;
         }
-        console.log(tasks);
+        //console.log(tasks);
         tasks.forEach((task) => {
           const taskLatLng = [task.lat, task.long];
           const polyline = L.polyline([marker.getLatLng(), taskLatLng], { color: "blue" }).addTo(

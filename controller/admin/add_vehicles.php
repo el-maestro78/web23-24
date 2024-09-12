@@ -16,7 +16,7 @@ function generateRandomCoordinates($lat, $lng, $radius)
     $earth_radius = 6371;
     $radius_in_degrees = $radius / $earth_radius;
     $random_distance = $radius_in_degrees * sqrt(mt_rand() / mt_getrandmax());
-    $random_angle = mt_rand(0, 360) * (M_PI / 180); // Random angle in radians
+    $random_angle = mt_rand(10, 360) * (M_PI / 180); // Random angle in radians
 
     $new_lat = $lat + ($random_distance * cos($random_angle));
     $new_lng = $lng + ($random_distance * sin($random_angle)) / cos(deg2rad($lat));
