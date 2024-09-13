@@ -125,3 +125,11 @@ CREATE INDEX vehicle_index ON vehicles(veh_id);
 CREATE INDEX tasks_index ON tasks(tasks_id);
 CREATE INDEX offer_index ON offers(off_id);
 CREATE INDEX requests_index ON requests(req_id);
+CREATE INDEX vehicle_location_idx ON vehicles (lat, long);
+CREATE INDEX base_location_idx ON base (lat, long);
+CREATE INDEX request_location_idx ON requests (lat, long);
+CREATE INDEX offer_location_idx ON offers (lat, long);
+CREATE INDEX tasks_completed_idx ON tasks (completed);
+CREATE INDEX requests_status_idx ON requests (pending, completed);
+CREATE INDEX offers_status_idx ON offers (pending, completed);
+
