@@ -32,6 +32,10 @@ include '../../ini.php';
             <input type="text" id="lname" class="left_input" required>
             <div class="gradient-line"></div>
 
+            <label for="username" class="left_label">Username</label>
+            <input type="text" id="username" class="left_input" required>
+            <div class="gradient-line"></div>
+
             <label for="email" class=left_label>Email</label>
             <input type="email" id="email" class="left_input" required>
             <div class="gradient-line"></div>
@@ -93,21 +97,23 @@ include '../../ini.php';
       const lines = document.querySelectorAll('.gradient-line');
 
       inputs.forEach((input, index) => {
-        input.addEventListener('focus', () => {
-          lines[index].classList.add('active');
-        });
-
-        input.addEventListener('blur', () => {
-          if (!input.value.trim()) { // Check if the input is empty
-            lines[index].classList.remove('active');
-          }
-        });
+          input.addEventListener('focus', () => {
+              if (lines[index]) {
+                  lines[index].classList.add('active');
+              }
+          });
+          input.addEventListener('blur', () => {
+              if (lines[index] && !input.value.trim()) {
+                  lines[index].classList.remove('active');
+              }
+          });
       });
     });
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const fnameInput = document.getElementById('fname');
     const lnameInput = document.getElementById('lname');
+    const usernameInput = document.getElementById('username');
     const confPassInput = document.getElementById('conf_password');
     const countryInput = document.getElementById('country');
     const cityInput = document.getElementById('city');
@@ -116,18 +122,21 @@ include '../../ini.php';
     const phonenrInput = document.getElementById('phonenr');
     const submitButton = document.getElementById('submit');
     function checkInputs() {
-            if (emailInput.value !== '' && 
-            passwordInput.value !== '' && 
-            fnameInput.value !== '' && 
-            lnameInput.value !== '' && 
-            confPassInput.value !== '' && 
-            countryInput.value !== '' && 
-            cityInput.value !== '' &&
-            streetInput.value !== '' && 
-            zcodeInput.value !== '' && 
-            phonenrInput.value !== '' &&
-            phonenrInput.value !== ''
-            submitButton.value !== '') {
+            if (
+                emailInput.value !== '' &&
+                passwordInput.value !== '' &&
+                fnameInput.value !== '' &&
+                lnameInput.value !== '' &&
+                usernameInput.value !== '' &&
+                confPassInput.value !== '' &&
+                countryInput.value !== '' &&
+                cityInput.value !== '' &&
+                streetInput.value !== '' &&
+                zcodeInput.value !== '' &&
+                phonenrInput.value !== '' &&
+                phonenrInput.value !== '' &&
+                submitButton.value !== ''
+            ) {
                 submitButton.classList.add('gradient-border');
             } else {
                 submitButton.classList.remove('gradient-border');
@@ -137,6 +146,7 @@ include '../../ini.php';
       passwordInput.addEventListener('input', checkInputs);
       fnameInput.addEventListener('input', checkInputs);
       lnameInput.addEventListener('input', checkInputs);
+      usernameInput.addEventListener('input', checkInputs);
       confPassInput.addEventListener('input', checkInputs);
       countryInput.addEventListener('input', checkInputs);
       cityInput.addEventListener('input', checkInputs);
@@ -157,14 +167,29 @@ include '../../ini.php';
           y.alt="Show Password"
       }
     }
-    function get_latlong() {
+    async function get_latlong(){
         const country = countryInput.value;
-        const city= cityInput.value;
+        const city = cityInput.value;
         const street = streetInput.value;
         const zcode = zcodeInput.value;
-
+        const params = new URLSearchParams();
+        params.append('country', country);
+        params.append('city', city);
+        params.append('street', street);
+        params.append('zcode', zcode);
+        fetch('../../controller/all_users/location_to_coord.php', {
+            method: 'POST',
+            body: params
+        }).then(response => response.json()
+        ).then(data => {
+            let lat = data.lat;
+            let lng = data.long;
+            return {lng, lat};
+        }).catch(error => {
+            return error;
+        });
     }
-    function submitCredentials() {
+    async function submitCredentials() {
         const conf_pass = confPassInput.value;
         const password = passwordInput.value;
         const name = fnameInput.value;
@@ -181,12 +206,26 @@ include '../../ini.php';
             alert('Phone is not correct');
             return;
         }
+        let lat = '';
+        let lng = '';
+
+        const coords = await get_latlong();
+        if (coords) {
+            lat = coords.lat;
+            lng  = coords.lng;
+        }
+        if(lat === '' || lng === '') {
+            alert('Error fetching the coordinates');
+            return;
+        }
         params.append('name', name);
         params.append('surname', surname);
         params.append('username', username);
         params.append('pass', password);
         params.append('email', email);
         params.append('phone', phone);
+        params.append('latitude', lat);
+        params.append('Longitude', lng);
 
         fetch('../../controller/all_users/signup.php', {
             method: 'POST',
@@ -194,7 +233,11 @@ include '../../ini.php';
         }).then(response => response.json()
         ).then(data => {
             if(data.created){
-                alert('Account created successfully!');
+                alert('Account created successfully!');//
+            }else if(data.email_exists){
+                alert('A User with this email already exists');
+            }else if(data.username_exists){
+                alert('A User with this username already exists');
             }else{
                 alert('Failed to create account:' + data.error);
             }
@@ -207,7 +250,6 @@ include '../../ini.php';
         event.preventDefault();
         submitCredentials();
     });
-    }
 
     </script>
 

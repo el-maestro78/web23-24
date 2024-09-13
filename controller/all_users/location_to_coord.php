@@ -15,7 +15,7 @@ $street = validate_input($_POST['street']);
 $street = "1600 Amphitheatre Parkway"; // Example street
 $city = "Mountain View"; // Example city
 $zipcode = "94043"; // Example ZIP code
-$country = "USA"; // Example country
+$country = "Greece"; // Example country
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 */
 $address = urlencode("$street, $city, $zipcode, $country");

@@ -20,14 +20,14 @@ include "../../auxiliary.php";
     const submitButton = document.getElementById('submit');
  */
 
-
 $name = validate_input($_POST['name']);
 $surname = validate_input($_POST['surname']);
 $username = validate_input($_POST['username']);
 $pass = validate_input($_POST['pass']);
 $email = validate_input($_POST['email']);
 $phone = validate_input($_POST['phone']);
-
+$lat = validate_input($_POST['latitude']);
+$long = validate_input($_POST['longitude']);
 
 $if_email_exists_query = 'SELECT username FROM dbUser WHERE email = $1';
 $check_if_email_exists = pg_query_params($dbconn, $if_email_exists_query, array($email));
@@ -47,12 +47,12 @@ if (pg_num_rows($check_if_username_exists) > 0){
     exit;
 }
 
-$query = "INSERT INTO dbUser(first_name, surname, username, pass, email, phone) 
-    VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), $5, $6)";
+$query = "INSERT INTO dbUser(first_name, surname, username, pass, email, phone, lat, long) 
+    VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), $5, $6, $7, $8)";
 $result = pg_prepare($dbconn, "insert_query", $query);
 
 if ($result) {
-    $result = pg_execute($dbconn, "insert_query", array($name, $surname, $username, $pass, $email, $phone));
+    $result = pg_execute($dbconn, "insert_query", array($name, $surname, $username, $pass, $email, $phone, $lat, $long));
     if ($result) {
         echo json_encode(['created' => true]);
     } else {
