@@ -26,8 +26,8 @@
 
             <div class="right_box">
                 <div class="form">
-                    <label for="email">Email</label>
-                    <input type="email" id="email">
+                    <label for="username">Username</label>
+                    <input type="text" id="username">
                     <div class="gradient-line"></div>
 
                     <label for="password">Password</label>
@@ -64,17 +64,17 @@
         }
       });
     });
-    const emailInput = document.getElementById('email');
+    const usernameInput = document.getElementById('username');
     const passwordInput = document.getElementById('password');
     const submitButton = document.getElementById('submit');
     function checkInputs() {
-            if (emailInput.value !== '' && passwordInput.value !== '') {
+            if (usernameInput.value !== '' && passwordInput.value !== '') {
                 submitButton.classList.add('gradient-border');
             } else {
                 submitButton.classList.remove('gradient-border');
             }
         }
-      emailInput.addEventListener('input', checkInputs);
+      usernameInput.addEventListener('input', checkInputs);
       passwordInput.addEventListener('input', checkInputs);
 
       function showPassword(inputID, imgID) {
@@ -96,13 +96,13 @@
     });
 
     function submitCredentials() {
-        const email = emailInput.value;
+        const username = usernameInput.value;
         const password = passwordInput.value;
 
         fetch('../../controller/all_users/check_cred.php', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ email: email, password: password })
+            body: JSON.stringify({ username: username, password: password })
         })
         .then(response => response.json())
         .then(data => {

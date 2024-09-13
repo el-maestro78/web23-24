@@ -2,7 +2,7 @@
 include("../../model/config.php");
 include("../../auxiliary.php");
 $input = json_decode(file_get_contents('php://input'), true);
-$email = validate_input($input['email']);
+$username = validate_input($input['username']);
 $password = validate_input($input['password']);
 
 $query = "
@@ -17,8 +17,8 @@ $query = "
         email,
         phone,
         long,
-        lat FROM dbUser WHERE email = $1 AND pass = crypt($2, pass)";
-$result = pg_query_params($dbconn, $query, array($email, $password));
+        lat FROM dbUser WHERE username = $1 AND pass = crypt($2, pass)";
+$result = pg_query_params($dbconn, $query, array($username, $password));
 if (!$result) {
     echo json_encode(['exists' => false, 'error' => pg_last_error($dbconn)]);
     exit;
