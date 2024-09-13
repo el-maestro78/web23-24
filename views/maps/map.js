@@ -88,11 +88,16 @@ async function vehicleDrag(event, veh_id){
 
 async function vehiclePopup(data){
     const {vehLoad, vehTasks, vehStatus, vehItems, itemsHtml } = await vehicleTasks(data);
-
+    let username;
+    if(data.username === undefined){
+        username = 'N/A';
+    }else{
+        username = data.username;
+    }
     return `
         <div>
             <b>Vehicle</b><br>
-            <b>Rescuer's Username:</b> ${data.username}<br><hr>
+            <b>Rescuer's Username:</b> ${username}<br><hr>
             ${itemsHtml}
             <b>Status:</b> ${vehStatus ? "On road" : "Idle"}<br>
             <b>Tasks:</b> ${vehTasks || "N/A"}<br>

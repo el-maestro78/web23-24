@@ -6,22 +6,28 @@
         <link rel="icon" href="../../views/favico/favicon.ico" type="image/x-icon">
         <title>Session Data</title>
     </head>
+    <style>
+        .session_data{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
     <body>
         <?php
         include '../../ini.php';
         include '../../check_login.php';
         include '../../views/toolbar.php';
-        echo '<b>Session Data</b><br/>';
-        echo '<b>User ID: </b>' . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Not set') . '<br/>';
-        echo '<b>First Name: </b>' . (isset($_SESSION['first_name']) ? $_SESSION['first_name'] : 'Not set') . '<br/>';
-        echo '<b/>Surname: </b>' . (isset($_SESSION['surname']) ? $_SESSION['surname'] : 'Not set') . '<br/>';
-        echo '<b>Username: </b>' . (isset($_SESSION['username']) ? $_SESSION['username'] : 'Not set') . '<br/>';
-        echo '<b>Is Rescuer: </b>' . (isset($_SESSION['is_resc']) ? $_SESSION['is_resc'] : 'Not set') . '<br/>';
-        echo '<b>Is Admin: </b>' . (isset($_SESSION['is_admin']) ? $_SESSION['is_admin'] : 'Not set') . '<br/>';
-        echo '<b>Email: </b>' . (isset($_SESSION['email']) ? $_SESSION['email'] : 'Not set') . '<br/>';
-        echo '<b>Phone: </b>' . (isset($_SESSION['phone']) ? $_SESSION['phone'] : 'Not set') . '<br/>';
-        echo '<b>Longitude: </b>' . (isset($_SESSION['long']) ? $_SESSION['long'] : 'Not set') . '<br/>';
-        echo '<b>Latitude: </b>' . (isset($_SESSION['lat']) ? $_SESSION['lat'] : 'Not set') . '<br/>';
+        echo '<div class="session_data"><h1><b>Session Data</b></h1><br/></div>';
+        echo '<div class="session_data"><b>User ID: </b>&nbsp'  . ($_SESSION['user_id'] ?? 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b>First Name: </b>&nbsp' . ($_SESSION['first_name'] ?? 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b/>Surname: </b>&nbsp' . ($_SESSION['surname'] ?? 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b>Username: </b>&nbsp' . ($_SESSION['username'] ?? 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b>Is Rescuer: </b>&nbsp' . ($_SESSION['is_resc'] ?? 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b>Is Admin: </b>&nbsp' . ($_SESSION['is_admin'] ?? 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b>Email: </b>&nbsp' . ($_SESSION['email'] ?? 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b>Phone: </b>&nbsp' . ($_SESSION['phone'] ?? 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b>Longitude: </b>&nbsp' . ($_SESSION['long'] ?? 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b>Latitude: </b>&nbsp' . ($_SESSION['lat'] ?? 'Not set') . '<br/></div>';
         ?>
     </body>
 </html>
