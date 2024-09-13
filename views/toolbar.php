@@ -45,6 +45,10 @@
             font-size: 15px;
             border: none;
         }
+        .profile{
+            display: flex;
+            justify-content: right;
+        }
     </style>
 
     <body>
@@ -76,8 +80,8 @@
             <?php endif; ?>
             <a href="<?php echo $base_url; ?>/views/contact/contact.php" class="<?php echo str_contains($current_page, 'contact.php') ? 'active' : ''; ?>">Contact</a>
             <a href="<?php echo $base_url; ?>/views/about/about.php" class="<?php echo str_contains($current_page, 'about.php') ? 'active' : ''; ?>">About</a>
-            <a class="<?php echo str_contains($current_page, 'profile.php') ? 'active' : ''; ?>" href="<?php echo $base_url; ?>/views/profile/profile.php">
-                    <i class="bi bi-person-circle"></i></a>
+            <a class="<?php echo str_contains($current_page, 'profile.php') ? 'active' : ''; ?> ms-auto;" href="<?php echo $base_url; ?>/views/profile/profile.php">
+                <i class="bi bi-person-circle"></i></a>
             <div class="Log-btns">
                 <?php if (isset($_SESSION['user_id'])) : ?>
                     <button id="logoutbtn" class="logoutbtn">Logout</button>
