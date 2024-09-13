@@ -59,11 +59,6 @@ CREATE TABLE base(
     long DOUBLE PRECISION NOT NULL
 );
 
-CREATE TABLE base_inventory(
-    base_id INTEGER REFERENCES base(base_id) ON DELETE CASCADE NOT NULL,
-    item_id INTEGER REFERENCES items(item_id) ON DELETE CASCADE NOT NULL
-);
-
 CREATE TABLE requests(
     req_id SERIAL PRIMARY KEY,
     pending BOOLEAN DEFAULT TRUE,
@@ -116,7 +111,7 @@ CREATE VIEW rescuer AS
     WHERE is_resc IS TRUE
     ;
 
-CREATE VIEW baseadmin AS
+CREATE VIEW base_admin AS
     SELECT user_id, first_name, surname, username, pass
     FROM dbUser
     WHERE is_admin IS TRUE
@@ -124,6 +119,7 @@ CREATE VIEW baseadmin AS
 
 CREATE INDEX dbuser_index ON dbUser(username);
 CREATE INDEX items_index ON items(item_id);
+CREATE INDEX categories_index ON item_category(category_id);
 CREATE INDEX bases_index ON base(base_id);
 CREATE INDEX vehicle_index ON vehicles(veh_id);
 CREATE INDEX tasks_index ON tasks(tasks_id);

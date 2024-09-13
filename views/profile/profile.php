@@ -17,13 +17,23 @@
         include '../../ini.php';
         include '../../check_login.php';
         include '../../views/toolbar.php';
+        function check_bool($str): string
+        {
+            if($str ==='t'){
+                return 'Yes';
+            }
+            else{
+                return 'No';
+            }
+        }
+
         echo '<div class="session_data"><h1><b>Session Data</b></h1><br/></div>';
         echo '<div class="session_data"><b>User ID: </b>&nbsp'  . ($_SESSION['user_id'] ?? 'Not set') . '<br/></div>';
         echo '<div class="session_data"><b>First Name: </b>&nbsp' . ($_SESSION['first_name'] ?? 'Not set') . '<br/></div>';
         echo '<div class="session_data"><b/>Surname: </b>&nbsp' . ($_SESSION['surname'] ?? 'Not set') . '<br/></div>';
         echo '<div class="session_data"><b>Username: </b>&nbsp' . ($_SESSION['username'] ?? 'Not set') . '<br/></div>';
-        echo '<div class="session_data"><b>Is Rescuer: </b>&nbsp' . ($_SESSION['is_resc'] ?? 'Not set') . '<br/></div>';
-        echo '<div class="session_data"><b>Is Admin: </b>&nbsp' . ($_SESSION['is_admin'] ?? 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b>Is Rescuer: </b>&nbsp' . (isset($_SESSION['is_resc']) ? check_bool($_SESSION['is_resc']) : 'Not set') . '<br/></div>';
+        echo '<div class="session_data"><b>Is Admin: </b>&nbsp' . (isset($_SESSION['is_admin']) ? check_bool($_SESSION['is_admin']) : 'Not set') . '<br/></div>';
         echo '<div class="session_data"><b>Email: </b>&nbsp' . ($_SESSION['email'] ?? 'Not set') . '<br/></div>';
         echo '<div class="session_data"><b>Phone: </b>&nbsp' . ($_SESSION['phone'] ?? 'Not set') . '<br/></div>';
         echo '<div class="session_data"><b>Longitude: </b>&nbsp' . ($_SESSION['long'] ?? 'Not set') . '<br/></div>';

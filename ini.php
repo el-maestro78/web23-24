@@ -10,6 +10,7 @@ if(!isset($_SESSION["user_id"])){
 ini_set('session.cookie_secure', 1);
 ini_set('session.cookie_httponly', 1);
 session_start();
+setcookie("login_session", session_id(), time() + 300, "/");
 $base_url = 'http://' . $_SERVER['HTTP_HOST']; //   . dirname($_SERVER['SCRIPT_NAME']);
 $GLOBALS['base_url'] = $base_url;
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > 1800) {
