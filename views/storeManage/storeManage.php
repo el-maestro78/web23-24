@@ -19,7 +19,7 @@
             <!-- LOAD from json and update through their database button TODO-->
             Load via Json &nbsp;
             <button type="button" id="add-json-button" class="button_add">Load Json</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="file" id="fileInput" accept=".json" style="display:none;">
             Update via Remote Database &nbsp;
             <button type="button" id="update-button" class="button_modify">Update</button>
         </div>
@@ -89,14 +89,54 @@
                 </tbody>
             </table>
         </div>
-    <script>
-            /*
-          //items on storage and loaded
-        //include '../../controller/admin/fetch_storage.php';
-        //categories
-        //include '../../controller/admin/fetch_item_categ.php';
-        //Vehicle load
-        //include '../../controller/admin/fetch_veh_loaded_items.php';*/
+        <script>
+            const loadJson = document.getElementById('add-json-button');
+            const updateDb = document.getElementById('update-button');
+            const fileInput = document.getElementById('fileInput');
+
+            updateDb.addEventListener('click', function(event){
+               event.preventDefault();
+               fetch('../../controller/admin/load_remote_db.php')
+               .then(response=>response.json())
+               .then(data=>{
+                    if(data.added){
+                        alert('Updated successfully');
+                        location.reload();
+                    }else{
+                        alert('Error' + data.error);
+                    }
+               }).catch(error => alert(`${error}`))
+            });
+
+            loadJson.addEventListener('click', function() {
+                fileInput.click();
+            });
+            fileInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    if (file.type === 'application/json') {
+                        //document.getElementById('status').innerText = `Selected file: ${file.name}`;
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        fetch('../../controller/admin/load_items_json.php', {
+                            method: 'POST',
+                            body: formData
+                        }).then(response => response.json())
+                        .then(data => {
+                            if(data.added){
+                                alert('Updated successfully');
+                                location.reload();
+                            }else{
+                                alert('Error' + data.error);
+                            }
+                        }).catch(error => {
+                             alert('Upload failed.' + error);
+                        });
+                    } else {
+                        alert('Please select a valid JSON file.');
+                    }
+                }
+            });
 
             const categoryFilter = document.getElementById('categoryFilter');
             const itemsTable = document.getElementById("items-table");
@@ -252,9 +292,6 @@
                 })
                 .catch(error=>console.log(error));
 
-            const loadJson = document.getElementById('add-json-button');
-            const updateDb = document.getElementById('update-button');
-
             const addItem = document.getElementById('add-item-button');
             const modifyItem = document.getElementById('modify-item-button');
             const modifyItemsCategory = document.getElementById('modify-items_categ-button');
@@ -268,23 +305,7 @@
             const modifyVehicle = document.getElementById('modify-vehicle-button');
             const removeVehicle = document.getElementById('remove-vehicle-button');
 
-            loadJson.addEventListener('click', function(event){
-               event.preventDefault();
-               alert('Nothing yet');
-            });
-            updateDb.addEventListener('click', function(event){
-               event.preventDefault();
-               fetch('../../controller/admin/load_remote_db.php')
-               .then(response=>response.json())
-               .then(data=>{
-                    if(data.added){
-                        alert('Updated successfully');
-                        location.reload();
-                    }else{
-                        alert('Error' + data.error);
-                    }
-               }).catch(error => alert(`${error}`))
-            });
+
 
 
             addItem.addEventListener('click', function(event){

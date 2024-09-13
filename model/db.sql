@@ -23,13 +23,13 @@ CREATE TABLE dbUser(
 );
 
 CREATE TABLE item_category(
-    category_id SERIAL PRIMARY KEY UNIQUE,
+    category_id SERIAL PRIMARY KEY,
     category_name VARCHAR(255) UNIQUE,
     details VARCHAR(255) DEFAULT ''
 );
 
 CREATE TABLE items(
-    item_id SERIAL PRIMARY KEY UNIQUE,
+    item_id SERIAL PRIMARY KEY,
     iname VARCHAR(255) UNIQUE,
     quantity INTEGER DEFAULT 0,
     category INTEGER REFERENCES item_category(category_id) ON DELETE CASCADE NOT NULL,
