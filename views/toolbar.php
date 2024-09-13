@@ -53,7 +53,7 @@
 
     <body>
         <!-- Only for testing!! -->
-        <?php include '../ini.php';?>
+        <?php //include '../ini.php';?>
         <?php //($_SESSION['role']='admin') ?>
         <?php //($_SESSION['user_id']=1) ?>
         <?php $current_page = $_SERVER['REQUEST_URI']; ?>
