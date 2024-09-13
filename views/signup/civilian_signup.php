@@ -177,17 +177,22 @@ include '../../ini.php';
         params.append('city', city);
         params.append('street', street);
         params.append('zcode', zcode);
-        fetch('../../controller/all_users/location_to_coord.php', {
+        try{
+            const response = await fetch('../../controller/all_users/location_to_coord.php', {
             method: 'POST',
             body: params
-        }).then(response => response.json()
-        ).then(data => {
-            let lat = data.lat;
-            let lng = data.long;
-            return {lng, lat};
-        }).catch(error => {
-            return error;
-        });
+            });
+            const data = await response.json();
+
+            if (data.lat && data.long) {
+                return { lat: data.lat, lng: data.long };
+            } else {
+                throw new Error('Coordinates not found');
+            }
+        }catch(error) {
+            console.error('Error fetching coordinates:', error);
+            return { error: error.message };
+        }
     }
     async function submitCredentials() {
         const conf_pass = confPassInput.value;
@@ -206,10 +211,12 @@ include '../../ini.php';
             alert('Phone is not correct');
             return;
         }
+        /*
         let lat = '';
         let lng = '';
-
+         */
         const coords = await get_latlong();
+        /*
         if (coords) {
             lat = coords.lat;
             lng  = coords.lng;
@@ -218,6 +225,14 @@ include '../../ini.php';
             alert('Error fetching the coordinates');
             return;
         }
+
+         */
+        if (coords.error) {
+            alert(`Error fetching coordinates: ${coords.error}`);
+            return;
+        }
+        const { lat, lng } = coords;
+
         params.append('name', name);
         params.append('surname', surname);
         params.append('username', username);
@@ -233,7 +248,8 @@ include '../../ini.php';
         }).then(response => response.json()
         ).then(data => {
             if(data.created){
-                alert('Account created successfully!');//
+                alert('Account created successfully!');
+                window.location.href = '../home_page.php'
             }else if(data.email_exists){
                 alert('A User with this email already exists');
             }else if(data.username_exists){

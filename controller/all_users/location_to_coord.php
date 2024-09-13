@@ -34,8 +34,6 @@ $context = stream_context_create([
 
 // Make API request
 $response = @file_get_contents($url, false, $context);
-
-
 if ($response === FALSE) {
     echo json_encode(['error' => 'Error occurred while making the API request.']);
     exit;

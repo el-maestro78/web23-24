@@ -26,8 +26,8 @@ $username = validate_input($_POST['username']);
 $pass = validate_input($_POST['pass']);
 $email = validate_input($_POST['email']);
 $phone = validate_input($_POST['phone']);
-$lat = validate_input($_POST['latitude']);
-$long = validate_input($_POST['longitude']);
+$lat = (double)validate_input($_POST['latitude']);
+$long = (double)validate_input($_POST['longitude']);
 
 $if_email_exists_query = 'SELECT username FROM dbUser WHERE email = $1';
 $check_if_email_exists = pg_query_params($dbconn, $if_email_exists_query, array($email));
@@ -47,8 +47,10 @@ if (pg_num_rows($check_if_username_exists) > 0){
     exit;
 }
 
-$query = "INSERT INTO dbUser(first_name, surname, username, pass, email, phone, lat, long) 
-    VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), $5, $6, $7, $8)";
+$query = <<<EOF
+    INSERT INTO dbUser(first_name, surname, username, pass, email, phone, lat, long) 
+                VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), $5, $6, $7, $8);
+    EOF;
 $result = pg_prepare($dbconn, "insert_query", $query);
 
 if ($result) {
