@@ -67,22 +67,22 @@
     <h1 class="title">Project Team</h1>
     <div class="team">
         <div class="member">
-            <img src="https://avatars.githubusercontent.com/u/90005222?v=4" href="https://github.com/el-maestro78" alt="Kostas' Github Pic">
-            <div class="member-info">
-                <div class="member-name">Ζαχουλίτης Κωνσταντίνος Γεώργιος</div>
-                <div class="member-am">1072578</div>
-                <div class="member-email">
-                    <a href="mailto:up1072578@ac.upatras.gr">up1072578@ac.upatras.gr</a>
-                </div>
-            </div>
-        </div>
-        <div class="member">
             <img src="https://avatars.githubusercontent.com/u/59723723?v=4" href="https://github.com/TheodoreGiannak" alt="Theodore's Github Pic">
             <div class="member-info">
                 <div class="member-name">Γιαννακόπουλος Θεόδωρος</div>
                 <div class="member-am">1072573</div>
                 <div class="member-email">
                     <a href="mailto:up1072573@ac.upatras.gr">up1072573@ac.upatras.gr</a>
+                </div>
+            </div>
+        </div>
+        <div class="member">
+            <img src="https://avatars.githubusercontent.com/u/90005222?v=4" href="https://github.com/el-maestro78" alt="Kostas' Github Pic">
+            <div class="member-info">
+                <div class="member-name">Ζαχουλίτης Κωνσταντίνος Γεώργιος</div>
+                <div class="member-am">1072578</div>
+                <div class="member-email">
+                    <a href="mailto:up1072578@ac.upatras.gr">up1072578@ac.upatras.gr</a>
                 </div>
             </div>
         </div>
