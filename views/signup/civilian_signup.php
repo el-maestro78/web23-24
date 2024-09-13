@@ -249,7 +249,7 @@ include '../../ini.php';
         ).then(data => {
             if(data.created){
                 alert('Account created successfully!');
-                window.location.href = '../home_page.php'
+                window.location.href = '../login/login.php'
             }else if(data.email_exists){
                 alert('A User with this email already exists');
             }else if(data.username_exists){
@@ -266,8 +266,6 @@ include '../../ini.php';
         event.preventDefault();
         submitCredentials();
     });
-
     </script>
-
 </body>
 </html>
