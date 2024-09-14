@@ -98,7 +98,7 @@
                         }else{
                             location.reload();
                         }
-                    } else if(!data.created && data.exists){
+                    } else if(data.exists){
                         alert('Item already exists');
                     }else{
                     alert('Error: ' + data.error);

@@ -10,16 +10,17 @@ $item_details = validate_input($_POST['details'] ?? '');
 
 
 $sql = <<< EOF
-        SELECT iname
-        FROM item
-        WHERE iname=$1;
-       EOF;
-$check_if_already_exists = pg_query_params($dbconn, $sql,array($item_name));
-if($check_if_already_exists && pg_num_rows($check_if_already_exists) > 0){
+        SELECT items.iname
+        FROM items
+        WHERE items.iname = $1;
+EOF;
+$check_if_already_exists = pg_query_params($dbconn, $sql, array($item_name));
+if($check_if_already_exists && pg_num_rows($check_if_already_exists) >= 1){
     echo json_encode(['exists' => true, 'created'=> false, 'error' => pg_last_error($dbconn)]);
+    exit;
 }
 else{
-    if ($item_quant <= 0) {
+    if ((int)$item_quant <= 0) {
         $item_quant = 0;
     }
     $sql = <<< EOF
