@@ -4,7 +4,7 @@
 </FilesMatch>
 
 # 1 month
-<FilesMatch "\.(jpg|jpeg|png|gif|ico)$">
+<FilesMatch "\.(jpg|jpeg|png|ico)$">
     Header set Cache-Control "max-age=2592000, public"
 </FilesMatch>
 

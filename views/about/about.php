@@ -22,10 +22,11 @@
     </style>
     <body>
         <?php
+            header('Cache-Control: max-age=604800');
             include '../../ini.php';
             include '../../check_login.php';
             include '../toolbar.php';
-        ?>
+            ?>
         <div id="content"></div>
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script>

@@ -60,6 +60,7 @@
 </style>
 <body>
     <?php
+        header('Cache-Control: max-age=604800');
         include '../../ini.php';
         include '../../check_login.php';
         include '../toolbar.php';
