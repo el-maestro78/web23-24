@@ -56,19 +56,19 @@ INSERT INTO requests(pending, completed, quantity, reg_date, assign_date, comple
 (FALSE, FALSE, 25, current_date, current_date, NULL,10, 3, 21.78, 38.48),
 (FALSE, TRUE, 30, current_date, current_date, current_date,10, 3, 21.75, 38.45),
 
-(FALSE, FALSE,15, current_date, NULL, NULL,11, 1, 21.631021839078, 38.244808224971),
+(FALSE, FALSE,15, current_date, NULL, NULL,11, 1, 21.83, 38.244808224971),
 (FALSE, FALSE,20, current_date, current_date, NULL,11, 2, 21.734499691362, 38.246439932828),
-(FALSE, FALSE,25, current_date, current_date, NULL,11, 3, 21.68, 38.55),
-(FALSE, FALSE,30, current_date, current_date, NULL,11, 3, 21.58, 38.68),
+(FALSE, FALSE,25, current_date, current_date, NULL,11, 3, 21.785, 38.55),
+(FALSE, FALSE,30, current_date, current_date, NULL,11, 3, 21.789, 38.68),
 
-(FALSE, FALSE,15, current_date, current_date, NULL,12, 1, 21.631021839078, 38.344808224971),
+(FALSE, FALSE,15, current_date, current_date, NULL,12, 1, 21.631021839078, 38.354808224971),
 (FALSE, FALSE,20, current_date, current_date, NULL,12, 2, 21.734499691362, 38.447439932828),
 (FALSE, TRUE,25, current_date, current_date, current_date,12, 1, 21.831021839078, 38.234808224971),
 (FALSE, FALSE,30, current_date, current_date, NULL,12, 2, 21.7346, 38.248),
 
-(TRUE, FALSE,100, current_date, NULL, NULL, 10, 3, 21.02486, 38.0564),
-(TRUE, FALSE,100, current_date, NULL, NULL, 11, 4, 21.07346, 38.02438),
-(TRUE, FALSE,100, current_date, NULL, NULL, 12, 5, 21.0464, 38.023238);
+(TRUE, FALSE,100, current_date, NULL, NULL, 10, 3, 21.82486, 38.0564),
+(TRUE, FALSE,100, current_date, NULL, NULL, 11, 4, 21.67346, 38.02438),
+(TRUE, FALSE,100, current_date, NULL, NULL, 12, 5, 21.9464, 38.023238);
 
 
 
@@ -78,18 +78,18 @@ INSERT INTO offers(pending, completed, quantity, reg_date, assign_date, complete
 (FALSE, FALSE, 25, current_date, current_date, NULL,10, 3, 21.768, 38.845),
 (FALSE, TRUE, 30, current_date, current_date, current_date,10, 3, 21.078, 38.945),
 
-(FALSE, FALSE,15, current_date, current_date, NULL,13, 1, 21.7078, 38.2971),
+(FALSE, FALSE,15, current_date, current_date, NULL,13, 1, 21.7078, 38.9971),
 (FALSE, FALSE,20, current_date, current_date, NULL,13, 2, 21.7691362, 38.32828),
 (FALSE, FALSE,25, current_date, current_date, NULL,13, 3, 21.998, 38.895),
 (FALSE, FALSE,30, current_date, current_date, NULL,13, 3, 21.998, 38.998),
 
-(FALSE, FALSE,15, current_date, current_date, NULL,14, 1, 21.08780, 38.201),
+(FALSE, FALSE,15, current_date, current_date, NULL,14, 1, 21.08780, 38.601),
 (FALSE, FALSE,20, current_date, current_date, NULL,14, 2, 21.09691362, 38.52028),
 (FALSE, TRUE,25, current_date, current_date, current_date,14, 1, 21.8039078, 38.204971),
 (FALSE, FALSE,30, current_date, current_date, NULL,14, 2, 21.4073, 38.5608),
 
 (TRUE, FALSE,30, current_date, NULL, NULL,11, 3, 21.50646, 38.7024),
-(TRUE, FALSE,30, current_date, NULL, NULL,13, 4, 21.24036, 38.203528),
+(TRUE, FALSE,30, current_date, NULL, NULL,13, 4, 21.94036, 38.203528),
 (TRUE, FALSE,30, current_date, NULL, NULL,14, 5, 21.23405, 38.4064);
 
 
