@@ -468,3 +468,73 @@ function takeNewRequest(id) {
     })
     .catch(error => console.log(error));
 }
+
+/*
+    <th>Full Name</th>
+    <th>Phone</th>
+    <th>Date</th>
+    <th>Item/th>
+    <th>Quantity</th>
+first_name
+surname
+phone
+quantity
+reg_date
+iname
+
+
+
+ */
+
+async function taskListData(id) {
+    return await (await fetch(`../../controller/rescuer/tasks_for_list.php?veh_id=${encodeURIComponent(id)}&timestamp=${new Date().getTime()}`)).json();
+}
+
+async function tasksList(id, tasksTable){
+    const my_tasks = await taskListData(id);
+    my_tasks.offers.forEach(offer=>{
+        let tr = document.createElement("tr");
+        let full_name = offer.first_name + " " + offer.surname;
+        tr.innerHTML = `
+                <th>${full_name}</th>
+                <th>${offer.phone}</th>
+                <th>${offer.reg_date}</th>
+                <th>${offer.iname}</th>
+                <th>${offer.quantity}</th>
+                <th>Offer</th>
+                <button class="new_off_req" id="done-btn" onclick="finishTask(${offer.tasks_id})">Done</button>
+                <button class="cancel_btn" id="done-btn" onclick="cancelTask(${offer.tasks_id})">Cancel</button
+        `;
+        tasksTable.appendChild(tr);
+    });
+    my_tasks.requests.forEach(req=>{
+        let tr = document.createElement("tr");
+        let full_name = req.first_name + " " + req.surname;
+        tr.innerHTML = `
+                <th>${full_name}</th>
+                <th>${req.phone}</th>
+                <th>${req.reg_date}</th>
+                <th>${req.iname}</th>
+                <th>${req.quantity}</th>
+                <th>Request</th>
+                <button class="new_off_req" id="done-btn" onclick="finishTask(${req.tasks_id})">Done</button>
+                <button class="cancel_btn" id="done-btn" onclick="cancelTask(${req.tasks_id})">Cancel</button
+        `;
+        tasksTable.appendChild(tr);
+    })
+}
+function finishTask(){
+
+}
+
+function doneButton(tasks_id){
+    return ``;
+}
+
+function cancelTask(){
+
+}
+
+function cancelButton(tasks_id){
+    return `<button class="cancel_btn" id="done-btn" onclick="cancelTask(${tasks_id})">Done</button>`;
+}

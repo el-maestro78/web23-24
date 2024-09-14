@@ -30,6 +30,23 @@
         }
     ?>
     <?php include '../toolbar.php'; ?>
+    <div class="panel" id="tasks-panel">
+        <h4>Tasks</h4>
+        <table class="table">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Phone</th>
+                        <th>Date</th>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody id="tasks-table">
+                </tbody>
+            </table>
+    </div>
     <div id="mapid"></div>
     <!-- Leaflet.js -->
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
@@ -105,6 +122,17 @@
         let my_marker = null;
         let veh_lat = null;
         let veh_long = null;
+        const tasksDiv = document.getElementById("tasks-panel");
+        const tasksTable = document.getElementById("tasks-table");
+        /*
+        fetch(`../../controller/admin/fetch_tasks_for_line.php?veh_id=${encodeURIComponent(id)}`)
+        .then(response=>response.json())
+        .then(data=>{
+
+        })
+        .catch(error=>console.log('Error ' + error));
+         */
+
         fetch('../../controller/rescuer/get_my_vehicle.php')
             .then(response=>response.json())
             .then(data=>{
@@ -142,8 +170,10 @@
                 marker.addTo(markerLayer);
                 if(my_vehicle === null){
                     setTimeout(loadRescuerTasks, 1500)
+                    setTimeout(tasksList, 1500)
                 }else{
                     loadRescuerTasks(my_vehicle);
+                    tasksList(my_vehicle, tasksTable);
                 }
             }).catch(error => console.error('Error fetching vehicle data:', error));
 

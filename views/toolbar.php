@@ -71,7 +71,9 @@
                 <a href="<?php echo $base_url; ?>/views/addAccount/addAccount.php" class="<?php echo str_contains($current_page, 'addAccount.php') ? 'active' : ''; ?>">Add Account</a>
             <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'rescuer') : ?>
                  <a href="<?php echo $base_url; ?>/views/maps/resc_maps.php" class="<?php echo str_contains($current_page, 'resc_maps.php') ? 'active' : ''; ?>">Maps</a>
+                <!--
                 <a href="<?php echo $base_url; ?>/views/tasks/tasks.php" class="<?php echo str_contains($current_page, 'tasks.php') ? 'active' : ''; ?>">Task Management</a>
+                -->
                 <a href="<?php echo $base_url; ?>/views/load/loadManage.php" class="<?php echo str_contains($current_page, 'loadManage.php') ? 'active' : ''; ?>">Load Management</a>
             <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'civilian') : ?>
                 <a href="<?php echo $base_url; ?>/views/news/civ_news.php" class="<?php echo str_contains($current_page, 'civ_news.php') ? 'active' : ''; ?>">News</a>
