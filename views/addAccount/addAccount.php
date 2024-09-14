@@ -196,9 +196,9 @@
             if(data.created){
                 alert('Account created successfully!');
             }else if(data.username_exists){
-                alert('Username' + username + ' already exists');
+                alert('Username ' + username + ' already exists');
             }else if(data.email_exists){
-                alert('Email' + email + ' already exists');
+                alert('Email ' + email + ' already exists');
             }else{
                 alert('Failed to create account:' + data.error);
             }
