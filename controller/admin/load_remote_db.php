@@ -9,7 +9,7 @@ if ($json_data === FALSE) {
     exit;
 }
 
-$data = json_decode($json_data, true); // True returns an associative array
+$data = json_decode($json_data, true);
 
 if ($data === NULL) {
     $error = "Error, the JSON is empty or not valid";
@@ -36,7 +36,7 @@ try {
             exit;
         }
     }
-    echo $categories;
+    //echo $categories;
 
     $items = $data['items'];
 
@@ -65,10 +65,9 @@ try {
         }
     }
     echo json_encode(['added' => true]);
-
 }catch(Exception $e) {
     echo json_encode(['error' => $e->getMessage()]);
     exit;
 }
 
-include '../../model/database.php';
+include '../../model/dbclose.php';
