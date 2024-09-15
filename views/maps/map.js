@@ -521,20 +521,33 @@ async function tasksList(id, tasksTable){
                 <button class="cancel_btn" id="done-btn" onclick="cancelTask(${req.tasks_id})">Cancel</button
         `;
         tasksTable.appendChild(tr);
+    });
+}
+
+function finishTask(id){
+    fetch(`../../controller/rescuer/finish_task.php?task_id=${encodeURIComponent(id)}&timestamp=${new Date().getTime()}`)
+    .then(response => response.json())
+    .then(data=>{
+        if(data.finished_){
+            alert('Task is finished. Thank you!');
+            location.reload();
+        }else{
+            alert(data.error);
+        }
     })
-}
-function finishTask(){
-
+    .catch(error => console.log(error));
 }
 
-function doneButton(tasks_id){
-    return ``;
-}
-
-function cancelTask(){
-
-}
-
-function cancelButton(tasks_id){
-    return `<button class="cancel_btn" id="done-btn" onclick="cancelTask(${tasks_id})">Done</button>`;
+function cancelTask(id){
+     fetch(`../../controller/rescuer/cancel_task.php?task_id=${encodeURIComponent(id)}&timestamp=${new Date().getTime()}`)
+    .then(response => response.json())
+    .then(data=>{
+        if(data.cancelled){
+            alert('Succesfully removed! Now you can pick more');
+            location.reload();
+        }else{
+            alert(data.error);
+        }
+    })
+    .catch(error => console.log(error));
 }
