@@ -5,9 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         <link rel='stylesheet' type='text/css' media='screen' href='vehicle_load.css'>
-        <link rel='stylesheet' type='text/css' media='screen' href='../../main.css'>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="icon" href="../favico/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../../favico/favicon.ico" type="image/x-icon">
         <title>Manage Storage</title>
 
     </head>
@@ -100,33 +99,33 @@
                             console.log(`Vehicle ID: ${info.veh_id}`);
                             console.log(`Item ID: ${vehicle.item_id}`);
                             console.log(`Load: ${load_input.value}`);
-                            console.log(`New Item Quantity: ${vehicle.base_quantity}`);
+                            console.log(`New Item Quantity: ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`);
                             fetch('../../../controller/rescuer/vehicle_load_actions.php', {
                                 method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/x-www-form-urlencoded'
-                                },
                                 body: new URLSearchParams({
                                     'action': 'update',
-                                    'veh_id': `${vehicle.item_id}`,
+                                    'veh_id': `${info.veh_id}`,
                                     'item_id': `${vehicle.item_id}`,
                                     'load': `${load_input.value}`,
-                                    'new_item_quantity': ` ${vehicle.base_quantity}`
+                                    'new_item_quantity': ` ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`
                                 })
                             })
                             .then(response => response.json())
                             .then(data => {
-                                if (data.status === 'success') {
+                                console.log(data)
+                                if (data.action_status) {
                                     alert('Vehicle load updated successfully.');
+                                    location.reload();
                                 } else {
-                                    alert('Failed to update vehicle load.');
+                                    //alert('Failed to update vehicle load.');data.
+                                    alert(data.error);
                                 }
                             })
-                            .catch(error => console.error('Error:', error));
+                            .catch(error => console.error('Error: ' + error));
                         });
 
                         load_input.addEventListener('input', function(){
-                            if (load_input.value != initial_quant) {
+                            if (load_input.value !== initial_quant) {
                                 save_button.disabled = false;
                                 save_button.classList.remove('button_not_allowed');
                                 save_button.classList.add('button_edit');
@@ -205,7 +204,7 @@
                         if (selected_category!=='null')
                         {
                             Object.values(availableItems).forEach(item=>{
-                                if (item.category == selected_category) {
+                                if (item.category === selected_category) {
                                     const option_items = document.createElement('option');
                                     option_items.value = item.item_id;
                                     option_items.textContent = item.iname;
@@ -232,7 +231,7 @@
                     })
 
                     select_quantity_input.addEventListener('input', function(){
-                        const selected_item = data.items_array.find(item => item.item_id == select_items.value);
+                        const selected_item = data.items_array.find(item => item.item_id === select_items.value);
                         if (Number(select_quantity_input.value) > 0) {
                             load_button.disabled = false;
                             load_button.classList.remove('button_not_allowed');
@@ -258,7 +257,7 @@
                 const row = button.closest('tr');
                 row.remove();
                 rowCounter=0;
-            };
+            }
 
         </script>
     </body>

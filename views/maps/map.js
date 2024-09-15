@@ -2,7 +2,6 @@
 * Auxiliary functions in order to reduce complexity from maps.php
 *
 */
-
 /**
  * 
  * @param {JSON} data contains the request or offer json
@@ -469,23 +468,6 @@ function takeNewRequest(id) {
     .catch(error => console.log(error));
 }
 
-/*
-    <th>Full Name</th>
-    <th>Phone</th>
-    <th>Date</th>
-    <th>Item/th>
-    <th>Quantity</th>
-first_name
-surname
-phone
-quantity
-reg_date
-iname
-
-
-
- */
-
 async function taskListData(id) {
     return await (await fetch(`../../controller/rescuer/tasks_for_list.php?veh_id=${encodeURIComponent(id)}&timestamp=${new Date().getTime()}`)).json();
 }
@@ -550,4 +532,8 @@ function cancelTask(id){
         }
     })
     .catch(error => console.log(error));
+}
+
+function showTasksPanel() {
+    return 'TODO'; //TODO
 }
