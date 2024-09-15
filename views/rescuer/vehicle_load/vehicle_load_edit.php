@@ -176,7 +176,7 @@
                             .catch(error => console.error('Error: ' + error));
                         });
                 });
-                
+
                 const new_items = document.getElementById('load_newrow');
                 document.getElementById('addRow_button').addEventListener('click', function () {
                     rowCounter++;

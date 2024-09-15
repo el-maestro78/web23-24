@@ -124,14 +124,6 @@
         let veh_long = null;
         const tasksDiv = document.getElementById("tasks-panel");
         const tasksTable = document.getElementById("tasks-table");
-        /*
-        fetch(`../../controller/admin/fetch_tasks_for_line.php?veh_id=${encodeURIComponent(id)}`)
-        .then(response=>response.json())
-        .then(data=>{
-
-        })
-        .catch(error=>console.log('Error ' + error));
-         */
 
         fetch('../../controller/rescuer/get_my_vehicle.php')
             .then(response=>response.json())
