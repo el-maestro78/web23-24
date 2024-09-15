@@ -176,40 +176,7 @@
                             .catch(error => console.error('Error: ' + error));
                         });
                 });
-
-                /*
-                loadButton.addEventListener('click', function(){
-                            console.log('Preparing to send data...');
-                            console.log(`Vehicle ID: ${info.veh_id}`);
-                            console.log(`Item ID: ${vehicle.item_id}`);
-                            console.log(`Load: ${load_input.value}`);
-                            console.log(`New Item Quantity: ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`);
-                            fetch('../../../controller/rescuer/vehicle_load_actions.php', {
-                                method: 'POST',
-                                body: new URLSearchParams({
-                                    'action': 'add',
-                                    'veh_id': `${info.veh_id}`,
-                                    'item_id': `${vehicle.item_id}`,
-                                    'load': `${load_input.value}`,
-                                    'new_item_quantity': ` ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`
-                                })
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log(data)
-                                if (data.action_status) {
-                                    alert('Item loaded successfully.');
-                                    location.reload();
-                                } else {
-                                    //alert('Failed to load vehicle.');
-                                    alert(data.error);
-                                }
-                            })
-                            .catch(error => console.error('Error: ' + error));
-                        });
-                 */
-
-                const loadButton = document.querySelector('#load_item');
+                
                 const new_items = document.getElementById('load_newrow');
                 document.getElementById('addRow_button').addEventListener('click', function () {
                     rowCounter++;
@@ -236,6 +203,43 @@
                         </td>
                     `;
                     new_items.insertBefore(newRow, buttonRow);
+
+                    const loadButton = newRow.querySelector('#load_item');
+                    loadButton.addEventListener('click', function(){
+                        /*
+                            console.log('Preparing to send data...');
+                            console.log(`Vehicle ID: ${info.veh_id}`);
+                            console.log(`Item ID: ${vehicle.item_id}`);
+                            console.log(`Load: ${load_input.value}`);
+                            console.log(`New Item Quantity: ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`);
+                            */
+                        const load_input = newRow.querySelector('#select_quantity_input');
+                        const selectedItem = newRow.querySelector('#select_item').value;
+                        const baseStock = newRow.querySelector('#new_base_stock').textContent.trim();
+
+                        fetch('../../../controller/rescuer/vehicle_load_actions.php', {
+                                method: 'POST',
+                                body: new URLSearchParams({
+                                    'action': 'add',
+                                    'veh_id': `${info.veh_id}`,
+                                    'item_id': `${selectedItem}`,
+                                    'load': `${load_input.value}`,
+                                    'new_item_quantity': ` ${Number(baseStock) - Number(load_input.value)+Number(load_input.value)}`
+                                })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data)
+                                if (data.action_status) {
+                                    alert('Item loaded successfully.');
+                                    location.reload();
+                                } else {
+                                    //alert('Failed to load vehicle.');
+                                    alert(data.error);
+                                }
+                            })
+                            .catch(error => console.error('Error: ' + error));
+                        });
 
                     const select_cat = document.getElementById(`select_item_cat`);
                     Object.values(data.categories_array).forEach(category=>{
