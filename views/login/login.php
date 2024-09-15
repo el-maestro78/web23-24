@@ -79,11 +79,11 @@
         var y = document.getElementById(imgID)
         if (x.type === "password") {
           x.type = "text";
-          y.src="../media/hide_pass.png"
+          y.src="../media/show_pass.png"
           y.alt="Hide Password"
         } else {
           x.type = "password";
-          y.src="../media/show_pass.png"
+          y.src="../media/hide_pass.png"
           y.alt="Show Password"
       }
     }
