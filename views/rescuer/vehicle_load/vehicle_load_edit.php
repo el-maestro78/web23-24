@@ -56,7 +56,7 @@
             fetch(`../../../controller/rescuer/vehicle_load_queries.php?timestamp=${new Date().getTime()}`)
             .then(response=>response.json())
             .then(data=>{
-                console.log(data);
+                //console.log(data);
                 
                 if (data.current_distance[1] > 100) {
                         alert('You are too far away from the base to edit the vehicle load.');
@@ -96,11 +96,13 @@
                         const removeButton = row.querySelector('#delete_item');
 
                         updateButton.addEventListener('click', function(){
+                            /*
                             console.log('Preparing to send data...');
                             console.log(`Vehicle ID: ${info.veh_id}`);
                             console.log(`Item ID: ${vehicle.item_id}`);
                             console.log(`Load: ${load_input.value}`);
                             console.log(`New Item Quantity: ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`);
+                            */
                             fetch('../../../controller/rescuer/vehicle_load_actions.php', {
                                 method: 'POST',
                                 body: new URLSearchParams({
@@ -113,7 +115,7 @@
                             })
                             .then(response => response.json())
                             .then(data => {
-                                console.log(data)
+                                //console.log(data)
                                 if (data.action_status) {
                                     alert('Vehicle load updated successfully.');
                                     location.reload();
@@ -143,11 +145,13 @@
                         });
 
                         removeButton.addEventListener('click', function(){
+                            /*
                             console.log('Preparing to send data...');
                             console.log(`Vehicle ID: ${info.veh_id}`);
                             console.log(`Item ID: ${vehicle.item_id}`);
                             console.log(`Load: ${load_input.value}`);
                             console.log(`New Item Quantity: ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`);
+                            */
                             fetch('../../../controller/rescuer/vehicle_load_actions.php', {
                                 method: 'POST',
                                 body: new URLSearchParams({
@@ -160,21 +164,53 @@
                             })
                             .then(response => response.json())
                             .then(data => {
-                                console.log(data)
+                                //console.log(data)
                                 if (data.action_status) {
                                     alert('Vehicle load removed successfully.');
                                     location.reload();
                                 } else {
-                                    //alert('Failed to update vehicle load.');
+                                    alert('Failed to update vehicle load.');
+                                    //alert(data.error);
+                                }
+                            })
+                            .catch(error => console.error('Error: ' + error));
+                        });
+                });
+
+                /*
+                loadButton.addEventListener('click', function(){
+                            console.log('Preparing to send data...');
+                            console.log(`Vehicle ID: ${info.veh_id}`);
+                            console.log(`Item ID: ${vehicle.item_id}`);
+                            console.log(`Load: ${load_input.value}`);
+                            console.log(`New Item Quantity: ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`);
+                            fetch('../../../controller/rescuer/vehicle_load_actions.php', {
+                                method: 'POST',
+                                body: new URLSearchParams({
+                                    'action': 'add',
+                                    'veh_id': `${info.veh_id}`,
+                                    'item_id': `${vehicle.item_id}`,
+                                    'load': `${load_input.value}`,
+                                    'new_item_quantity': ` ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data)
+                                if (data.action_status) {
+                                    alert('Item loaded successfully.');
+                                    location.reload();
+                                } else {
+                                    //alert('Failed to load vehicle.');
                                     alert(data.error);
                                 }
                             })
                             .catch(error => console.error('Error: ' + error));
                         });
+                 */
 
-                })
-
-                const new_items=document.getElementById('load_newrow');
+                const loadButton = document.querySelector('#load_item');
+                const new_items = document.getElementById('load_newrow');
                 document.getElementById('addRow_button').addEventListener('click', function () {
                     rowCounter++;
                     if (rowCounter===1)
@@ -200,10 +236,9 @@
                         </td>
                     `;
                     new_items.insertBefore(newRow, buttonRow);
-                    
-                    
+
                     const select_cat = document.getElementById(`select_item_cat`);
-                        Object.values(data.categories_array).forEach(category=>{
+                    Object.values(data.categories_array).forEach(category=>{
                         const option_cat = document.createElement('option');
                         option_cat.value = category.category_id;
                         option_cat.textContent = category.category_name;
