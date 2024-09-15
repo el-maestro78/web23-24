@@ -56,7 +56,7 @@ INSERT INTO requests(pending, completed, quantity, reg_date, assign_date, comple
 (FALSE, FALSE, 25, current_date, current_date, NULL,10, 3, 21.78, 38.48),
 (FALSE, TRUE, 30, current_date, current_date, current_date,10, 3, 21.75, 38.45),
 
-(FALSE, FALSE,15, current_date, NULL, NULL,11, 1, 21.83, 38.244808224971),
+(FALSE, FALSE,15, current_date, current_date, NULL,11, 1, 21.83, 38.244808224971),
 (FALSE, FALSE,20, current_date, current_date, NULL,11, 2, 21.734499691362, 38.246439932828),
 (FALSE, FALSE,25, current_date, current_date, NULL,11, 3, 21.785, 38.55),
 (FALSE, FALSE,30, current_date, current_date, NULL,11, 3, 21.789, 38.68),

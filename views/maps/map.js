@@ -466,7 +466,7 @@ async function tasksList(id, tasksTable){
                 <th>${offer.quantity}</th>
                 <th>Offer</th>
                 <button class="new_off_req" id="done-btn" onclick="finishTask(${offer.tasks_id})">Done</button>
-                <button class="cancel_btn" id="done-btn" onclick="cancelTask(${offer.tasks_id})">Cancel</button
+                <button class="cancel_btn" id="done-btn" onclick="cancelTask(${offer.tasks_id},'offer')">Cancel</button
         `;
         tasksTable.appendChild(tr);
     });
@@ -481,7 +481,7 @@ async function tasksList(id, tasksTable){
                 <th>${req.quantity}</th>
                 <th>Request</th>
                 <button class="new_off_req" id="done-btn" onclick="finishTask(${req.tasks_id})">Done</button>
-                <button class="cancel_btn" id="done-btn" onclick="cancelTask(${req.tasks_id})">Cancel</button
+                <button class="cancel_btn" id="done-btn" onclick="cancelTask(${req.tasks_id},'request')">Cancel</button
         `;
         tasksTable.appendChild(tr);
     });
@@ -501,8 +501,8 @@ function finishTask(id){
     .catch(error => console.log(error));
 }
 
-function cancelTask(id){
-     fetch(`../../controller/rescuer/cancel_task.php?task_id=${encodeURIComponent(id)}&timestamp=${new Date().getTime()}`)
+function cancelTask(id, action){
+     fetch(`../../controller/rescuer/cancel_task.php?task_id=${encodeURIComponent(id)}&action=${encodeURIComponent(action)}&timestamp=${new Date().getTime()}`)
     .then(response => response.json())
     .then(data=>{
         if(data.cancelled){

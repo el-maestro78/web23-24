@@ -63,7 +63,6 @@
     <script src="./icons.js"></script>
 
     <script>
-        //let map = L.map('mapid').setView([38.246242, 21.7350847], 16);
         let map = L.map('mapid',{
             center: [38.246242, 21.7350847],
             zoom: 16,
@@ -74,22 +73,10 @@
         }).addTo(map);
 
         // Filters
-        /*
-        const markerLayer = L.layerGroup().addTo(map);
-        const vehicleLayer = L.layerGroup().addTo(map);
-        const offerLayer = L.layerGroup().addTo(map);
-        const requestLayer = L.layerGroup().addTo(map);*/
         const markerLayer = L.layerGroup();
         const baseLayer = L.layerGroup();
-        //const vehicleLayer = L.layerGroup();
-        //const vehicleIdleLayer= L.layerGroup();
-        //const vehicleBusyLayer= L.layerGroup();
-        //const myOffersLayer = L.layerGroup();
-        //const offerLayer = L.layerGroup();
         const offerPendingLayer = L.layerGroup();
         const offerAssignedLayer = L.layerGroup();
-        //const requestLayer = L.layerGroup();
-        //const myRequestsLayer = L.layerGroup();
         const requestPendingLayer = L.layerGroup();
         const requestAssignedLayer = L.layerGroup();
 
