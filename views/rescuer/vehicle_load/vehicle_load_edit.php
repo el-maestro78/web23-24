@@ -54,7 +54,6 @@
         <script>
             let rowCounter=0;
             let loadedItemIds = [];
-            let vehId = 0;
             fetch(`../../../controller/rescuer/vehicle_load_queries.php?timestamp=${new Date().getTime()}`)
             .then(response=>response.json())
             .then(data=>{
@@ -67,7 +66,6 @@
                     
                 const info_div = document.getElementById('info');
                 let info = data.veh_id;
-                vehId=data.veh_id;
                 let distance = data.current_distance;
                 info_div.innerHTML = `
                     <h2>Assigned Vehicle (Id): ${info.veh_id}</h2>
@@ -98,6 +96,11 @@
                         const updateButton = row.querySelector('#update_quantity');
 
                         updateButton.addEventListener('click', function(){
+                            console.log('Preparing to send data...');
+                            console.log(`Vehicle ID: ${info.veh_id}`);
+                            console.log(`Item ID: ${vehicle.item_id}`);
+                            console.log(`Load: ${load_input.value}`);
+                            console.log(`New Item Quantity: ${vehicle.base_quantity}`);
                             fetch('../../../controller/rescuer/vehicle_load_actions.php', {
                                 method: 'POST',
                                 headers: {
@@ -105,10 +108,10 @@
                                 },
                                 body: new URLSearchParams({
                                     'action': 'update',
-                                    'veh_id': vehId,
+                                    'veh_id': `${vehicle.item_id}`,
                                     'item_id': `${vehicle.item_id}`,
-                                    'load': `${vehicle.load}`,
-                                    'new_item_quantity': `${vehicle.base_quantity}`
+                                    'load': `${load_input.value}`,
+                                    'new_item_quantity': ` ${vehicle.base_quantity}`
                                 })
                             })
                             .then(response => response.json())
@@ -120,7 +123,7 @@
                                 }
                             })
                             .catch(error => console.error('Error:', error));
-                        })
+                        });
 
                         load_input.addEventListener('input', function(){
                             if (load_input.value != initial_quant) {
