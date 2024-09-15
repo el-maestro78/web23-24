@@ -30,7 +30,7 @@
         }
     ?>
     <?php include '../toolbar.php'; ?>
-    <div class="panel" id="tasks-panel">
+    <div class="panel" id="tasks-panel" style="display: none;">
         <h4>Tasks</h4>
         <table class="table">
                 <thead>
@@ -47,6 +47,7 @@
                 </tbody>
             </table>
     </div>
+    <button id="toggle-panel-button" class="toggle-tasks-btn show-toggle-tasks-btn">Show Tasks</button>
     <div id="mapid"></div>
     <!-- Leaflet.js -->
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
@@ -302,6 +303,27 @@
             });
           }
         });
+
+
+        document.getElementById('toggle-panel-button').addEventListener('click', function () {
+            const panel = document.getElementById('tasks-panel');
+            const button = this;
+            if (panel.style.display === 'none' || panel.style.display === '') {
+                panel.style.display = 'block';
+                this.textContent = 'Hide Tasks';
+                button.classList.remove('show-toggle-tasks-btn');
+                button.classList.add('hide-toggle-tasks-btn');
+
+            } else {
+                panel.style.display = 'none';
+                this.textContent = 'Show Tasks';
+
+                button.classList.remove('hide-toggle-tasks-btn');
+                button.classList.add('show-toggle-tasks-btn');
+            }
+        });
+
+
     </script>
 </body>
 

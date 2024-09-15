@@ -98,3 +98,22 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
+
+.toggle-tasks-btn{
+    position: absolute;
+    top: 63px;
+    left: 50px;
+    width: auto;
+    z-index: 1000;
+    border-radius: 8px;
+    border-color: black;
+}
+.show-toggle-tasks-btn {
+    background-color: green;
+    color: white;
+}
+
+.hide-toggle-tasks-btn {
+    background-color: red;
+    color: white;
+}

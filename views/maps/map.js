@@ -514,7 +514,3 @@ function cancelTask(id){
     })
     .catch(error => console.log(error));
 }
-
-function showTasksPanel() {
-    return 'TODO'; //TODO
-}
