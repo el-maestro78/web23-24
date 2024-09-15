@@ -46,18 +46,11 @@ $veh_id = $vehicle_data[0]['veh_id'];
 if($req_id !== null && $req_id != ""){
     $update_requests_query = <<< EOF
         UPDATE requests
-        SET pending = FALSE, assign_date = $1, user_id = $2
-        WHERE requests.req_id = $3;
+        SET pending = FALSE, assign_date = $1
+        WHERE requests.req_id = $2;
     EOF;
-    $update_requests_result = pg_query_params($dbconn, $update_requests_query, array(date('Y-m-d'), $user_id, $req_id));
+    $update_requests_result = pg_query_params($dbconn, $update_requests_query, array(date('Y-m-d'), $req_id));
     if ($update_requests_result) {
-        /*
-        $update_tasks_query = <<< EOF
-            UPDATE tasks
-            SET user_id = $1, veh_id = $2
-            WHERE tasks.req_id = $3;
-        EOF;
-        */
         $update_tasks_query = <<< EOF
             INSERT INTO tasks(user_id, veh_id, req_id) VALUES
                             ($1, $2, $3);
