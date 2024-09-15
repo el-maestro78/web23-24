@@ -52,7 +52,8 @@ function updateVehicleLoad($dbconn, $veh_id, $item_id, $new_load, $new_item_quan
     echo json_encode(['action_status' => true]);
 }
 
-function addToVehicleLoad($dbconn, $veh_id, $item_id, $load) {
+function addToVehicleLoad($dbconn, $veh_id, $item_id, $load): void
+{
     $query = 'INSERT INTO vehicle_load (veh_id, item_id, load) VALUES ($1, $2, $3)';
     $result = pg_query_params($dbconn, $query, array($veh_id, $item_id, $load));
     if (!$result) {
@@ -60,8 +61,8 @@ function addToVehicleLoad($dbconn, $veh_id, $item_id, $load) {
         exit;
     }
 
-    $query = 'UPDATE items SET quantity = $3 WHERE item_id = $2';
-    $result = pg_query_params($dbconn, $query, array($load, $item_id, $new_item_quantity));
+    $query = 'UPDATE items SET quantity = quantity - $1 WHERE item_id = $2';
+    $result = pg_query_params($dbconn, $query, array($load, $item_id));
     if (!$result) {
         echo json_encode(['error' => pg_last_error($dbconn)]);
         exit;
@@ -69,7 +70,8 @@ function addToVehicleLoad($dbconn, $veh_id, $item_id, $load) {
     echo json_encode(['action_status' => true]);
 }
 
-function deleteVehicleLoad($dbconn, $veh_id, $item_id, $load) {
+function deleteVehicleLoad($dbconn, $veh_id, $item_id, $load): void
+{
     $query = 'DELETE FROM vehicle_load WHERE veh_id = $1 AND item_id = $2';
     $result = pg_query_params($dbconn, $query, array($veh_id, $item_id));
     if (!$result) {

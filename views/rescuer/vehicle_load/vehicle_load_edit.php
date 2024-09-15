@@ -93,6 +93,7 @@
                         const save_button = row.querySelector('#update_quantity');
                         const base_stock = row.querySelector('#base_stock');
                         const updateButton = row.querySelector('#update_quantity');
+                        const removeButton = row.querySelector('#delete_item');
 
                         updateButton.addEventListener('click', function(){
                             console.log('Preparing to send data...');
@@ -117,8 +118,8 @@
                                     alert('Vehicle load updated successfully.');
                                     location.reload();
                                 } else {
-                                    //alert('Failed to update vehicle load.');data.
-                                    alert(data.error);
+                                    alert('Failed to update vehicle load.');
+                                    //alert(data.error);
                                 }
                             })
                             .catch(error => console.error('Error: ' + error));
@@ -138,9 +139,37 @@
                                 save_button.classList.add('button_not_allowed');
 
                                 base_stock.innerHTML = `${Number(vehicle.base_quantity)} units`;
-                            } 
+                            }
+                        });
 
-
+                        removeButton.addEventListener('click', function(){
+                            console.log('Preparing to send data...');
+                            console.log(`Vehicle ID: ${info.veh_id}`);
+                            console.log(`Item ID: ${vehicle.item_id}`);
+                            console.log(`Load: ${load_input.value}`);
+                            console.log(`New Item Quantity: ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`);
+                            fetch('../../../controller/rescuer/vehicle_load_actions.php', {
+                                method: 'POST',
+                                body: new URLSearchParams({
+                                    'action': 'delete',
+                                    'veh_id': `${info.veh_id}`,
+                                    'item_id': `${vehicle.item_id}`,
+                                    'load': `${load_input.value}`,
+                                    'new_item_quantity': ` ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data)
+                                if (data.action_status) {
+                                    alert('Vehicle load removed successfully.');
+                                    location.reload();
+                                } else {
+                                    //alert('Failed to update vehicle load.');
+                                    alert(data.error);
+                                }
+                            })
+                            .catch(error => console.error('Error: ' + error));
                         });
 
                 })
@@ -148,7 +177,7 @@
                 const new_items=document.getElementById('load_newrow');
                 document.getElementById('addRow_button').addEventListener('click', function () {
                     rowCounter++;
-                    if (rowCounter==1)
+                    if (rowCounter===1)
                     {const buttonRow = document.getElementById('rowButton');
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
@@ -223,7 +252,7 @@
                     })
 
                     select_items.addEventListener('change', function(){
-                        const selected_item = data.items_array.find(item => item.item_id == select_items.value);
+                        const selected_item = data.items_array.find(item => item.item_id === select_items.value);
                         selected_item_id.innerHTML = `${select_items.value}`
                         new_base_stock.innerHTML = `${selected_item.quantity} units`
                         select_quantity_input.max = `${selected_item.quantity}`
