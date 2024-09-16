@@ -57,7 +57,7 @@
         <?php //($_SESSION['role']='admin') ?>
         <?php //($_SESSION['user_id']=1) ?>
         <?php $current_page = $_SERVER['REQUEST_URI']; ?>
-        <nav class="topnav">
+        <nav class="topnav" id ="nav" data-base ="<?php echo $base_url; ?>">
             <a href="<?php echo $base_url; ?>/views/home_page.php" class="<?php echo str_contains($current_page, 'home_page.php') ? 'active' : ''; ?>">Home</a>
             <!--Specific to role-->
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
@@ -96,16 +96,16 @@
         <script defer>
             const loginBtn = document.getElementById("loginbtn");
             const logoutBtn = document.getElementById("logoutbtn");
-
+            const base_url = document.getElementById("nav").getAttribute('data-base');
             if (loginBtn) {
                 loginBtn.addEventListener("click", function() {
-                    window.location.href = "<?php echo $base_url; ?>/views/login/login.php";
+                    window.location.href = base_url + "/views/login/login.php";
                 });
             }
 
             if (logoutBtn) {
                 logoutBtn.addEventListener("click", function() {
-                    window.location.href = "<?php echo $base_url; ?>/logout.php";
+                    window.location.href = base_url + "/logout.php";
                 });
             }
         </script>

@@ -53,11 +53,11 @@
                 <h2> Volunteers for Natural Disasters </h2>
                 <p> Welcome to our platform, <?= $_SESSION['first_name']?>!
                     <?php if($_SESSION['role']=='rescuer') :?>
-                        Thanks for your service. Look in the map for active tasks
+                        Thanks for your service! Look in the map for active tasks
                     <?php elseif ($_SESSION['role'] == 'civilian') : ?>
-                        You can navigate through the bar on the top. For Requests go to...
+                        You can navigate through the bar on the top. For Requests go to Requests page.
                     <?php else : ?>
-                        You 're an admin
+                        You 're an admin! Don't waste, people need your help.
                     <?php endif; ?>
                 </p>
             </div>
