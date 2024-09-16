@@ -96,13 +96,6 @@
                         const removeButton = row.querySelector('#delete_item');
 
                         updateButton.addEventListener('click', function(){
-                            /*
-                            console.log('Preparing to send data...');
-                            console.log(`Vehicle ID: ${info.veh_id}`);
-                            console.log(`Item ID: ${vehicle.item_id}`);
-                            console.log(`Load: ${load_input.value}`);
-                            console.log(`New Item Quantity: ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`);
-                            */
                             fetch('../../../controller/rescuer/vehicle_load_actions.php', {
                                 method: 'POST',
                                 body: new URLSearchParams({
@@ -145,13 +138,8 @@
                         });
 
                         removeButton.addEventListener('click', function(){
-                            /*
-                            console.log('Preparing to send data...');
-                            console.log(`Vehicle ID: ${info.veh_id}`);
-                            console.log(`Item ID: ${vehicle.item_id}`);
-                            console.log(`Load: ${load_input.value}`);
-                            console.log(`New Item Quantity: ${Number(vehicle.base_quantity) - Number(load_input.value)+Number(vehicle.load)}`);
-                            */
+                            const confirmation = confirm('Are you sure you want to remove this item from your vehicle load?');
+                            if (confirmation) {
                             fetch('../../../controller/rescuer/vehicle_load_actions.php', {
                                 method: 'POST',
                                 body: new URLSearchParams({
@@ -174,6 +162,7 @@
                                 }
                             })
                             .catch(error => console.error('Error: ' + error));
+                            }
                         });
                 });
 
