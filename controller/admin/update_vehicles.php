@@ -1,9 +1,8 @@
-<?php /*
-Update the vehicle positions on the database. 
-If they exist and we are not in session(//TODO) the old positions are updated in the database
-
-*/?>
 <?php
+/*
+Update the vehicle positions on the database.
+If they exist and we are not in session
+*/
 include("../../model/config.php");
 
 $query = "SELECT * FROM vehicles";
@@ -22,7 +21,6 @@ if (pg_num_rows($result) !== 0){
 }
     $cnt = 0;
     foreach ($vehicles as $veh) {
-        // Ensure username is properly quoted and escaped
         $id = pg_escape_literal($ids[$cnt]);
         $username = pg_escape_literal($usernames[$cnt]);
         $lat = pg_escape_literal($veh['lat']);
@@ -46,7 +44,5 @@ if (pg_num_rows($result) !== 0){
 }
 
 //echo "Vehicles updated successfully."; //DEBUG
-?>
-<?php
+
 include("../../model/dbclose.php");
-?>

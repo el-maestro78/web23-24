@@ -14,6 +14,6 @@
     include '../toolbar.php';
     ?>
 <h2>Statistics</h2>
-
+<h2>Not Implemented</h2>
 </body>
 </html>

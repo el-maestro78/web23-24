@@ -4,11 +4,7 @@ include("../../model/config.php");
 $base_id = isset($_GET['base_id']) ? $_GET['base_id'] : '';
 $lat = isset($_GET['lat']) ? $_GET['lat'] : '';
 $long = isset($_GET['long']) ? $_GET['long'] : '';
-/*
-$base_id = 0;
-$lat = 38.0;
-$long = 21.2;
-//*/
+
 $base_check = ($base_id !== null && $base_id != "");
 $lat_check = ($lat !== null && $lat != "");
 $long_check = ($long !== null && $long != "");

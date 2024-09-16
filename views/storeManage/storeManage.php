@@ -16,7 +16,6 @@
         include '../toolbar.php';
         ?>
         <div id='load-json' class="load-json-div">
-            <!-- LOAD from json and update through their database button TODO-->
             Load via Json &nbsp;
             <button type="button" id="add-json-button" class="button_add">Load Json</button>
             <input type="file" id="fileInput" accept=".json" style="display:none;">
