@@ -1,7 +1,7 @@
 .container {
     padding: 20px;
 }
-.table {
+table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
@@ -12,23 +12,24 @@ h2 {
     margin-bottom: 20px;
 }
 th, td {
-    padding: 10px;
+    border: 1px solid #ddd;
+    padding: 8px;
     text-align: left;
 }
 
 th {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #c7c7c7;
+    color: #333;
     font-size: 15px;
 }
-table tr:nth-child(odd) {
-    background-color: #ffffff;
+tr {
+    background-color: rgba(255, 255, 255, 0.94);
+    color: #333;
 }
-
-table tr:nth-child(even) {
-    background-color: #7b7575;
+tr:nth-child(even) {
+    background-color: rgba(243, 241, 241, 0.94);
 }
 
 table tr:hover {
-    background-color: #5da2f4;
+    background-color: #75b1fc;
 }

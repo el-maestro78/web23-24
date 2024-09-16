@@ -69,33 +69,18 @@ body {
     display: block;
     position: relative;
 }
-.new_off_req{
-    background-color: #277b38;
-    color: white;
-    border: black solid 1px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 2px;
-}
-.cancel_btn{
-    background-color: #a03a22;
-    color: white;
-    border: black solid 1px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 3px;
-}
+
 .panel {
     position: absolute;
     top: 55px;
     left: 50px;
     width: auto;
     height: auto;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     padding: 5px;
     font-size: 10px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.096);
     z-index: 1000;
 }
 
@@ -106,14 +91,47 @@ body {
     width: auto;
     z-index: 1000;
     border-radius: 8px;
-    border-color: black;
+    border-color: rgba(0, 0, 0, 0.247);
 }
 .show-toggle-tasks-btn {
-    background-color: green;
+    background-color: #04aa6d;
     color: white;
 }
 
 .hide-toggle-tasks-btn {
-    background-color: red;
+    background-color: #d81111;
     color: white;
+}
+
+.new_off_req {
+    background-color: #28a745 !important;
+    color: white !important;
+    border-color: rgba(0, 0, 0, 0.192);
+    border-width: 1px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+.new_off_req:hover {
+    background-color: #36593b !important;
+}
+
+.cancel_btn {
+    background-color: #cd310d !important;
+    color: white !important;
+    border-color: rgba(0, 0, 0, 0.192);
+    border-width: 1px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    user-select: none;
+    text-decoration: none;
+    max-height: 50px;
+}
+.cancel_btn:hover {
+    background-color: #83210b !important;
 }

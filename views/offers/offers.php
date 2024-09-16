@@ -40,7 +40,7 @@
                     <th>Quantity</th>
                     <th>Registration Date</th>
                     <th>Assign Date</th>
-                    <td>Completion Date</td>
+                    <th>Completion Date</th>
                 </tr>
             </thead>
             <tbody id="past-table-body"></tbody>

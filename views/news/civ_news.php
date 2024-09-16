@@ -17,7 +17,8 @@
         ?>
         <div class="container">
             <h2>News List</h2>
-            <table class="table">
+            <p> Click on a news' row to create a offer</p>
+            <table>
                 <thead>
                     <tr>
                         <th>Title</th>
