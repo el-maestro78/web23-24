@@ -19,7 +19,7 @@
         ?>
 
         <div id = 'info' class = 'text_box'></div>
-        
+        <p> In order the "Edit Vehicle Load" to be enabled, you have to be up to 100m away from a base.
         <div class = 'button_container' id = "buttons">
         <form method="POST" id="refresh_loc_form">
             <button type="submit" id="refresh_location" class="button_modify">Refresh Location</button>
