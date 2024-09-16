@@ -24,7 +24,7 @@ if(!$result){
 }
 $task_data = pg_fetch_all($result);
 $current_tasks = (int)$task_data[0]['task_count'];
-if($current_tasks > 4){
+if($current_tasks >= 4){
     echo json_encode(['error' => 'You have more than 4 active tasks']);
     exit;
 }
