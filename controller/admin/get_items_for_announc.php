@@ -38,7 +38,7 @@ if ($items_result) {
     exit;
 }
 
-if ($items_final && $bases_final) {
+if ($bases_final) {
     $item_data = pg_fetch_all($items_final);
     $bases_data = pg_fetch_all($bases_final);
     $data = array(

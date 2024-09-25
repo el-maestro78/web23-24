@@ -1,4 +1,4 @@
-EMAIL    |   PASSWORD    |     TYPE    |   ID
+USERNAME  |  PASSWORD    |     TYPE    |   ID
 admin1       pass              admin        1
 admin2       a                 admin        2
 admin3       pass              admin        3

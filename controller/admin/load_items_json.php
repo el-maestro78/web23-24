@@ -12,7 +12,7 @@ if ($json_data === FALSE) {
     exit;
 }
 
-$data = json_decode($json_data, true); // True returns an associative array
+$data = json_decode($json_data, true);
 
 if ($data === NULL) {
     echo json_encode(['error' => 'Error, the JSON is empty or not valid']);

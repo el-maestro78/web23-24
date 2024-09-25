@@ -57,7 +57,7 @@
                     <?php elseif ($_SESSION['role'] == 'civilian') : ?>
                         You can navigate through the bar on the top. For Requests go to Requests page.
                     <?php else : ?>
-                        You 're an admin! Don't waste, people need your help.
+                        You 're an admin! Don't waste time, people need your help.
                     <?php endif; ?>
                 </p>
             </div>

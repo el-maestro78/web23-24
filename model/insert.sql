@@ -51,8 +51,8 @@ INSERT INTO items(iname, quantity, category, details) VALUES
 INSERT INTO requests(pending, completed, quantity, reg_date, assign_date, completed_date, user_id, item_id, long, lat) VALUES
 --(TRUE, FALSE, 5, current_date, NULL, NULL,12, 3, 21.734503111278, 38.246),
 --(TRUE, FALSE, 5, current_date, NULL, NULL,13, 4, 21.753, 38.17),
-(FALSE, FALSE, 5, current_date, NULL, NULL,10, 1, 21.744503111278, 38.255888739736),
-(FALSE, FALSE, 5, current_date, NULL, NULL,10, 2, 21.732724118553, 38.244914513495),
+(FALSE, FALSE, 5, current_date, current_date, NULL,10, 1, 21.744503111278, 38.255888739736),
+(FALSE, FALSE, 5, current_date, current_date, NULL,10, 2, 21.732724118553, 38.244914513495),
 (FALSE, FALSE, 25, current_date, current_date, NULL,10, 3, 21.78, 38.48),
 (FALSE, TRUE, 30, current_date, current_date, current_date,10, 3, 21.75, 38.45),
 
